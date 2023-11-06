@@ -1,9 +1,10 @@
-import os
+import sys
+
+from ui.main_window_app import init
 
 def main():
-    print("Hello World!")
-    print(os.getcwd())
-    print(os.listdir())
+    init()
+
 
 if __name__ == "__main__":
     main()
