@@ -23,3 +23,12 @@
 
 ## Convertir .ui a .py
 $ pyuic5 -o main_window_ui.py ui/main_window.ui
+
+## Ejecutar la aplicación de ejemplo
+
+1. Activar el ambiente virtual con el comando `venv\Scripts\activate`
+2. Entrar al directorio test-qt y ejecutar el comando `python ejemplo_ui.py`
+
+## Nota
+
+- El archivo app.py tiene un ejemplo de comunicación por el puerto serial y grafica en tiempo real.
