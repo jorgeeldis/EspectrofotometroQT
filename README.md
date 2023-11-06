@@ -17,6 +17,7 @@
 ## El designer de WQ está en el directorio
 
 1. venv\Lib\site-packages\qt5_applications\Qt\bin\designer.exe  # Para windows
+2. Crear un acceso directo en el escritorio
 
 ## Diseñador QT
 - [Documentación de ejemplo del diseñador de QT](https://realpython.com/qt-designer-python/#installing-and-running-qt-designer)
