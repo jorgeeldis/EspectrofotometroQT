@@ -18,3 +18,8 @@
 
 1. venv\Lib\site-packages\qt5_applications\Qt\bin\designer.exe  # Para windows
 
+## Diseñador QT
+- [Documentación de ejemplo del diseñador de QT](https://realpython.com/qt-designer-python/#installing-and-running-qt-designer)
+
+## Convertir .ui a .py
+$ pyuic5 -o main_window_ui.py ui/main_window.ui
