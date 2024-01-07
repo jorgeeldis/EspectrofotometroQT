@@ -9,20 +9,23 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
+from baseline.baseline_process import BaselineProcessor
 
 from ui.main_window_ui import Ui_MainWindow
-
+import pyqtgraph as pg
 
 class Window(QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, app=None):
         super().__init__(parent)
+        self.app = app
         self.setupUi(self)
         self.connectSignalsSlots()
         self.init()
+        
 
     def connectSignalsSlots(self):
-        self.btnBaseline.clicked.connect(self.btn2_click)
-        self.btnSingle.clicked.connect(self.btn1_click)
+        self.btnBaseline.clicked.connect(self.btnBaseline_click)
+        self.btnSingle.clicked.connect(self.btnSingle_click)
 
         # self.btnBaseline.clicked.connect(self.btn_baseline)
         # self.btnSingle.clicked.connect(self.btn_single)
@@ -37,8 +40,23 @@ class Window(QMainWindow, Ui_MainWindow):
         # if not pixmap.isNull():
         #     image_item = QGraphicsPixmapItem(pixmap)
         #     self.scene.addItem(image_item)
+        self.pg = pg
+        self.timer = pg.QtCore.QTimer()
+        
 
-    def btn1_click(self):
+    def btnBaseline_click(self):
+        print("CLICKED - BaseLine")
+        self.graphWidget.clear()
+        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer)
+        self.timer.timeout.connect(self.baseline.process)
+        self.timer.start(5)  # Actualiza cada 100 ms
+        
+
+
+    def prnt(self):
+        print("Clock")
+
+    def btnSingle_click(self):
         print("CLICKED - 1")
 
     def btn2_click(self):
@@ -71,6 +89,6 @@ def init():
     qdarktheme.enable_hi_dpi()
     app = QApplication(sys.argv)
     qdarktheme.setup_theme()
-    win = Window()
+    win = Window(app=app)
     win.show()
     sys.exit(app.exec())
