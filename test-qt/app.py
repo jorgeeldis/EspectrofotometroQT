@@ -38,8 +38,8 @@ window.setCentralWidget(graphWidget)
 
 window.show()
 
-# Configurar el puerto serie para comunicarse con el Arduino (ajusta el puerto y la velocidad en baudios según tu configuración)
-ser = serial.Serial("COM7", 9600)
+# Configurar el puerto serie para comunicarse con el Arduino (ajusta el puerto y la velocidad en baudios según tu configuración) #/dev/ttyACM0 #COM3
+ser = serial.Serial("/dev/ttyACM0", 9600)
 
 
 def read_baselines():
