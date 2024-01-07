@@ -38,9 +38,12 @@ window.setCentralWidget(graphWidget)
 
 window.show()
 
-# Configurar el puerto serie para comunicarse con el Arduino (ajusta el puerto y la velocidad en baudios según tu configuración) #/dev/ttyACM0 #COM3
-ser = serial.Serial("/dev/ttyACM0", 9600)
-
+# Configurar el puerto serie para comunicarse con el Arduino (ajusta el puerto y la velocidad en baudios según tu configuración) 
+# TODO: Cambiar el puerto serie según tu configuración del sistema operativo
+# Para Linux: /dev/ttyACM0 #COM3
+# Para Windows: COM10
+# ser = serial.Serial("/dev/ttyACM0", 9600)
+ser = serial.Serial("COM10", 9600)
 
 def read_baselines():
     BASELINE = "baseline_muestra.txt"

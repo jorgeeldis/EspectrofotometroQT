@@ -21,8 +21,8 @@ class Window(QMainWindow, Ui_MainWindow):
         self.init()
 
     def connectSignalsSlots(self):
-        self.pushButton_2.clicked.connect(self.btn2_click)
-        self.pushButton.clicked.connect(self.btn1_click)
+        self.btnBaseline.clicked.connect(self.btn2_click)
+        self.btnSingle.clicked.connect(self.btn1_click)
 
         # self.btnBaseline.clicked.connect(self.btn_baseline)
         # self.btnSingle.clicked.connect(self.btn_single)
@@ -32,11 +32,11 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def init(self):
         self.scene = QGraphicsScene()
-        self.graphicsView_2.setScene(self.scene)
-        pixmap = QPixmap("fie.jpg")
-        if not pixmap.isNull():
-            image_item = QGraphicsPixmapItem(pixmap)
-            self.scene.addItem(image_item)
+        # self.graphicsView.setScene(self.scene)
+        # pixmap = QPixmap("fie.jpg")
+        # if not pixmap.isNull():
+        #     image_item = QGraphicsPixmapItem(pixmap)
+        #     self.scene.addItem(image_item)
 
     def btn1_click(self):
         print("CLICKED - 1")
