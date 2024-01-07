@@ -3,7 +3,7 @@
 ## Instalación
 
 1. Dentro del directorio (EspectrofotometroQT) montar el ambiente virtual con el comando `python -m venv venv`
-2. Activar el ambiente virtual con el comando `venv\Scripts\activate`
+2. Activar el ambiente virtual con el comando `venv\Scripts\activate` o `source venv\bin\activate`
 3. Instalar las dependencias con el comando `pip install -r requirements.txt` que están en el directorio src
 4. Ejecutar el archivo main.py con el comando `python main.py` como prueba.
 
