@@ -1,7 +1,7 @@
 # Tasks 
-- Implementar programa en linux y armar el workshop
+- Implementar programa en linux y armar el workshop (DONE)
 - Añadir imagenes de cada institución
-- Hacer que los datos seriales comiencen cuando presiones el botón baseline, no cuando abra la app
+- Hacer que los datos seriales comiencen cuando presiones el botón baseline, no cuando abra la app (DONE)
 - Implementar el baseline para que mida de 400nm a 700nm una sola vez y lo guarde en un arreglo separado (x, y)
 - Implementar el single para que agarre el baseline, calcule la absorbancia solo una vez
 - Implementar el continuous para que agarre el baseline, calcule la absorbancia y pueda medir continuamente  y hacer stop para pararlo
