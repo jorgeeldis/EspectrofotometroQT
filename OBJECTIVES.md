@@ -6,15 +6,14 @@
 - Implementar el single para que agarre el baseline, calcule la absorbancia solo una vez
 - Implementar el continuous para que agarre el baseline, calcule la absorbancia y pueda medir continuamente  y hacer stop para pararlo
 - Implementar el Save Data para guardar datos en un archivo de texto.
-- Implementar la pestaña de Settings para ajustes necesarios.
+- Implementar la pestaña de Settings para ajustes necesarios. ()
 - Implementar la barra de medición el cuál aumenta mientras va calculando.
-- Implementar valores de las gráficas al finalizar y valores específicos.
+- Implementar labels o textos de los valores de las gráficas al finalizar y valores específicos.
 - Funcion para ver unidad de absorcion en un punto especifico en la grafica, (Escribir longitud de onda y obtener su absorbancia)
 - Agregar mensajes de (Baseline listo, absorbancia calculada, calculando absorbancia continua)
 - Funcionalidad para apagar el LED desde python en otro tab
 - Poner los datos de la medicion en pantalla en otro tab
 - En el boton de save data tener un dropdown para guardar en PC, Email, TXT, Etc (Crear informe con datos de lecturas)
-- Agregar una luz para indicar si hay error o esta midiendo o esta listo
 
 # Tasks requeridos por el asesor
 1. Maximo y minimo de la grafica 
