@@ -8,6 +8,7 @@ logger = config_logger()
 
 class Serial:
     def __init__(self, port, baudrate=9600):
+
         """Inicializar la conexión en serie."""
         try:
             self.ser = serial.Serial(port, baudrate=baudrate)
@@ -20,6 +21,7 @@ class Serial:
         """Abrir la conexión en serie."""
         try:
             self.ser.open()
+
         except Exception as e:
             logger.error(e)
             logger.error(traceback.format_exc())
@@ -56,3 +58,7 @@ class Serial:
     def flushOutput(self):
         """Vaciar el buffer de entrada."""
         self.ser.flushOutput()
+
+    def is_open(self):
+        """Verificar si el puerto está abierto."""
+        return self.ser.isOpen()

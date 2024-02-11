@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
 from baseline.baseline_process import BaselineProcessor
+from single.single_process import SingleProcessor
 
 from ui.main_window_ui import Ui_MainWindow
 import pyqtgraph as pg
@@ -45,7 +46,7 @@ class Window(QMainWindow, Ui_MainWindow):
         
 
     def btnBaseline_click(self):
-        print("CLICKED - BaseLine")
+        print("Baseline Clicked")
         self.graphWidget.clear()
         self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer)
         self.timer.timeout.connect(self.baseline.process)
@@ -57,7 +58,17 @@ class Window(QMainWindow, Ui_MainWindow):
         print("Clock")
 
     def btnSingle_click(self):
-        print("CLICKED - 1")
+        print("Single Clicked")
+        self.graphWidget.clear()
+        self.baseline = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer)
+
+        # Sí el serial está activo, cerrar y abrir otro serial
+        # if self.serial.is_open:
+        #     self.serial.close()
+        #     self.serial = Serial(PORT, BAUDRATE)
+
+        self.timer.timeout.connect(self.baseline.process)
+        self.timer.start(5)  # Actualiza cada 100 ms
 
     def btn2_click(self):
         QMessageBox.about(
