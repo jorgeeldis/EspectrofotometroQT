@@ -52,10 +52,10 @@ class SingleProcessor:
         # Lee datos desde el arduino
         data = self.serial.read()
 
-        print(len(data), data)
-
         # Se asegura que el dato recibido tenga el tamaño correcto
-        if len(data) == DATA_SIZE:
+        if data is not None and len(data) == DATA_SIZE:
+
+            print(len(data), data)
             
             # baseline data
             baseline = int(self.baseline_data[self.baseline_x])

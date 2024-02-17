@@ -23,7 +23,7 @@ print(testst[0][:4])
 
 
 arduino = serial.Serial(
-    "COM7", 115200
+    "/dev/ttyACM0", 115200
 )  # Create Serial port object called arduinoSerialData
 arduino.flushInput()  # clear any previous data
 time.sleep(2)  # wait for 2 secounds for the communication to get established
@@ -256,7 +256,7 @@ class Ui_MainWindow(QWidget):
             for i in range(0, 288):
                 baseline[i] += msg[i]
             progress = progress + 1
-            progresspercent = progress / accum * 100
+            progresspercent = int(progress / accum * 100)
             self.progressBar.setValue(progresspercent)
 
             QtCore.QCoreApplication.processEvents()
@@ -287,7 +287,7 @@ class Ui_MainWindow(QWidget):
                 spectrum[i] += msg[i]
 
             progress = progress + 1
-            progresspercent = progress / accum * 100
+            progresspercent = int(progress / accum * 100)
             self.progressBar.setValue(progresspercent)
             QtCore.QCoreApplication.processEvents()
 

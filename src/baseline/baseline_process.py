@@ -35,11 +35,11 @@ class BaselineProcessor:
     def process(self):
         # Lee datos desde el arduino
         data = self.serial.read()
-
-        print(len(data), data)
-
+        
         # Se asegura que el dato recibido tenga el tamaño correcto
-        if len(data) == 7:
+        if data is not None and len(data) == 7:
+
+            print(len(data), data)
             # intensidad
             intensity = int(data.split(",")[1])
        
