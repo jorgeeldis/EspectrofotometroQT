@@ -1,4 +1,5 @@
 #include <math.h>
+#include <SoftwareSerial.h>
 
 /*
  * Macro Definitions
@@ -10,6 +11,11 @@
 #define SPEC_CHANNELS 288  // New Spec Channel
 uint16_t data[SPEC_CHANNELS];
 uint16_t wavelength[SPEC_CHANNELS];
+
+SoftwareSerial mySerial(10, 11); //(// RX, TX)
+
+String reading = "";
+char param='0';
 
 void setup() {
 
@@ -92,13 +98,6 @@ void readSpectrometer() {
 
   digitalWrite(SPEC_CLK, HIGH);
   delayMicroseconds(delayTime);
-}
-
-/*
- * The function below prints out data to the terminal or 
- * processing plot
- */
-void printData() {
 
   for (int i = 0; i < SPEC_CHANNELS; i++) {
 
@@ -108,10 +107,54 @@ void printData() {
   }
 }
 
-void loop() {
+/*
+ * The function below prints out data to the terminal or 
+ * processing plot
+ */
+void printData() {
 
-  readSpectrometer();
-  printData();
-  delay(10);
   
 }
+
+void loop() {
+
+  if (mySerial.available() > 0 || Serial.available() > 0) {
+    if (mySerial.available() > 0) {
+      {
+        reading = mySerial.readString();
+
+        if (reading.length() > 1) { param = '6'; }
+        //Read the incoming data and store it into variable data
+        else {
+          param = reading[0];
+        }
+      }
+    }
+
+    else if (Serial.available() > 0) {
+
+      reading = Serial.readString();
+      param = reading[0];
+    }
+
+    switch (param) {
+
+      case '1':
+        delay(100);
+        readSpectrometer();
+        //printData();
+        delay(10);
+        break;
+
+      case '2':
+        delay(100);
+        readSpectrometer();
+        //printData();
+        delay(10);
+        break;
+
+      default:
+        break;
+    }
+   }
+  }

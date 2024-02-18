@@ -41,7 +41,7 @@ class Serial:
         try:
             data = self.ser.readline().decode().strip()
             return data
-        except Exception as e:
+        except Exception as e: 
             logger.error(e)
 
     def write(self, data):

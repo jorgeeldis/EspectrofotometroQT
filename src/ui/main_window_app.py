@@ -50,6 +50,10 @@ class Window(QMainWindow, Ui_MainWindow):
         print("Baseline Clicked")
         self.graphWidget.clear()
         self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer)
+
+        self.baseline.send_data("1")
+        time.sleep(1) # Esperar a que el arduino se inicialice
+
         self.timer.timeout.connect(self.baseline.process)
         self.timer.start(5)  # Actualiza cada 100 ms
         
@@ -68,7 +72,7 @@ class Window(QMainWindow, Ui_MainWindow):
         #     self.serial.close()
         #     self.serial = Serial(PORT, BAUDRATE)
 
-        self.single.send_data("1")
+        self.single.send_data("2")
         time.sleep(1)
 
         self.timer.timeout.connect(self.single.process)

@@ -60,3 +60,6 @@ class BaselineProcessor:
             self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=2))
             self.x += 1
             self.app.processEvents()
+            
+    def send_data(self, data):
+        self.serial.write(str.encode(data))
