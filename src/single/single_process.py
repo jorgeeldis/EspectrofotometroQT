@@ -91,3 +91,6 @@ class SingleProcessor:
             self.x += 1
             self.baseline_x += 1
             self.app.processEvents()
+
+    def send_data(self, data):
+        self.serial.write(str.encode(data))

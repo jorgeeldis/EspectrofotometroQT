@@ -107,9 +107,9 @@ delay(100);// reads the spectrometer again
 
 String tot = ""; 
 smoothtemp1;
-smoothtemp2=average[52];
+smoothtemp2=average[9];
 
-for(i = 53; i < 198; i++){
+for(i = 10; i < 225; i++){
 smoothtemp1 = smoothtemp2;  
 smoothtemp2 = average[i];
 average[i]=(average[i]+smoothtemp1+average[i+1])/3;
@@ -117,18 +117,18 @@ average[i]=(average[i]+smoothtemp1+average[i+1])/3;
 average[i]=average[i]-980; // removes background. background values vary a bit for every measurement, 96 is an average of about 10 measurements
 if((average[i]<1)||(average[i]>65000)){average[i]=1;}// corr=6500;} // this makes sure that there is no overflow or division by zero (usually happens when spectra outside of the LED spectrum is registered)
 
-float m = correction[i-53]/(float)average[i];
+float m = correction[i-10]/(float)average[i];
 aveabs += log10(m);
 
 }
 
-aveabs=aveabs/(198-53);
+aveabs=aveabs/(225-10);
 
-for(i = 53; i < 198; i++){//reads from position 53 to position 198, which corresponds to approximately 450-750nm
+for(i = 10; i < 225; i++){//reads from position 10 to position 225, which corresponds to approximately 350-850nm
 uint16_t nm[145];
 int corr;
 
-nm[i-53] = (3.103932661*pow(10,2)+2.683934106*i-1.098262279*pow(10,-3)*pow(i,2)-7.817392551*pow(10,-6)*pow(i,3)+9.609636190*pow(10,-9)*pow(i,4)+4.681760466*pow(10,-12)*pow(i,5))*10;
+nm[i-10] = (3.059651344 * pow(10, 2) + 2.716298429 * i - 1.284751120 * pow(10, -3) * pow(i, 2) - 6.672071166 * pow(10, -6) * pow(i, 3) + 5.557539172 * pow(10, -9) * pow(i, 4) + 1.015634508 * pow(10, -11) * pow(i, 5))*10;
 //nm[i] calculates the corresponding wavelength to each pixel - the parameters are included in the C12880MA manual and are unique, so the above line needs to be corrected accordingly
 /*in order to just register and check the spectrum of the light source
 comment out lines starting from the "corr=correction[i]" to "float n = log10(m)"
@@ -138,10 +138,10 @@ line (included) and substitute "String(n,4)" in the "String val =" with "data[i]
 //average[i]=average[i]-980; // removes background. background values vary a bit for every measurement, 96 is an average of about 10 measurements
 //if((average[i]<1)||(average[i]>65000)){average[i]=1;}// corr=6500;} // this makes sure that there is no overflow or division by zero (usually happens when spectra outside of the LED spectrum is registered)
 
-float m = correction[i-53]/(float)average[i]; //calculates the baseline LED spectrum divided by the spectrum with an inserted sample
+float m = correction[i-10]/(float)average[i]; //calculates the baseline LED spectrum divided by the spectrum with an inserted sample
 float n = log10(m)+0.0556-0.0767*aveabs; // calculates absorbance
 
-float integ = nm[i-53]/10.0; //this is due to the multiplication by 10 at the end of nm[i] calculation. This is used to avoid a float massive, which takes up more space than an int massive - this means that we get for example a calculated position of 550.12345*10 =5501.2345 (which is 5501 as an int) and then we divide it back as a float and get the value of 550.1 nm
+float integ = nm[i-10]/10.0; //this is due to the multiplication by 10 at the end of nm[i] calculation. This is used to avoid a float massive, which takes up more space than an int massive - this means that we get for example a calculated position of 550.12345*10 =5501.2345 (which is 5501 as an int) and then we divide it back as a float and get the value of 550.1 nm
 String temp = String(integ,1); //turns it into a sting with 1 decimal place
 String val = String(n,4); //turns into a string with 4 decimal places
 
@@ -209,14 +209,14 @@ void GetBaseline(){ //to be multiplied with
 readSpectrometer();
 delay(100);
 
-for(int i = 53; i < 198; i++){
+/*for(int i = 10; i < 225; i++){
   
 int smooth =(average[i]+average[i-1]+average[i+1])/3;
 
-correction[i-53]=smooth-980;
-if((correction[i-53]<1)||(correction[i-53]>65000)){correction[i-53]=1;}
+correction[i-10]=smooth-980;
+if((correction[i-10]<1)||(correction[i-10]>65000)){correction[i-10]=1;}
 
-}
+}*/
 
 mySerial.print(" ");
 
@@ -232,12 +232,12 @@ delay(100);
 
 int wlnumber=reading.toInt();
 
-for(i = 53; i < 198; i++){
-singlenm=(3.103932661*pow(10,2)+2.683934106*i-1.098262279*pow(10,-3)*pow(i,2)-7.817392551*pow(10,-6)*pow(i,3)+9.609636190*pow(10,-9)*pow(i,4)+4.681760466*pow(10,-12)*pow(i,5));
+for(i = 10; i < 225; i++){
+singlenm=(3.059651344 * pow(10, 2) + 2.716298429 * i - 1.284751120 * pow(10, -3) * pow(i, 2) - 6.672071166 * pow(10, -6) * pow(i, 3) + 5.557539172 * pow(10, -9) * pow(i, 4) + 1.015634508 * pow(10, -11) * pow(i, 5));
 if(singlenm>wlnumber){singlei=i; break;}}
 
-smoothtemp2=average[52];
-for(i = 53; i < 198; i++){
+smoothtemp2=average[9];
+for(i = 10; i < 225; i++){
 smoothtemp1 = smoothtemp2;  
 smoothtemp2 = average[i];
 average[i]=(average[i]+smoothtemp1+average[i+1])/3;
@@ -245,12 +245,12 @@ average[i]=(average[i]+smoothtemp1+average[i+1])/3;
 average[i]=average[i]-980; // removes background. background values vary a bit for every measurement, 96 is an average of about 10 measurements
 if((average[i]<1)||(average[i]>65000)){average[i]=1;}// corr=6500;} // this makes sure that there is no overflow or division by zero (usually happens when spectra outside of the LED spectrum is registered)
 
-float m = correction[i-53]/(float)average[i];
+float m = correction[i-10]/(float)average[i];
 aveabs += log10(m);
 }
-aveabs=aveabs/(198-53);
+aveabs=aveabs/(225-10);
 
-float m = correction[singlei-53]/(float)average[singlei]; //calculates the baseline LED spectrum divided by the spectrum with an inserted sample
+float m = correction[singlei-10]/(float)average[singlei]; //calculates the baseline LED spectrum divided by the spectrum with an inserted sample
 m = log10(m)+0.0556-0.0767*aveabs;
 
 m =m*100;

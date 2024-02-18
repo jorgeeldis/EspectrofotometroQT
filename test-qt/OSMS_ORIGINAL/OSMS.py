@@ -53,16 +53,16 @@ for i in range(0, 288):  # initilizing arrays
 
     # calculating wavelengths from the formula provided by manufacturer
     k = (
-        3.103932661 * math.pow(10, 2)
-        + 2.683934106 * i
-        - 1.098262279 * math.pow(10, -3) * math.pow(i, 2)
-        - 7.817392551 * math.pow(10, -6) * math.pow(i, 3)
-        + 9.609636190 * math.pow(10, -9) * math.pow(i, 4)
-        + 4.681760466 * math.pow(10, -12) * math.pow(i, 5)
-    )
+            3.059651344 * math.pow(10, 2)
+            + 2.716298429 * i 
+            - 1.284751120 * math.pow(10, -3) * math.pow(i, 2)
+            - 6.672071166 * math.pow(10, -6) * math.pow(i, 3)
+            + 5.557539172 * math.pow(10, -9) * math.pow(i, 4)
+            + 1.015634508 * math.pow(10, -11) * math.pow(i, 5)
+        )
     nm[i] = k
 
-for i in range(53, 198):  # still initializing arrays
+for i in range(10, 225):  # still initializing arrays
     absorPlot.append(i)
     nmPlot.append(i)
 
@@ -251,10 +251,11 @@ class Ui_MainWindow(QWidget):
             msg = msg[:-1]
             msg = list(map(int, msg))
 
-            print(msg)
+            #print("viene de arduino: ", msg)
 
             for i in range(0, 288):
                 baseline[i] += msg[i]
+                print(baseline[i])
             progress = progress + 1
             progresspercent = int(progress / accum * 100)
             self.progressBar.setValue(progresspercent)
@@ -299,7 +300,7 @@ class Ui_MainWindow(QWidget):
             #   print(nm[i], file="baseline.txt")
         global ylimit
         ylimit = 0
-        for i in range(53, 198):
+        for i in range(10, 225):
             baseline2[i] = (
                 baseline[i] + baseline[i - 1] + baseline[i + 1]
             ) / 3 - 980 * accum
@@ -311,10 +312,11 @@ class Ui_MainWindow(QWidget):
             if spectrum2[i] <= 0:
                 spectrum2[i] = 1
 
-            absorption[i] = math.log(baseline2[i] / spectrum2[i], 10)
+            absorption[i] = math.log10((baseline2[i] / spectrum2[i]))
+            print("baseline: ", baseline2[i], "spectrum: ", spectrum2[i], "absorption: ", absorption[i])
             average = +absorption[i]
 
-        average = average / (198 - 53)
+        average = average / (225 - 10)
 
         # uncomment these two lines and comment out the next one to save data continuously
         #    mytime=time.strftime('%j%H%M%S')
@@ -323,7 +325,7 @@ class Ui_MainWindow(QWidget):
         outA = open("absorption.txt", "w")
 
         # with open("absorption.txt", "a") as outA:
-        for i in range(53, 198):
+        for i in range(10, 225):
             absorption[i] = absorption[i] + 0.0556 - 0.0767 * average
             if absorption[i] > ylimit:
                 ylimit = absorption[i]
@@ -331,9 +333,9 @@ class Ui_MainWindow(QWidget):
             outA.write(str(nm[i]) + "\t" + str(absorption[i]) + "\n")
         outA.close()
 
-        for i in range(53, 198):
-            absorPlot[i - 53] = absorption[i]
-            nmPlot[i - 53] = nm[i]
+        for i in range(10, 225):
+            absorPlot[i - 10] = absorption[i]
+            nmPlot[i - 10] = nm[i]
         self.update_plot()
 
     # self.graphicsView.plot(nmPlot,absorPlot)

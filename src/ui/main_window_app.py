@@ -1,4 +1,5 @@
 import sys
+import time
 import qdarktheme
 from PyQt5.QtWidgets import (
     QApplication,
@@ -60,14 +61,17 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSingle_click(self):
         print("Single Clicked")
         self.graphWidget.clear()
-        self.baseline = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer)
+        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer)
 
         # Sí el serial está activo, cerrar y abrir otro serial
         # if self.serial.is_open:
         #     self.serial.close()
         #     self.serial = Serial(PORT, BAUDRATE)
 
-        self.timer.timeout.connect(self.baseline.process)
+        self.single.send_data("1")
+        time.sleep(1)
+
+        self.timer.timeout.connect(self.single.process)
         self.timer.start(5)  # Actualiza cada 100 ms
 
     def btn2_click(self):
