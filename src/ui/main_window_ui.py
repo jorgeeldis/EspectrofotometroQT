@@ -145,8 +145,11 @@ class Ui_MainWindow(object):
         self.titleLabel.setObjectName("titleLabel")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setGeometry(QtCore.QRect(910, 620, 241, 41))
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
+        #self.progressBar.setMaximum(100)
+        
         self.progressBar.setObjectName("progressBar")
+
         self.horaLabel = QtWidgets.QLabel(self.centralwidget)
         self.horaLabel.setGeometry(QtCore.QRect(1160, 10, 191, 31))
         font = QtGui.QFont()

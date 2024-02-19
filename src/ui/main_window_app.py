@@ -49,8 +49,8 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnBaseline_click(self):
         print("Baseline Clicked")
         self.graphWidget.clear()
-        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer)
-
+        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar)
+        self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         time.sleep(1) # Esperar a que el arduino se inicialice
 
