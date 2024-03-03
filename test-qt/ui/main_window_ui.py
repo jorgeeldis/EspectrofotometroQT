@@ -170,7 +170,7 @@ class Ui_MainWindow(object):
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        #sizePolicy.setHeightForWidth(self.graphWidget.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(self.graphWidget.sizePolicy().hasHeightForWidth())
                # Crear un widget para la gráfica
         self.graphWidget = pg.PlotWidget(self.centralwidget)
         self.graphWidget.setXRange(350, 750, padding=0)
@@ -192,7 +192,7 @@ class Ui_MainWindow(object):
         self.messageBox.setSizePolicy(sizePolicy)
         self.messageBox.setMaximumSize(QtCore.QSize(1677215, 16777215))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(14)
         self.messageBox.setFont(font)
         self.messageBox.setAlignment(QtCore.Qt.AlignCenter)
         self.messageBox.setReadOnly(True)
@@ -374,7 +374,7 @@ class Ui_MainWindow(object):
         self.db650Label.setText(_translate("MainWindow", "dB 650nm: 0.00"))
         self.minNMLabel.setText(_translate("MainWindow", "Min nm: 0.00"))
         self.horaLabel.setText(_translate("MainWindow", "2023-11-06 14:52"))
-        self.messageBox.setText(_translate("MainWindow", "Please calibrate the spectrophotometer before taking a measurement."))
+        self.messageBox.setText(_translate("MainWindow", "Please press Single to start measuring..."))
         self.titleLabel.setText(_translate("MainWindow", "Universidad Técnológica de Panamá - Espectofotómetro - Muestras Covid-19 "))
         self.absorcionLabel.setText(_translate("MainWindow", "Absorción:"))
         self.absorcionBox.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

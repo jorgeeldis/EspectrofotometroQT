@@ -34,8 +34,7 @@ class BaselineProcessor:
         self.x = 0
 
     def process(self):
-        if self.progressBar.value() == 100:
-            return
+
         # Lee datos desde el arduino
         data = self.serial.read()
         
@@ -61,10 +60,13 @@ class BaselineProcessor:
 
             # Los grafica en tiempo real
             self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=2))
-            self.x += 1
-            progresspercent = int(self.x / 196 * 100)
-            self.progressBar.setValue(progresspercent)
+            if self.progressBar.value() < 100:
+                self.x += 1
+                progresspercent = int(self.x / 196 * 100)
+                self.progressBar.setValue(progresspercent)
+                print(progresspercent)
             self.app.processEvents()
+           
 
     def send_data(self, data):
         self.serial.write(str.encode(data))

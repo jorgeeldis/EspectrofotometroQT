@@ -20,7 +20,7 @@ BAUDRATE = os.getenv("BAUDRATE")
 baseline_path = os.path.join("data", BASELINE_FILE)
 
 class SingleProcessor:
-    def __init__(self, graphWidget, pg, app, timer):
+    def __init__(self, graphWidget, pg, app, timer, progressBar):
 
         self.single = 0
         self.file_name = "single_muestra_{}_{}.txt".format(
@@ -31,6 +31,7 @@ class SingleProcessor:
         self.timer = timer
         self.app = app
         self.graphWidget = graphWidget
+        self.progressBar = progressBar
         self.pg = pg
         self.serial = Serial(PORT, BAUDRATE)
         self.wavelength = wavelength()
@@ -88,8 +89,12 @@ class SingleProcessor:
 
             # Los grafica en tiempo real
             self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=2))
-            self.x += 1
-            self.baseline_x += 1
+            if self.progressBar.value() < 100:
+                self.x += 1
+                self.baseline_x += 1
+                progresspercent = int(self.x / 196 * 100)
+                self.progressBar.setValue(progresspercent)
+                print(progresspercent)
             self.app.processEvents()
 
     def send_data(self, data):

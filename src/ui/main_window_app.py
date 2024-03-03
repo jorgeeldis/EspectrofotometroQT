@@ -28,6 +28,9 @@ class Window(QMainWindow, Ui_MainWindow):
     def connectSignalsSlots(self):
         self.btnBaseline.clicked.connect(self.btnBaseline_click)
         self.btnSingle.clicked.connect(self.btnSingle_click)
+        self.btnContinuous.clicked.connect(self.btnContinuous_click)
+        self.btnSaveData.clicked.connect(self.btnSaveData_click)
+        self.btnSettings.clicked.connect(self.btnSettings_click)
 
         # self.btnBaseline.clicked.connect(self.btn_baseline)
         # self.btnSingle.clicked.connect(self.btn_single)
@@ -52,20 +55,20 @@ class Window(QMainWindow, Ui_MainWindow):
         self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar)
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
+        self.messageBox.setText("Measuring Baseline...")
         time.sleep(1) # Esperar a que el arduino se inicialice
 
         self.timer.timeout.connect(self.baseline.process)
         self.timer.start(5)  # Actualiza cada 100 ms
-        
-
-
+    
     def prnt(self):
         print("Clock")
 
     def btnSingle_click(self):
         print("Single Clicked")
         self.graphWidget.clear()
-        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer)
+        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar)
+        self.progressBar.setProperty("value", 0)
 
         # Sí el serial está activo, cerrar y abrir otro serial
         # if self.serial.is_open:
@@ -73,10 +76,26 @@ class Window(QMainWindow, Ui_MainWindow):
         #     self.serial = Serial(PORT, BAUDRATE)
 
         self.single.send_data("2")
+        self.messageBox.setText("Measuring Sample in single mode...")
         time.sleep(1)
 
         self.timer.timeout.connect(self.single.process)
         self.timer.start(5)  # Actualiza cada 100 ms
+
+    def btnContinuous_click(self):
+        print("Continuous Clicked")
+        self.graphWidget.clear()
+        self.progressBar.setProperty("value", 0)
+        self.messageBox.setText("Measuring Sample in continuous mode...")
+
+    def btnSaveData_click(self):
+        print("Save Data Clicked")
+        self.messageBox.setText("Saving data...")
+    
+    def btnSettings_click(self):
+        print("Settings Clicked")
+        self.messageBox.setText("Opening settings...")
+
 
     def btn2_click(self):
         QMessageBox.about(
