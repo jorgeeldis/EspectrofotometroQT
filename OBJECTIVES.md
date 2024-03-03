@@ -14,6 +14,7 @@
 - Funcionalidad para apagar el LED desde python en otro tab ()
 - Poner los datos de la medicion en pantalla en otro tab ()
 - En el boton de save data tener un dropdown para guardar en PC, Email, TXT, Etc (Crear informe con datos de lecturas) ()
+- Si se comienza a medir mal, no medir en lo absoluto, comienza por encima de 800
 
 # Tasks requeridos por el asesor
 1. Maximo y minimo de la grafica ()
