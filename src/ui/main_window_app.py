@@ -52,7 +52,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnBaseline_click(self):
         print("Baseline Clicked")
         self.graphWidget.clear()
-        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar)
+        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel)
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         self.messageBox.setText("Measuring Baseline...")
@@ -67,7 +67,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSingle_click(self):
         print("Single Clicked")
         self.graphWidget.clear()
-        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar)
+        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel)
         self.progressBar.setProperty("value", 0)
 
         # Sí el serial está activo, cerrar y abrir otro serial
