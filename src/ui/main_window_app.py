@@ -12,7 +12,8 @@ from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
 from baseline.baseline_process import BaselineProcessor
 from single.single_process import SingleProcessor
-from selectwavelength.wavlength_process import SelectWavelength, get_line_value, get_absorbance
+from selectwavelength.wavlength_process import get_line_value, get_absorbance
+from settings.settings_app import SettingsWindow
 
 from ui.main_window_ui import Ui_MainWindow
 import pyqtgraph as pg
@@ -95,8 +96,11 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSettings_click(self):
         print("Settings Clicked")
         self.messageBox.setText("Opening settings...")
+        self.settingsWindow = SettingsWindow(self)
+        self.settingsWindow.show()
 
     def btnWavelength_click(self):
+        self.messageBox.setText("Selecting Wavelength...")
         nm, okPressed = QInputDialog.getInt(self, "Get dB","Wavelength:", 0, 0, 10000, 1)
         if okPressed:
             line_value, message = get_line_value(nm)

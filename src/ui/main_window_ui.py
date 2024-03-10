@@ -305,7 +305,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Espectrophotometer UTP-CG-001"))
         self.db450Label.setText(_translate("MainWindow", "450nm: 0.00"))
         self.db500Label.setText(_translate("MainWindow", "500nm: 0.00"))
         self.maxDBLabel.setText(_translate("MainWindow", "Máx dB: 0.00"))
