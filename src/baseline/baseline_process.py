@@ -16,7 +16,7 @@ BAUDRATE = os.getenv("BAUDRATE")
 baseline_path = os.path.join("data", BASELINE_FILE)
 
 class BaselineProcessor:
-    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel):
+    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel, specificLabel):
 
         if os.path.exists(baseline_path):
             os.remove(baseline_path)
@@ -36,6 +36,7 @@ class BaselineProcessor:
         self.maxNMLabel = maxNMLabel
         self.minDBLabel = minDBLabel
         self.minNMLabel = minNMLabel
+        self.specificLabel = specificLabel
         self.pg = pg
         self.serial = Serial(PORT, BAUDRATE)
         self.wavelength = wavelength()
@@ -126,17 +127,18 @@ class BaselineProcessor:
                             minNMvalue = i
                     minNMvalue = int(self.wavelength[minNMvalue - 1])
 
-                self.db450Label.setText("dB 450nm: " + str(db450))
-                self.db435Label.setText("dB 435nm: " + str(db435))
-                self.db500Label.setText("dB 500nm: " + str(db500))
-                self.db550Label.setText("dB 550nm: " + str(db550))
-                self.db570Label.setText("dB 570nm: " + str(db570))
-                self.db600Label.setText("dB 600nm: " + str(db600))
-                self.db650Label.setText("dB 650nm: " + str(db650))
-                self.maxDBLabel.setText("Max dB: " + str(maxDBvalue))
-                self.maxNMLabel.setText("Max nm: " + str(maxNMvalue))
-                self.minDBLabel.setText("Min dB: " + str(minDBvalue))
-                self.minNMLabel.setText("Min nm: " + str(minNMvalue))
+                self.specificLabel.setText("Key Values (u.a.):")
+                self.db450Label.setText("450nm: " + str(db450) + "u.a.")
+                self.db435Label.setText("435nm: " + str(db435) + "u.a.")
+                self.db500Label.setText("500nm: " + str(db500) + "u.a.")
+                self.db550Label.setText("550nm: " + str(db550) + "u.a.")
+                self.db570Label.setText("570nm: " + str(db570) + "u.a.")
+                self.db600Label.setText("600nm: " + str(db600) + "u.a.")
+                self.db650Label.setText("650nm: " + str(db650) + "u.a.")
+                self.maxDBLabel.setText("Max u.a.: " + str(maxDBvalue) + "u.a.")
+                self.maxNMLabel.setText("Max nm: " + str(maxNMvalue) + "nm")
+                self.minDBLabel.setText("Min u.a.: " + str(minDBvalue) + "u.a.")
+                self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
             self.app.processEvents()
            
 

@@ -22,7 +22,7 @@ baseline_path = os.path.join("data", BASELINE_FILE)
 single_path = os.path.join("data", SINGLE_FILE)
 
 class SingleProcessor:
-    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel):
+    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel, specificLabel):
 
         if os.path.exists(single_path):
             os.remove(single_path)
@@ -48,6 +48,7 @@ class SingleProcessor:
         self.maxNMLabel = maxNMLabel
         self.minDBLabel = minDBLabel
         self.minNMLabel = minNMLabel
+        self.specificLabel = specificLabel
         self.pg = pg
         self.serial = Serial(PORT, BAUDRATE)
         self.wavelength = wavelength()
@@ -159,17 +160,18 @@ class SingleProcessor:
                             minNMvalue = i
                     minNMvalue = int(self.wavelength[minNMvalue - 1])
 
-                self.db450Label.setText("dB 450nm: " + str("{:.2f}".format(float(db450))))
-                self.db435Label.setText("dB 435nm: " + str("{:.2f}".format(float(db435))))
-                self.db500Label.setText("dB 500nm: " + str("{:.2f}".format(float(db500))))
-                self.db550Label.setText("dB 550nm: " + str("{:.2f}".format(float(db550))))
-                self.db570Label.setText("dB 570nm: " + str("{:.2f}".format(float(db570))))
-                self.db600Label.setText("dB 600nm: " + str("{:.2f}".format(float(db600))))
-                self.db650Label.setText("dB 650nm: " + str("{:.2f}".format(float(db650))))
-                self.maxDBLabel.setText("Max dB: " + str("{:.2f}".format(float(maxDBvalue))))
-                self.maxNMLabel.setText("Max nm: " + str("{:.2f}".format(float(maxNMvalue))))
-                self.minDBLabel.setText("Min dB: " + str("{:.2f}".format(float(minDBvalue))))
-                self.minNMLabel.setText("Min nm: " + str("{:.2f}".format(float(minNMvalue))))
+                self.specificLabel.setText("Key Values (dB):")
+                self.db450Label.setText("450nm: " + str("{:.2f}".format(float(db450))) + "dB")
+                self.db435Label.setText("435nm: " + str("{:.2f}".format(float(db435))) + "dB")
+                self.db500Label.setText("500nm: " + str("{:.2f}".format(float(db500))) + "dB")
+                self.db550Label.setText("550nm: " + str("{:.2f}".format(float(db550))) + "dB")
+                self.db570Label.setText("570nm: " + str("{:.2f}".format(float(db570))) + "dB")
+                self.db600Label.setText("600nm: " + str("{:.2f}".format(float(db600))) + "dB")
+                self.db650Label.setText("650nm: " + str("{:.2f}".format(float(db650))) + "dB")
+                self.maxDBLabel.setText("Max dB: " + str("{:.2f}".format(float(maxDBvalue))) + "dB")
+                self.maxNMLabel.setText("Max nm: " + str(maxNMvalue) + "nm")
+                self.minDBLabel.setText("Min dB: " + str("{:.2f}".format(float(minDBvalue))) + "dB")
+                self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
             self.app.processEvents()
 
     def send_data(self, data):

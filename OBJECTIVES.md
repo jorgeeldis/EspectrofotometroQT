@@ -25,7 +25,7 @@
 6. Zoom manual en la grafica ()
 7. Graficar lineal y no lineal (Logaritmica) ()
 8. Usar fuente para LED, calcular su intensidad para la resistencia ()
-9. Agregar dB en la grafica de absorbancia y en la de intensidad U.A ()
+9. Agregar dB en la grafica de absorbancia y en la de intensidad U.A (DONE)
 10. Guardar datos en archivo para graficar (TXT, WAVELENGTH, ABSORBANCE) (DONE)
 11. Promediado con cuantos sweeps (Cuantas veces se grafica y se promedia entre esas medidas) ()
 12. Variar intensidad del led (Fuente de 12V) (PWM) (Filtro de primer orden) 360mA ()
