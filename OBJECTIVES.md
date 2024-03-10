@@ -14,6 +14,7 @@
 - Funcionalidad para apagar el LED desde python en otro tab ()
 - Poner los datos de la medicion en pantalla en otro tab ()
 - Si se comienza a medir mal, no medir en lo absoluto (hacer 5 sweeps iniciales, el 1 siempre sale mal) ()
+- Web Server, send PDF to portal ()
 
 # Tasks requeridos por el asesor
 1. Maximo y minimo de la grafica (DONE)
