@@ -12,9 +12,11 @@ from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
 from baseline.baseline_process import BaselineProcessor
 from single.single_process import SingleProcessor
+from selectwavelength.wavlength_process import SelectWavelength, get_line_value, get_absorbance
 
 from ui.main_window_ui import Ui_MainWindow
 import pyqtgraph as pg
+from PyQt5.QtWidgets import QInputDialog
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None, app=None):
@@ -31,6 +33,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.btnContinuous.clicked.connect(self.btnContinuous_click)
         self.btnSaveData.clicked.connect(self.btnSaveData_click)
         self.btnSettings.clicked.connect(self.btnSettings_click)
+        self.btnWavelength.clicked.connect(self.btnWavelength_click)
 
         # self.btnBaseline.clicked.connect(self.btn_baseline)
         # self.btnSingle.clicked.connect(self.btn_single)
@@ -60,9 +63,6 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self.timer.timeout.connect(self.baseline.process)
         self.timer.start(5)  # Actualiza cada 100 ms
-    
-    def prnt(self):
-        print("Clock")
 
     def btnSingle_click(self):
         print("Single Clicked")
@@ -91,36 +91,19 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSaveData_click(self):
         print("Save Data Clicked")
         self.messageBox.setText("Saving data...")
-    
+
     def btnSettings_click(self):
         print("Settings Clicked")
         self.messageBox.setText("Opening settings...")
 
+    def btnWavelength_click(self):
+        nm, okPressed = QInputDialog.getInt(self, "Get dB","Wavelength:", 0, 0, 10000, 1)
+        if okPressed:
+            line_value, message = get_line_value(nm)
+            absorbance = get_absorbance(nm)
+            print(line_value, message)
+            QMessageBox.information(self, "Line Value", f"{message}\nAbsorbance: {absorbance}")
 
-    def btn2_click(self):
-        QMessageBox.about(
-            self,
-            "About Sample Editor",
-            "<p>A sample text editor app built with:</p>"
-            "<p>- PyQt</p>"
-            "<p>- Qt Designer</p>"
-            "<p>- Python</p>",
-        )
-
-    def btn_baseline(self):
-        pass
-    
-    def btn_single(self):
-        pass
-    
-    def btn_continuous(self):
-        pass
-    
-    def btn_save_data(self):
-        pass
-    
-    def btn_settings(self):
-        pass
 
 
 def init():

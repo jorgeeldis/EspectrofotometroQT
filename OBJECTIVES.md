@@ -9,7 +9,7 @@
 - Implementar la pestaña de Settings para ajustes necesarios. ()
 - Implementar la barra de medición el cuál aumenta mientras va calculando. (DONE)
 - Implementar labels o textos de los valores de las gráficas al finalizar y valores específicos. (DONE)
-- Funcion para ver unidad de absorcion en un punto especifico en la grafica, (Escribir longitud de onda y obtener su absorbancia) ()
+- Funcion para ver unidad de absorcion en un punto especifico en la grafica, (Escribir longitud de onda y obtener su absorbancia) (DONE)
 - Agregar mensajes de (Baseline listo, absorbancia calculada, calculando absorbancia continua) (DONE)
 - Funcionalidad para apagar el LED desde python en otro tab ()
 - Poner los datos de la medicion en pantalla en otro tab ()

@@ -16,16 +16,21 @@ DATA_SIZE = 7
 
 BASELINE_FILE = os.getenv("BASELINE_FILE")
 SINGLE_FILE = os.getenv("SINGLE_FILE")
+WAVELENGTH_FILE = os.getenv("WAVELENGTH_FILE")
 PORT = os.getenv("PORT")
 BAUDRATE = os.getenv("BAUDRATE")
 baseline_path = os.path.join("data", BASELINE_FILE)
 single_path = os.path.join("data", SINGLE_FILE)
+wavelength_path = os.path.join("data", WAVELENGTH_FILE)
 
 class SingleProcessor:
     def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel, specificLabel):
 
         if os.path.exists(single_path):
             os.remove(single_path)
+
+        if os.path.exists(wavelength_path):
+            os.remove(wavelength_path)
 
         self.single = 0
         self.file_name = "single_muestra_{}_{}.txt".format(
@@ -88,6 +93,8 @@ class SingleProcessor:
 
             wavelength_data = int(self.wavelength[self.x])
 
+            write_data(wavelength_path, str(wavelength_data) + "\n")
+
             self.xdata.append(wavelength_data)
             self.ydata.append(absorbance)
 
@@ -147,7 +154,8 @@ class SingleProcessor:
                     for i, line in enumerate(lines, start=1):  # use lines instead of file
                         value = float(line.strip())
                         if value > maxDBvalue:
-                            maxDBvalue = int(value)
+                            maxDBvalue = float(value)
+                            print(maxDBvalue)
                             maxnvalue = i
                     maxNMvalue = int(self.wavelength[maxnvalue - 1])  # get the corresponding nm value
                     
@@ -156,7 +164,8 @@ class SingleProcessor:
                     for i, line in enumerate(lines, start=1):
                         value = float(line.strip())
                         if value < minDBvalue:
-                            minDBvalue = int(value)
+                            minDBvalue = float(value)
+                            print(minDBvalue)
                             minNMvalue = i
                     minNMvalue = int(self.wavelength[minNMvalue - 1])
 
