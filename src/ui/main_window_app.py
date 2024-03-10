@@ -104,7 +104,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def btnWavelength_click(self):
         self.messageBox.setText("Selecting Wavelength...")
-        nm, okPressed = QInputDialog.getInt(self, "Get dB","Wavelength:", 0, 0, 10000, 1)
+        nm, okPressed = QInputDialog.getInt(self, "Get dB","Wavelength (nm):", 300, 300, 750, 1)
         if okPressed:
             line_value, message = get_line_value(nm)
             absorbance = get_absorbance(nm)
