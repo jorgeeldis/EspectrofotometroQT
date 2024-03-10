@@ -15,6 +15,7 @@
 - Poner los datos de la medicion en pantalla en otro tab ()
 - Si se comienza a medir mal, no medir en lo absoluto (hacer 5 sweeps iniciales, el 1 siempre sale mal) ()
 - Web Server, send PDF to portal ()
+- Una vez realizada la calibración y apuntar ajustes, hacer la intrapolación para tener medidas en cada longitud de onda, no cada 2 o 3 nm. ()
 
 # Tasks requeridos por el asesor
 1. Maximo y minimo de la grafica (DONE)
