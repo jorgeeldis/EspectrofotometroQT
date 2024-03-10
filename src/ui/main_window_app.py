@@ -109,7 +109,7 @@ class Window(QMainWindow, Ui_MainWindow):
             line_value, message = get_line_value(nm)
             absorbance = get_absorbance(nm)
             print(line_value, message)
-            QMessageBox.information(self, "Line Value", f"{message}\nAbsorbance: {absorbance}")
+            QMessageBox.information(self, "Absorbance", f"{message}\nAbsorbance: {absorbance}")
 
 def init():
     qdarktheme.enable_hi_dpi()

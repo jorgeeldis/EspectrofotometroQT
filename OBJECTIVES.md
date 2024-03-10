@@ -11,7 +11,7 @@
 - Implementar labels o textos de los valores de las gráficas al finalizar y valores específicos. (DONE)
 - Funcion para ver unidad de absorcion en un punto especifico en la grafica, (Escribir longitud de onda y obtener su absorbancia) (DONE)
 - Agregar mensajes de (Baseline listo, absorbancia calculada, calculando absorbancia continua) (DONE)
-- Funcionalidad para apagar el LED desde python en otro tab ()
+- Funcionalidad para apagar el LED desde python en otro tab, agregar transistor para cumplir esa función ()
 - Poner los datos de la medicion en pantalla en otro tab ()
 - Si se comienza a medir mal, no medir en lo absoluto (hacer 5 sweeps iniciales, el 1 siempre sale mal) ()
 - Web Server, send PDF to portal ()
@@ -20,7 +20,7 @@
 # Tasks requeridos por el asesor
 1. Maximo y minimo de la grafica (DONE)
 2. Resta entre dos gráficas en paralelo ()
-3. Rango de interes (Rango de dos puntos en donde la grafica difiere del 0) ()
+3. Rango de interes (Rango de dos puntos en donde la grafica difiere del mínimo) ()
 4. Autoscale (Modificar las medidas iniciales que dan por 890) (DONE)
 5. Span configurable (Rango), Center wavelength, Longitud de onda mayor y menor ()
 6. Zoom manual en la grafica ()
