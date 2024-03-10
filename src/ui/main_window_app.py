@@ -14,6 +14,7 @@ from baseline.baseline_process import BaselineProcessor
 from single.single_process import SingleProcessor
 from selectwavelength.wavlength_process import get_line_value, get_absorbance
 from settings.settings_app import SettingsWindow
+from savedata.save_process import SaveWindow
 
 from ui.main_window_ui import Ui_MainWindow
 import pyqtgraph as pg
@@ -92,6 +93,8 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSaveData_click(self):
         print("Save Data Clicked")
         self.messageBox.setText("Saving data...")
+        self.saveDataWindow = SaveWindow(self)
+        self.saveDataWindow.show()
 
     def btnSettings_click(self):
         print("Settings Clicked")
