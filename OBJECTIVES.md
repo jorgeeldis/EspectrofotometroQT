@@ -12,7 +12,7 @@
 - Funcion para ver unidad de absorcion en un punto especifico en la grafica, (Escribir longitud de onda y obtener su absorbancia) (DONE)
 - Agregar mensajes de (Baseline listo, absorbancia calculada, calculando absorbancia continua) (DONE)
 - Funcionalidad para apagar el LED desde python en otro tab, agregar transistor para cumplir esa función ()
-- Poner los datos de la medicion en pantalla en otro tab ()
+- Poner los datos de la medicion en pantalla en otro tab (DONE)
 - Si se comienza a medir mal, no medir en lo absoluto (hacer 5 sweeps iniciales, el 1 siempre sale mal) ()
 - Web Server, send PDF to portal ()
 - Una vez realizada la calibración y apuntar ajustes, hacer la intrapolación para tener medidas en cada longitud de onda, no cada 2 o 3 nm. ()

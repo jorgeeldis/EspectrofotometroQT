@@ -15,10 +15,10 @@ from single.single_process import SingleProcessor
 from selectwavelength.wavlength_process import get_line_value, get_absorbance
 from settings.settings_app import SettingsWindow
 from savedata.save_process import SaveWindow
-
 from ui.main_window_ui import Ui_MainWindow
 import pyqtgraph as pg
 from PyQt5.QtWidgets import QInputDialog
+from PyQt5 import QtWidgets
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None, app=None):
@@ -27,7 +27,16 @@ class Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.connectSignalsSlots()
         self.init()
-        
+
+        # Connect the menu signals to methods
+        self.menuMain.aboutToShow.connect(self.handleMainAction)
+
+        # Create a QAction
+        self.dataAction = QtWidgets.QAction("Show Data", self)
+        # Add the QAction to the "Data" menu
+        self.menuData.addAction(self.dataAction)
+        # Connect the QAction's triggered signal to a method
+        self.dataAction.triggered.connect(self.handleDataAction)
 
     def connectSignalsSlots(self):
         self.btnBaseline.clicked.connect(self.btnBaseline_click)
@@ -36,6 +45,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.btnSaveData.clicked.connect(self.btnSaveData_click)
         self.btnSettings.clicked.connect(self.btnSettings_click)
         self.btnWavelength.clicked.connect(self.btnWavelength_click)
+        
 
         # self.btnBaseline.clicked.connect(self.btn_baseline)
         # self.btnSingle.clicked.connect(self.btn_single)
@@ -110,6 +120,44 @@ class Window(QMainWindow, Ui_MainWindow):
             absorbance = get_absorbance(nm)
             print(line_value, message)
             QMessageBox.information(self, "Absorbance", f"{message}\nAbsorbance: {absorbance}")
+
+    def handleMainAction(self):
+        print(f"Main action selected")
+
+    def handleDataAction(self):
+        print(f"Data action selected")
+        with open('./data/wavelength_muestra.txt', 'r') as f:
+            wavelengths = [line.strip() for line in f]
+        with open('./data/single_muestra.txt', 'r') as f:
+            absorbances = [line.strip() for line in f]
+
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(500, 400)
+        dialog.setWindowTitle("Data measured in single mode")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QTableWidget
+        table = QtWidgets.QTableWidget(len(wavelengths), 2, dialog)
+        table.setHorizontalHeaderLabels(['Wavelength', 'Absorbance'])
+
+        table.setColumnWidth(1, 200)  # Set the width of the "Absorbance" column to 200
+
+        # Add the data to the table
+        for i in range(len(wavelengths)):
+            table.setItem(i, 0, QtWidgets.QTableWidgetItem(wavelengths[i]))
+            table.setItem(i, 1, QtWidgets.QTableWidgetItem(absorbances[i]))
+
+        # Add the table to the layout
+        layout.addWidget(table)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
 
 def init():
     qdarktheme.enable_hi_dpi()
