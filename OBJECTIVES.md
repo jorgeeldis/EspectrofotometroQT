@@ -22,7 +22,7 @@
 2. Resta entre dos gráficas en paralelo ()
 3. Rango de interes (Selección de rango de dos puntos en donde la grafica se auto ajusta dar valores para cada nm?) ()
 4. Autoscale (Modificar las medidas iniciales que dan por 890) (DONE)
-5. Span configurable (Rango), Center wavelength, Longitud de onda mayor y menor ()
+5. Span configurable (Rango), Center wavelength, Longitud de onda mayor y menor (DONE)
 6. Zoom manual en la grafica ()
 7. Graficar lineal y no lineal (Logaritmica) ()
 8. Agregar dB en la grafica de absorbancia y en la de intensidad U.A (DONE)
