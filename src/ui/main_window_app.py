@@ -38,6 +38,13 @@ class Window(QMainWindow, Ui_MainWindow):
         # Connect the QAction's triggered signal to a method
         self.dataAction.triggered.connect(self.handleDataAction)
 
+        # Create a QAction
+        self.spanAction = QtWidgets.QAction("Select Range", self)
+        # Add the QAction to the "Data" menu
+        self.spanData.addAction(self.spanAction)
+        # Connect the QAction's triggered signal to a method
+        self.spanAction.triggered.connect(self.handleSpanAction)
+
     def connectSignalsSlots(self):
         self.btnBaseline.clicked.connect(self.btnBaseline_click)
         self.btnSingle.clicked.connect(self.btnSingle_click)
@@ -133,7 +140,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(500, 400)
+        dialog.resize(400, 400)
         dialog.setWindowTitle("Data measured in single mode")
 
         # Create a QVBoxLayout
@@ -158,6 +165,62 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Show the dialog
         dialog.exec_()
+    
+    def handleSpanAction(self):
+        print(f"Span action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Select Range")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel("Select the wavelength range you want to observe on the graph: ")
+        layout.addWidget(label)
+
+        # Create a QHBoxLayout for the start spin box and its label
+        startLayout = QtWidgets.QHBoxLayout()
+        startLabel = QtWidgets.QLabel("Start (nm):", dialog)
+        start = QtWidgets.QSpinBox(dialog)
+        start.setRange(300, 750)
+        startLayout.addWidget(startLabel)
+        startLayout.addWidget(start)
+
+        # Add the start layout to the main layout
+        layout.addLayout(startLayout)
+
+        # Create a QHBoxLayout for the finish spin box and its label
+        finishLayout = QtWidgets.QHBoxLayout()
+        finishLabel = QtWidgets.QLabel("Finish (nm):", dialog)
+        finish = QtWidgets.QSpinBox(dialog)
+        finish.setRange(300, 750)
+        finishLayout.addWidget(finishLabel)
+        finishLayout.addWidget(finish)
+
+        # Add the finish layout to the main layout
+        layout.addLayout(finishLayout)
+
+        # Create the "Apply" button
+        applyButton = QtWidgets.QPushButton("Apply", dialog)
+        applyButton.clicked.connect(lambda: self.applyRange(start.value(), finish.value()))
+        layout.addWidget(applyButton)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+
+    def applyRange(self, start, finish):
+        # Set the range of the x-axis of the graph
+        self.graphWidget.setXRange(start, finish)
 
 def init():
     qdarktheme.enable_hi_dpi()
