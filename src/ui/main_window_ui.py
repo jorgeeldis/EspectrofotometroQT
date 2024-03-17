@@ -289,6 +289,8 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1019, 22))
         self.menubar.setObjectName("menubar")
+        # Set the font size of the menubar to 14px
+        self.menubar.setStyleSheet("font-size: 18px;")
         self.menuMain = QtWidgets.QMenu(self.menubar)
         self.menuMain.setObjectName("menuMain")
         self.menuData = QtWidgets.QMenu(self.menubar)

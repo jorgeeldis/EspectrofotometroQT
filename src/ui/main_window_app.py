@@ -20,6 +20,7 @@ import pyqtgraph as pg
 from PyQt5.QtWidgets import QInputDialog
 from PyQt5 import QtWidgets
 
+
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None, app=None):
         super().__init__(parent)
@@ -39,11 +40,12 @@ class Window(QMainWindow, Ui_MainWindow):
         self.dataAction.triggered.connect(self.handleDataAction)
 
         # Create a QAction
-        self.spanAction = QtWidgets.QAction("Select Range", self)
+        self.spanActionX = QtWidgets.QAction("Select Range (X-axis)", self)
         # Add the QAction to the "Data" menu
-        self.spanData.addAction(self.spanAction)
+        self.spanData.addAction(self.spanActionX)
         # Connect the QAction's triggered signal to a method
-        self.spanAction.triggered.connect(self.handleSpanAction)
+        self.spanActionX.triggered.connect(self.handleSpanActionX)
+        
 
     def connectSignalsSlots(self):
         self.btnBaseline.clicked.connect(self.btnBaseline_click)
@@ -116,8 +118,18 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSettings_click(self):
         print("Settings Clicked")
         self.messageBox.setText("Opening settings...")
-        self.settingsWindow = SettingsWindow(self)
-        self.settingsWindow.show()
+        #self.settingsWindow = SettingsWindow(self)
+        #self.settingsWindow.show()
+
+        # Show the context menu of the ViewBox of the graph
+        #self.graphWidget.getViewBox().menu.exec_()
+        #self.graphWidget.getViewBox().autoRange()
+        #self.graphWidget.getViewBox().setRange(xRange=(300, 500), yRange=(0, 1))
+        #self.graphWidget.getViewBox().clear()
+        #self.graphWidget.setLogMode(x=False, y=True)
+        #self.graphWidget.setLogMode(x=True, y=False)
+        #self.graphWidget.setDerivativeMode(True)
+        #self.graphWidget.getViewBox().setBackgroundColor((255, 0, 0))
 
     def btnWavelength_click(self):
         self.messageBox.setText("Selecting Wavelength...")
@@ -166,12 +178,13 @@ class Window(QMainWindow, Ui_MainWindow):
         # Show the dialog
         dialog.exec_()
     
-    def handleSpanAction(self):
+    def handleSpanActionX(self):
         print(f"Span action selected")
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
         dialog.resize(100, 100)
-        dialog.setWindowTitle("Select Range")
+        dialog.setWindowTitle("Select Range (X-axis)")
+
 
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()

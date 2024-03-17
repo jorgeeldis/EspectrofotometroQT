@@ -1,10 +1,11 @@
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QLabel, QLineEdit, QPushButton, QWidget
-from PyQt5.QtWidgets import QComboBox, QSpinBox
+from PyQt5.QtWidgets import QComboBox, QSpinBox, QGraphicsView
 
 class SettingsWindow(QMainWindow):
     def __init__(self, parent=None):
         super(SettingsWindow, self).__init__(parent)
         self.setWindowTitle("Settings")
+        self.graphicsView = QGraphicsView(self)
 
         # Create a central widget to hold the layout and widgets
         self.centralWidget = QWidget(self)
@@ -27,13 +28,14 @@ class SettingsWindow(QMainWindow):
         self.graphColorComboBox = QComboBox(self)
         self.graphColorComboBox.addItems(["Red", "Green", "Blue"])  # Add more colors as needed
         self.layout.addWidget(self.graphColorComboBox)
+        
 
         # Create a spin box for selecting the font size
-        self.fontSizeLabel = QLabel("Font size:")
-        self.layout.addWidget(self.fontSizeLabel)
-        self.fontSizeSpinBox = QSpinBox(self)
-        self.fontSizeSpinBox.setRange(8, 72)  # Set the range of font sizes
-        self.layout.addWidget(self.fontSizeSpinBox)
+        self.graphSize = QLabel("Font size:")
+        self.layout.addWidget(self.graphSize)
+        self.graphSize = QSpinBox(self)
+        self.graphSize.setRange(8, 72)  # Set the range of font sizes
+        self.layout.addWidget(self.graphSize)
 
         self.graphType = QLabel("Graph type:")
         self.layout.addWidget(self.graphType)
