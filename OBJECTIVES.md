@@ -18,9 +18,9 @@
 - Una vez realizada la calibración y apuntar ajustes, hacer la intrapolación para tener medidas en cada longitud de onda, no cada 2 o 3 nm. ()
 
 # Tasks requeridos por el asesor
-1. Maximo y minimo de la grafica (DONE)
+1. Maximo y minimo de la grafica (DONE) 
 2. Resta entre dos gráficas en paralelo ()
-3. Rango de interes (Selección de rango de dos puntos en donde la grafica se auto ajusta dar valores para cada nm?) ()
+3. Rango de interes (Selección de rango de dos puntos en donde la grafica se auto ajusta dar valores para cada nm?) (DONE)
 4. Autoscale (Modificar las medidas iniciales que dan por 890) (DONE)
 5. Span configurable (Rango), Center wavelength, Longitud de onda mayor y menor (DONE)
 6. Zoom manual en la grafica ()

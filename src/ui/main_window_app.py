@@ -136,7 +136,7 @@ class Window(QMainWindow, Ui_MainWindow):
         with open('./data/wavelength_muestra.txt', 'r') as f:
             wavelengths = [line.strip() for line in f]
         with open('./data/single_muestra.txt', 'r') as f:
-            absorbances = [line.strip() for line in f]
+            absorbances = [line.strip() for line in f] 
 
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
