@@ -33,3 +33,16 @@ $ pyuic5 -o main_window_ui.py ui/main_window.ui
 ## Nota
 
 - El archivo app.py tiene un ejemplo de comunicación por el puerto serial y grafica en tiempo real.
+
+## Bug para derivar gráfica
+
+- Se agrega esta funcion en el archivo PlotItem.py:
+
+def setDerivativeMode(self, state):
+        """
+        ``state = True`` enables derivative mode, where a mapping according to
+        ``y_mapped = dy / dx`` is applied, with `dx` and `dy` representing the 
+        differences between adjacent `x` and `y` values.
+        """
+        if state is not None:
+            self.ctrl.derivativeCheck.setChecked(state)
