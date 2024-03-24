@@ -13,6 +13,16 @@ class SaveWindow(QMainWindow):
         # Create a layout
         self.layout = QVBoxLayout(self.centralWidget)
 
+        self.name = QLabel("Sample:")
+        self.layout.addWidget(self.name)
+        self.nameLineEdit = QLineEdit(self)
+        self.layout.addWidget(self.nameLineEdit)
+
+        self.name = QLabel("User:")
+        self.layout.addWidget(self.name)
+        self.nameLineEdit = QLineEdit(self)
+        self.layout.addWidget(self.nameLineEdit)
+
         self.saveDataType = QLabel("Save as:")
         self.layout.addWidget(self.saveDataType)
         self.saveDataTypeComboBox = QComboBox(self)
@@ -26,6 +36,13 @@ class SaveWindow(QMainWindow):
 
     def saveSettings(self):
         # Save the settings
-        save_data_type = self.saveDataTypeComboBox.currentText()
+        if self.saveDataTypeComboBox.currentText() == "TXT":
+            save_data_type = "TXT"
+        elif self.saveDataTypeComboBox.currentText() == "PDF":
+            save_data_type = "PDF"
+        elif self.saveDataTypeComboBox.currentText() == "CSV":
+            save_data_type = "CSV"
+        elif self.saveDataTypeComboBox.currentText() == "XLSX":
+            save_data_type = "XLSX"
         print(f"Saving settings: Save data type = {save_data_type}")
         # Add code here to save the settings...

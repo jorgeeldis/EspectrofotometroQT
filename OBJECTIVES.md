@@ -24,7 +24,7 @@
 4. Autoscale (Modificar las medidas iniciales que dan por 890) (DONE)
 5. Span configurable (Rango), Center wavelength, Longitud de onda mayor y menor (DONE)
 6. Zoom manual en la grafica ()
-7. Graficar lineal y no lineal (Logaritmica) ()
+7. Graficar lineal y no lineal (Logaritmica) (DONE)
 8. Agregar dB en la grafica de absorbancia y en la de intensidad U.A (DONE)
 9. Guardar datos en archivo para graficar (TXT, WAVELENGTH, ABSORBANCE) (DONE)
 10. Promediado con cuantos sweeps (Cuantas veces se grafica y se promedia entre esas medidas) ()
