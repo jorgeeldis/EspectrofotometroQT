@@ -46,10 +46,9 @@ class Window(QMainWindow, Ui_MainWindow):
         # Add the QAction to the "Data" menu
         self.spanData.addAction(self.spanActionX)
         # Connect the QAction's triggered signal to a method
-        self.spanActionX.triggered.connect(self.handleSpanActionX)
+        self.spanActionX.triggered.connect(self.handleSpanActionX)  
 
-        
-        
+        self.backgroundColor = (0, 0, 0)
 
     def connectSignalsSlots(self):
         self.btnBaseline.clicked.connect(self.btnBaseline_click)
@@ -144,8 +143,10 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSettings_click(self):
         print("Settings Clicked")
         self.messageBox.setText("Opening settings...")
-        #self.settingsWindow = SettingsWindow(self)
-        #self.settingsWindow.show()
+        self.settingsWindow = SettingsWindow(self, self.backgroundColor)
+        self.settingsWindow.saveSettingsRequested.connect(self.applySettings)
+        self.settingsWindow.clearViewBoxRequested.connect(self.clearViewBox)
+        self.settingsWindow.show()
 
         # Show the context menu of the ViewBox of the graph
         #self.graphWidget.getViewBox().menu.exec_()
@@ -155,7 +156,32 @@ class Window(QMainWindow, Ui_MainWindow):
         #self.graphWidget.setLogMode(x=False, y=True)
         #self.graphWidget.setLogMode(x=True, y=False)
         #self.graphWidget.setDerivativeMode(True)
-        #self.graphWidget.getViewBox().setBackgroundColor((255, 0, 0))
+        #self.graphWidget.getViewBox().setBackgroundColor((255, 255, 255))
+    
+    def applySettings(self, settings):
+        color, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode = settings
+        self.backgroundColor = color
+        self.graphWidget.getViewBox().setBackgroundColor((color))
+        if auto_range:
+            self.graphWidget.getViewBox().autoRange()
+        else:
+            self.graphWidget.getViewBox().setRange(xRange=x_range, yRange=y_range)
+        if log_mode_y:
+            self.graphWidget.setLogMode(x=False, y=True)
+        else:
+            self.graphWidget.setLogMode(x=False, y=False)
+        if log_mode_x:
+            self.graphWidget.setLogMode(x=True, y=False)
+        else:
+            self.graphWidget.setLogMode(x=False, y=False)
+        if derivative_mode:
+            self.graphWidget.setDerivativeMode(True)
+        else:
+            self.graphWidget.setDerivativeMode(False)
+        self.settingsWindow.close()
+
+    def clearViewBox(self):
+        self.graphWidget.getViewBox().clear()
 
     def btnWavelength_click(self):
         self.messageBox.setText("Selecting Wavelength...")

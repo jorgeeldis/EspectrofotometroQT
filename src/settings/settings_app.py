@@ -1,11 +1,19 @@
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QLabel, QLineEdit, QPushButton, QWidget
-from PyQt5.QtWidgets import QComboBox, QSpinBox, QGraphicsView
+from PyQt5.QtWidgets import QComboBox, QSpinBox, QGraphicsView, QCheckBox
+from ui.main_window_ui import Ui_MainWindow
+from PyQt5.QtCore import pyqtSignal
 
-class SettingsWindow(QMainWindow):
-    def __init__(self, parent=None):
+
+class SettingsWindow(QMainWindow, Ui_MainWindow):
+    saveSettingsRequested = pyqtSignal(tuple)
+    clearViewBoxRequested = pyqtSignal()
+    
+    def __init__(self, parent=None, backgroundColor=(0, 0, 0)):
         super(SettingsWindow, self).__init__(parent)
         self.setWindowTitle("Settings")
         self.graphicsView = QGraphicsView(self)
+        self.backgroundColor = backgroundColor
+
 
         # Create a central widget to hold the layout and widgets
         self.centralWidget = QWidget(self)
@@ -14,40 +22,43 @@ class SettingsWindow(QMainWindow):
         # Create a layout
         self.layout = QVBoxLayout(self.centralWidget)
 
-        # Create a label and line edit for each setting
-        self.wavelengthLabel = QLabel("Wavelength file:")
-        self.layout.addWidget(self.wavelengthLabel)
-        self.wavelengthLineEdit = QLineEdit(self)
-        self.layout.addWidget(self.wavelengthLineEdit)
+        self.backgroundColorLabel = QLabel("Background color:")
+        self.layout.addWidget(self.backgroundColorLabel)
+        self.backgroundColorLineEdit = QLineEdit(self)
+        self.backgroundColorLineEdit.setText(", ".join(map(str, backgroundColor)))
+        self.layout.addWidget(self.backgroundColorLineEdit)
 
-        # Add more settings here...
-        # Change color of graph
-        # Create a combo box for selecting the graph color
-        self.graphColorLabel = QLabel("Graph color:")
-        self.layout.addWidget(self.graphColorLabel)
-        self.graphColorComboBox = QComboBox(self)
-        self.graphColorComboBox.addItems(["Red", "Green", "Blue"])  # Add more colors as needed
-        self.layout.addWidget(self.graphColorComboBox)
-        
+        # QLineEdit widgets for custom ranges
+        # Placeholder text for custom ranges
+        self.xRangeLineEdit = QLineEdit(self)
+        self.xRangeLineEdit.setText("300, 750")  # Placeholder text for x range
+        self.yRangeLineEdit = QLineEdit(self)
+        self.yRangeLineEdit.setText("0, 1")      # Placeholder text for y range
+        self.layout.addWidget(QLabel("Custom Range:"))
+        self.layout.addWidget(QLabel("X Range (x1, x2):"))
+        self.layout.addWidget(self.xRangeLineEdit)
+        self.layout.addWidget(QLabel("Y Range (y1, y2):"))
+        self.layout.addWidget(self.yRangeLineEdit)
 
-        # Create a spin box for selecting the font size
-        self.graphSize = QLabel("Font size:")
-        self.layout.addWidget(self.graphSize)
-        self.graphSize = QSpinBox(self)
-        self.graphSize.setRange(8, 72)  # Set the range of font sizes
-        self.layout.addWidget(self.graphSize)
+        # Checkbox for auto-ranging
+        self.autoRangeCheckBox = QCheckBox("Auto Range", self)
+        self.layout.addWidget(self.autoRangeCheckBox)
 
-        self.graphType = QLabel("Graph type:")
-        self.layout.addWidget(self.graphType)
-        self.graphTypeComboBox = QComboBox(self)
-        self.graphTypeComboBox.addItems(["Line", "Bar", "Scatter"])
-        self.layout.addWidget(self.graphTypeComboBox)
+        # Checkbox for log mode
+        self.logModeCheckBox = QCheckBox("Log Mode (Y-axis)", self)
+        self.layout.addWidget(self.logModeCheckBox)
 
-        self.mathGraphType = QLabel("Math graph type:")
-        self.layout.addWidget(self.mathGraphType)
-        self.mathGraphTypeComboBox = QComboBox(self)
-        self.mathGraphTypeComboBox.addItems(["Lineal", "Logarithmic"])
-        self.layout.addWidget(self.mathGraphTypeComboBox)
+        # Checkbox for log mode for x-axis
+        self.logModeXCheckBox = QCheckBox("Log Mode (x-axis)", self)
+        self.layout.addWidget(self.logModeXCheckBox)
+
+        self.derivativeModeCheckBox = QCheckBox("Derivative Mode", self)
+        self.layout.addWidget(self.derivativeModeCheckBox)
+
+        # Button to clear view box
+        self.clearViewBoxButton = QPushButton("Clear View Box", self)
+        self.clearViewBoxButton.clicked.connect(self.clearViewBoxRequested.emit)
+        self.layout.addWidget(self.clearViewBoxButton)
 
         # Create a save button
         self.saveButton = QPushButton("Save", self)
@@ -55,9 +66,12 @@ class SettingsWindow(QMainWindow):
         self.layout.addWidget(self.saveButton)
 
     def saveSettings(self):
-        # Save the settings
-        wavelength_file = self.wavelengthLineEdit.text()
-        graph_color = self.graphColorComboBox.currentText()
-        font_size = self.fontSizeSpinBox.value()
-        print(f"Saving settings: Wavelength file = {wavelength_file}, Graph color = {graph_color}, Font size = {font_size}")
-        # Add code here to save the settings...
+        rgb_values = list(map(int, self.backgroundColorLineEdit.text().split(', ')))
+        self.backgroundColor = tuple(rgb_values)
+        auto_range = self.autoRangeCheckBox.isChecked()  # Check if auto-ranging is enabled
+        x_range = tuple(map(float, self.xRangeLineEdit.text().split(',')))
+        y_range = tuple(map(float, self.yRangeLineEdit.text().split(',')))
+        log_mode_y = self.logModeCheckBox.isChecked()  # Check if log mode for y-axis is enabled
+        log_mode_x = self.logModeXCheckBox.isChecked()  # Check if log mode for x-axis is enabled
+        derivative_mode = self.derivativeModeCheckBox.isChecked()  # Check if derivative mode is enabled
+        self.saveSettingsRequested.emit((self.backgroundColor, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode))
