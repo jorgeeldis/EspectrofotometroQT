@@ -16,7 +16,7 @@ BAUDRATE = os.getenv("BAUDRATE")
 baseline_path = os.path.join("data", BASELINE_FILE)
 
 class BaselineProcessor:
-    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel, specificLabel):
+    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel, specificLabel, btnBaseline, btnSingle, btnContinuous, btnSaveData, btnSettings, btnWavelength):
 
         if os.path.exists(baseline_path):
             os.remove(baseline_path)
@@ -36,6 +36,12 @@ class BaselineProcessor:
         self.maxNMLabel = maxNMLabel
         self.minDBLabel = minDBLabel
         self.minNMLabel = minNMLabel
+        self.btnBaseline = btnBaseline
+        self.btnSingle = btnSingle
+        self.btnContinuous = btnContinuous
+        self.btnSaveData = btnSaveData
+        self.btnSettings = btnSettings
+        self.btnWavelength = btnWavelength
         self.specificLabel = specificLabel
         self.pg = pg
         self.serial = Serial(PORT, BAUDRATE)
@@ -64,10 +70,15 @@ class BaselineProcessor:
             # Guarda los datos en un archivo de texto
             write_data(baseline_path, str(intensity) + "\n")
 
-            self.xdata.append(int(self.wavelength[self.x]))
-            self.ydata.append(intensity)
+            wavelength = int(self.wavelength[self.x])
+            if 311 <= wavelength <= 748:
+                self.xdata.append(wavelength)
+                self.ydata.append(intensity)
 
-            if int(self.wavelength[self.x]) > 748:
+                # Los grafica en tiempo real
+                self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=2))
+
+            if wavelength > 748:
                 self.ydata = []
                 self.xdata = []
                 self.x = 0
@@ -139,6 +150,13 @@ class BaselineProcessor:
                 self.maxNMLabel.setText("Max nm: " + str(maxNMvalue) + "nm")
                 self.minDBLabel.setText("Min u.a.: " + str(minDBvalue) + "u.a.")
                 self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
+                # Enable buttons
+                self.btnBaseline.setDisabled(False)
+                self.btnSingle.setDisabled(False)
+                self.btnContinuous.setDisabled(False)
+                self.btnSaveData.setDisabled(False)
+                self.btnSettings.setDisabled(False)
+                self.btnWavelength.setDisabled(False)
             self.app.processEvents()
            
 

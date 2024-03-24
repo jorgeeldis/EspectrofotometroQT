@@ -24,7 +24,7 @@ single_path = os.path.join("data", SINGLE_FILE)
 wavelength_path = os.path.join("data", WAVELENGTH_FILE)
 
 class SingleProcessor:
-    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel, specificLabel):
+    def __init__(self, graphWidget, pg, app, timer, progressBar, db450Label, db435Label, db500Label, db550Label, db570Label, db600Label, db650Label, maxDBLabel, maxNMLabel, minDBLabel, minNMLabel, specificLabel, btnBaseline, btnSingle, btnContinuous, btnSaveData, btnSettings, btnWavelength):
 
         if os.path.exists(single_path):
             os.remove(single_path)
@@ -53,6 +53,12 @@ class SingleProcessor:
         self.maxNMLabel = maxNMLabel
         self.minDBLabel = minDBLabel
         self.minNMLabel = minNMLabel
+        self.btnBaseline = btnBaseline
+        self.btnSingle = btnSingle
+        self.btnContinuous = btnContinuous
+        self.btnSaveData = btnSaveData
+        self.btnSettings = btnSettings
+        self.btnWavelength = btnWavelength
         self.specificLabel = specificLabel
         self.pg = pg
         self.serial = Serial(PORT, BAUDRATE)
@@ -71,6 +77,14 @@ class SingleProcessor:
         self.graphWidget.clear()
 
     def process(self):
+
+        # Disable buttons
+        self.btnBaseline.setDisabled(True)
+        self.btnSingle.setDisabled(True)
+        self.btnContinuous.setDisabled(True)
+        self.btnSaveData.setDisabled(True)
+        self.btnSettings.setDisabled(True)
+        self.btnWavelength.setDisabled(True)
                 
         # Lee datos desde el arduino
         data = self.serial.read()
@@ -181,6 +195,12 @@ class SingleProcessor:
                 self.maxNMLabel.setText("Max nm: " + str(maxNMvalue) + "nm")
                 self.minDBLabel.setText("Min dB: " + str("{:.2f}".format(float(minDBvalue))) + "dB")
                 self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
+                self.btnBaseline.setEnabled(True)
+                self.btnSingle.setEnabled(True)
+                self.btnContinuous.setEnabled(True)
+                self.btnSaveData.setEnabled(True)
+                self.btnSettings.setEnabled(True)
+                self.btnWavelength.setEnabled(True)
             self.app.processEvents()
 
     def send_data(self, data):

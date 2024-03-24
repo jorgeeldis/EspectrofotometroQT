@@ -19,6 +19,8 @@ from ui.main_window_ui import Ui_MainWindow
 import pyqtgraph as pg
 from PyQt5.QtWidgets import QInputDialog
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import QTimer
+
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -45,6 +47,8 @@ class Window(QMainWindow, Ui_MainWindow):
         self.spanData.addAction(self.spanActionX)
         # Connect the QAction's triggered signal to a method
         self.spanActionX.triggered.connect(self.handleSpanActionX)
+
+        
         
 
     def connectSignalsSlots(self):
@@ -71,12 +75,34 @@ class Window(QMainWindow, Ui_MainWindow):
         #     self.scene.addItem(image_item)
         self.pg = pg
         self.timer = pg.QtCore.QTimer()
-        
+        self.selfCalibration()
+
+    def selfCalibration(self):
+        # Disable buttons
+        self.btnBaseline.setDisabled(True)
+        self.btnSingle.setDisabled(True)
+        self.btnContinuous.setDisabled(True)
+        self.btnSaveData.setDisabled(True)
+        self.btnSettings.setDisabled(True)
+        self.btnWavelength.setDisabled(True)
+        # Simulate a button press after 3 seconds
+        QTimer.singleShot(1000, self.calibrate)  # 3000 milliseconds = 3 seconds
+
+    def calibrate(self):
+        self.graphWidget.clear()
+        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel, self.btnBaseline, self.btnSingle, self.btnContinuous, self.btnSaveData, self.btnSettings, self.btnWavelength)
+        self.progressBar.setProperty("value", 0)
+        self.baseline.send_data("1")
+        self.messageBox.setText("Calibrating...")
+        time.sleep(1) # Esperar a que el arduino se inicialice
+
+        self.timer.timeout.connect(self.baseline.process)
+        self.timer.start(5)  # Actualiza cada 100 ms
 
     def btnBaseline_click(self):
         print("Baseline Clicked")
         self.graphWidget.clear()
-        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel)
+        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel, self.btnBaseline, self.btnSingle, self.btnContinuous, self.btnSaveData, self.btnSettings, self.btnWavelength)
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         self.messageBox.setText("Measuring Baseline...")
@@ -88,7 +114,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSingle_click(self):
         print("Single Clicked")
         self.graphWidget.clear()
-        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel)
+        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel, self.btnBaseline, self.btnSingle, self.btnContinuous, self.btnSaveData, self.btnSettings, self.btnWavelength)
         self.progressBar.setProperty("value", 0)
 
         # Sí el serial está activo, cerrar y abrir otro serial
