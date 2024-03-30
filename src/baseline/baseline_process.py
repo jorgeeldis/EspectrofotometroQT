@@ -4,11 +4,18 @@ from dotenv import load_dotenv
 from libs.fileutil import write_data
 from libs.serial_comunication import Serial
 from libs.wavelengths import wavelength
+from libs.log_util import config_logger
+
+logger = config_logger()
 
 load_dotenv()
 
 env_path = Path(".") / ".env"
 load_dotenv(dotenv_path=env_path)
+
+value = os.getenv("DEBUG")
+DEBUG = {"true": True, "false": False}.get(value.lower())
+
 
 BASELINE_FILE = os.getenv("BASELINE_FILE")
 PORT = os.getenv("PORT")
@@ -60,9 +67,11 @@ class BaselineProcessor:
         # Se asegura que el dato recibido tenga el tamaño correcto
         if data is not None and len(data) == 7:
 
-            print(len(data), data)
             self.accum += 1
-            print(self.accum)
+            
+            if DEBUG:
+                data_log = "Data Length: {}, Data: {}, Acumulado: {}".format(len(data), data, self.accum)
+                logger.debug(data_log)
             
             # intensidad
             intensity = int(data.split(",")[1])

@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import (
     QGraphicsScene,
     QMainWindow,
     QMessageBox,
-    QGraphicsPixmapItem,
 )
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
@@ -20,7 +19,6 @@ import pyqtgraph as pg
 from PyQt5.QtWidgets import QInputDialog
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
-
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -46,9 +44,11 @@ class Window(QMainWindow, Ui_MainWindow):
         # Add the QAction to the "Data" menu
         self.spanData.addAction(self.spanActionX)
         # Connect the QAction's triggered signal to a method
-        self.spanActionX.triggered.connect(self.handleSpanActionX)  
+        self.spanActionX.triggered.connect(self.handleSpanActionX)
 
         self.backgroundColor = (0, 0, 0)
+
+        self.btn_continuous = False
 
     def connectSignalsSlots(self):
         self.btnBaseline.clicked.connect(self.btnBaseline_click)
@@ -57,24 +57,17 @@ class Window(QMainWindow, Ui_MainWindow):
         self.btnSaveData.clicked.connect(self.btnSaveData_click)
         self.btnSettings.clicked.connect(self.btnSettings_click)
         self.btnWavelength.clicked.connect(self.btnWavelength_click)
-        
-
-        # self.btnBaseline.clicked.connect(self.btn_baseline)
-        # self.btnSingle.clicked.connect(self.btn_single)
-        # self.btnContinuous.clicked.connect(self.btn_continuous)
-        # self.btnSaveData.clicked.connect(self.btn_save_data)
-        # self.btnSettings.clicked.connect(self.btn_settings)
 
     def init(self):
         self.scene = QGraphicsScene()
-        # self.graphicsView.setScene(self.scene)
-        # pixmap = QPixmap("fie.jpg")
-        # if not pixmap.isNull():
-        #     image_item = QGraphicsPixmapItem(pixmap)
-        #     self.scene.addItem(image_item)
+
         self.pg = pg
         self.timer = pg.QtCore.QTimer()
         self.selfCalibration()
+
+        self.timer_continue = pg.QtCore.QTimer()
+        self.timer_continue.start(5)
+        self.timer_continue.timeout.connect(self.timer_timeout)
 
     def selfCalibration(self):
         # Disable buttons
@@ -89,11 +82,35 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def calibrate(self):
         self.graphWidget.clear()
-        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel, self.btnBaseline, self.btnSingle, self.btnContinuous, self.btnSaveData, self.btnSettings, self.btnWavelength)
+        self.baseline = BaselineProcessor(
+            self.graphWidget,
+            self.pg,
+            self.app,
+            self.timer,
+            self.progressBar,
+            self.db450Label,
+            self.db435Label,
+            self.db500Label,
+            self.db550Label,
+            self.db570Label,
+            self.db600Label,
+            self.db650Label,
+            self.maxDBLabel,
+            self.maxNMLabel,
+            self.minDBLabel,
+            self.minNMLabel,
+            self.specificLabel,
+            self.btnBaseline,
+            self.btnSingle,
+            self.btnContinuous,
+            self.btnSaveData,
+            self.btnSettings,
+            self.btnWavelength,
+        )
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         self.messageBox.setText("Calibrating...")
-        time.sleep(1) # Esperar a que el arduino se inicialice
+        time.sleep(1)  # Esperar a que el arduino se inicialice
 
         self.timer.timeout.connect(self.baseline.process)
         self.timer.start(5)  # Actualiza cada 100 ms
@@ -101,38 +118,127 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnBaseline_click(self):
         print("Baseline Clicked")
         self.graphWidget.clear()
-        self.baseline = BaselineProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel, self.btnBaseline, self.btnSingle, self.btnContinuous, self.btnSaveData, self.btnSettings, self.btnWavelength)
+        self.baseline = BaselineProcessor(
+            self.graphWidget,
+            self.pg,
+            self.app,
+            self.timer,
+            self.progressBar,
+            self.db450Label,
+            self.db435Label,
+            self.db500Label,
+            self.db550Label,
+            self.db570Label,
+            self.db600Label,
+            self.db650Label,
+            self.maxDBLabel,
+            self.maxNMLabel,
+            self.minDBLabel,
+            self.minNMLabel,
+            self.specificLabel,
+            self.btnBaseline,
+            self.btnSingle,
+            self.btnContinuous,
+            self.btnSaveData,
+            self.btnSettings,
+            self.btnWavelength,
+        )
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         self.messageBox.setText("Measuring Baseline...")
-        time.sleep(1) # Esperar a que el arduino se inicialice
+        time.sleep(1)  # Esperar a que el arduino se inicialice
 
         self.timer.timeout.connect(self.baseline.process)
         self.timer.start(5)  # Actualiza cada 100 ms
 
-    def btnSingle_click(self):
-        print("Single Clicked")
+    def btn_status(self, status: bool):
+
+        """Enable or disable buttons. If status is True, enable buttons. If status is False, disable buttons."""
+
+        if status:
+            self.btnBaseline.setEnabled(True)
+            self.btnSingle.setEnabled(True)
+            self.btnContinuous.setEnabled(True)
+            self.btnSaveData.setEnabled(True)
+            self.btnSettings.setEnabled(True)
+            self.btnWavelength.setEnabled(True)
+        else:
+            self.btnBaseline.setDisabled(True)
+            self.btnSingle.setDisabled(True)
+            self.btnContinuous.setDisabled(True)
+            self.btnSaveData.setDisabled(True)
+            self.btnSettings.setDisabled(True)
+            self.btnWavelength.setDisabled(True)
+
+    def single(self):
+
         self.graphWidget.clear()
-        self.single = SingleProcessor(self.graphWidget, self.pg, self.app, self.timer, self.progressBar, self.db450Label, self.db435Label, self.db500Label, self.db550Label, self.db570Label, self.db600Label, self.db650Label, self.maxDBLabel, self.maxNMLabel, self.minDBLabel, self.minNMLabel, self.specificLabel, self.btnBaseline, self.btnSingle, self.btnContinuous, self.btnSaveData, self.btnSettings, self.btnWavelength)
+        self.single_process = SingleProcessor(
+            self.graphWidget,
+            self.pg,
+            self.app,
+            self.timer,
+            self.progressBar,
+            self.db450Label,
+            self.db435Label,
+            self.db500Label,
+            self.db550Label,
+            self.db570Label,
+            self.db600Label,
+            self.db650Label,
+            self.maxDBLabel,
+            self.maxNMLabel,
+            self.minDBLabel,
+            self.minNMLabel,
+            self.specificLabel,
+        )
         self.progressBar.setProperty("value", 0)
 
-        # Sí el serial está activo, cerrar y abrir otro serial
-        # if self.serial.is_open:
-        #     self.serial.close()
-        #     self.serial = Serial(PORT, BAUDRATE)
-
-        self.single.send_data("2")
+        self.single_process.send_data("2")
         self.messageBox.setText("Measuring Sample in single mode...")
         time.sleep(1)
 
-        self.timer.timeout.connect(self.single.process)
+        self.timer.timeout.connect(self.single_process.process)
         self.timer.start(5)  # Actualiza cada 100 ms
+
+    def btnSingle_click(self):
+        print("Single Clicked")
+        self.btn_status(False)
+        self.single()
+        
+
 
     def btnContinuous_click(self):
         print("Continuous Clicked")
-        self.graphWidget.clear()
-        self.progressBar.setProperty("value", 0)
-        self.messageBox.setText("Measuring Sample in continuous mode...")
+
+        if not self.btn_continuous:
+            self.btn_continuous = not self.btn_continuous
+            self.btnContinuous.setText("Stop Continuous")
+
+            self.btn_status(False)
+            self.btnContinuous.setEnabled(True)
+
+            self.single()
+
+            if not self.timer_continue.isActive():
+                self.timer_continue.start(5)
+
+        else:
+
+            self.btn_continuous = not self.btn_continuous
+            self.btnContinuous.setText("Continuous")
+            self.timer_continue.stop()
+            self.btn_status(True)
+
+    def timer_timeout(self):
+
+        if self.timer.isActive():
+            self.btn_status(False)
+        else:
+            self.btn_status(True)
+
+        if self.btn_continuous and not self.timer.isActive():
+            self.single()
 
     def btnSaveData_click(self):
         print("Save Data Clicked")
@@ -149,17 +255,19 @@ class Window(QMainWindow, Ui_MainWindow):
         self.settingsWindow.show()
 
         # Show the context menu of the ViewBox of the graph
-        #self.graphWidget.getViewBox().menu.exec_()
-        #self.graphWidget.getViewBox().autoRange()
-        #self.graphWidget.getViewBox().setRange(xRange=(300, 500), yRange=(0, 1))
-        #self.graphWidget.getViewBox().clear()
-        #self.graphWidget.setLogMode(x=False, y=True)
-        #self.graphWidget.setLogMode(x=True, y=False)
-        #self.graphWidget.setDerivativeMode(True)
-        #self.graphWidget.getViewBox().setBackgroundColor((255, 255, 255))
-    
+        # self.graphWidget.getViewBox().menu.exec_()
+        # self.graphWidget.getViewBox().autoRange()
+        # self.graphWidget.getViewBox().setRange(xRange=(300, 500), yRange=(0, 1))
+        # self.graphWidget.getViewBox().clear()
+        # self.graphWidget.setLogMode(x=False, y=True)
+        # self.graphWidget.setLogMode(x=True, y=False)
+        # self.graphWidget.setDerivativeMode(True)
+        # self.graphWidget.getViewBox().setBackgroundColor((255, 255, 255))
+
     def applySettings(self, settings):
-        color, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode = settings
+        color, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode = (
+            settings
+        )
         self.backgroundColor = color
         self.graphWidget.getViewBox().setBackgroundColor((color))
         if auto_range:
@@ -185,22 +293,26 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def btnWavelength_click(self):
         self.messageBox.setText("Selecting Wavelength...")
-        nm, okPressed = QInputDialog.getInt(self, "Get dB","Wavelength (nm):", 300, 300, 750, 1)
+        nm, okPressed = QInputDialog.getInt(
+            self, "Get dB", "Wavelength (nm):", 300, 300, 750, 1
+        )
         if okPressed:
             line_value, message = get_line_value(nm)
             absorbance = get_absorbance(nm)
             print(line_value, message)
-            QMessageBox.information(self, "Absorbance", f"{message}\nAbsorbance: {absorbance}")
+            QMessageBox.information(
+                self, "Absorbance", f"{message}\nAbsorbance: {absorbance}"
+            )
 
     def handleMainAction(self):
         print(f"Main action selected")
 
     def handleDataAction(self):
         print(f"Data action selected")
-        with open('./data/wavelength_muestra.txt', 'r') as f:
+        with open("./data/wavelength_muestra.txt", "r") as f:
             wavelengths = [line.strip() for line in f]
-        with open('./data/single_muestra.txt', 'r') as f:
-            absorbances = [line.strip() for line in f] 
+        with open("./data/single_muestra.txt", "r") as f:
+            absorbances = [line.strip() for line in f]
 
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
@@ -212,7 +324,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create a QTableWidget
         table = QtWidgets.QTableWidget(len(wavelengths), 2, dialog)
-        table.setHorizontalHeaderLabels(['Wavelength', 'Absorbance'])
+        table.setHorizontalHeaderLabels(["Wavelength", "Absorbance"])
 
         table.setColumnWidth(1, 200)  # Set the width of the "Absorbance" column to 200
 
@@ -229,7 +341,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Show the dialog
         dialog.exec_()
-    
+
     def handleSpanActionX(self):
         print(f"Span action selected")
         # Create a QDialog
@@ -237,12 +349,13 @@ class Window(QMainWindow, Ui_MainWindow):
         dialog.resize(100, 100)
         dialog.setWindowTitle("Select Range (X-axis)")
 
-
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
 
         # Create a QLabel
-        label = QtWidgets.QLabel("Select the wavelength range you want to observe on the graph: ")
+        label = QtWidgets.QLabel(
+            "Select the wavelength range you want to observe on the graph: "
+        )
         layout.addWidget(label)
 
         # Create a QHBoxLayout for the start spin box and its label
@@ -269,7 +382,9 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create the "Apply" button
         applyButton = QtWidgets.QPushButton("Apply", dialog)
-        applyButton.clicked.connect(lambda: self.applyRange(start.value(), finish.value()))
+        applyButton.clicked.connect(
+            lambda: self.applyRange(start.value(), finish.value())
+        )
         layout.addWidget(applyButton)
 
         # Create the "Exit" button
@@ -286,6 +401,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def applyRange(self, start, finish):
         # Set the range of the x-axis of the graph
         self.graphWidget.setXRange(start, finish)
+
 
 def init():
     qdarktheme.enable_hi_dpi()
