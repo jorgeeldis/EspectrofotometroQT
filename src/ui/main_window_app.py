@@ -232,10 +232,10 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def timer_timeout(self):
 
-        if self.timer.isActive():
-            self.btn_status(False)
-        else:
-            self.btn_status(True)
+        # if self.timer.isActive():
+        #     self.btn_status(False)
+        # else:
+        #     self.btn_status(True)
 
         if self.btn_continuous and not self.timer.isActive():
             self.single()
