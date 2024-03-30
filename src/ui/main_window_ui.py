@@ -123,7 +123,7 @@ class Ui_MainWindow(object):
         self.horaLabel.setObjectName("horaLabel")
         self.gridLayout_3.addWidget(self.horaLabel, 0, 1, 1, 1)
         self.graphWidget = pg.PlotWidget(self.centralwidget)
-        self.graphWidget.setXRange(350, 750, padding=0)
+        self.graphWidget.setXRange(350, 750, padding=0) 
         self.graphWidget.setAutoFillBackground(True)
         self.graphWidget.setBackgroundBrush(QtCore.Qt.white)
         self.graphWidget.showGrid(x=True, y=True, alpha=0.3)

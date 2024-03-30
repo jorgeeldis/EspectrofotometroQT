@@ -19,7 +19,7 @@ import pyqtgraph as pg
 from PyQt5.QtWidgets import QInputDialog
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
-
+from pyqtgraph.exporters import CSVExporter
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None, app=None):
@@ -243,7 +243,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnSaveData_click(self):
         print("Save Data Clicked")
         self.messageBox.setText("Saving data...")
-        self.saveDataWindow = SaveWindow(self)
+        self.saveDataWindow = SaveWindow(self, graphWidget=self.graphWidget)
         self.saveDataWindow.show()
 
     def btnSettings_click(self):

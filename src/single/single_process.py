@@ -71,7 +71,7 @@ class SingleProcessor:
         self.progressBar = progressBar
         self.db450Label = db450Label
         self.db435Label = db435Label
-        self.db500Label = db500Label
+        self.db500Label = db500Label 
         self.db550Label = db550Label
         self.db570Label = db570Label
         self.db600Label = db600Label
