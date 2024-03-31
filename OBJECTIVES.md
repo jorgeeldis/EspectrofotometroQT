@@ -5,7 +5,7 @@
 - Implementar el baseline para que mida de 400nm a 700nm una sola vez y lo guarde en un arreglo separado (x, y) (DONE)
 - Implementar el single para que agarre el baseline, calcule la absorbancia solo una vez (DONE)
 - Implementar el continuous para que agarre el baseline, calcule la absorbancia y pueda medir continuamente y hacer stop para pararlo (DONE)
-- Implementar el Save Data para guardar datos en un archivo de texto, PDF, etc. ()
+- Implementar el Save Data para guardar datos en un archivo de texto, PDF, etc. (DONE)
 - Implementar la pestaña de Settings para ajustes necesarios. (DONE)
 - Implementar la barra de medición el cuál aumenta mientras va calculando. (DONE)
 - Implementar labels o textos de los valores de las gráficas al finalizar y valores específicos. (DONE)
