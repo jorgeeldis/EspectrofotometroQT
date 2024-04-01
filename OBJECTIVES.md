@@ -17,6 +17,18 @@
 - Web Server, send PDF to portal ()
 - Una vez realizada la calibración y apuntar ajustes, hacer la intrapolación para tener medidas en cada longitud de onda, no cada 2 o 3 nm. ()
 
+# Web Server Tasks
+- Crear la página web ()
+- Crear los módulos dentro de la página web ()
+- Implementar módulo de búsqueda ()
+- Implementar módulo de últimas mediciones ()
+- Añadirle un módulo de acceso al portal ()
+- Integrar el API para que se comunique con el equipo ()
+- Enviar los datos al portal desde el equipo (CSV, PNG, SVG, PDF) ()
+- Implementar un sistema de logs para registrar las actividades ()
+- Implementar un sistema de notificación para alertar actividades ()
+- Subir página web al internet con su dominio y hosting único ()
+
 # Tasks requeridos por el asesor
 1. Maximo y minimo de la grafica (DONE) 
 2. Resta entre dos gráficas en paralelo ()
