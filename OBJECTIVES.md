@@ -18,7 +18,7 @@
 - Una vez realizada la calibración y apuntar ajustes, hacer la intrapolación para tener medidas en cada longitud de onda, no cada 2 o 3 nm. ()
 
 # Web Server Tasks
-- Crear la página web ()
+- Crear la página web (DONE)
 - Crear los módulos dentro de la página web ()
 - Implementar módulo de búsqueda ()
 - Implementar módulo de últimas mediciones ()
