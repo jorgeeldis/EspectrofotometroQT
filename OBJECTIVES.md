@@ -48,5 +48,6 @@
 16. Detectar picos y valles en la gráfica ()
 17. Invertir la curva ()
 18. Suavizar la curva ()
-19. Poder hacer baseline mas de una vez (DONE)
-20. Añadir ventilador que extraiga aire de dentro del equipo ()
+19. Ajustar a diferentes tipos de gráficas [Gausiana, Lorentziana, 1er-4to orden] ()
+20. Poder hacer baseline mas de una vez (DONE)
+21. Añadir ventilador que extraiga aire de dentro del equipo ()
