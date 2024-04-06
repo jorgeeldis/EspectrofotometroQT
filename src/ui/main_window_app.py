@@ -20,6 +20,7 @@ from PyQt5.QtWidgets import QInputDialog
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
 from pyqtgraph.exporters import CSVExporter
+import PyQt5.QtGui as QtGui
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None, app=None):
@@ -45,6 +46,20 @@ class Window(QMainWindow, Ui_MainWindow):
         self.spanData.addAction(self.spanActionX)
         # Connect the QAction's triggered signal to a method
         self.spanActionX.triggered.connect(self.handleSpanActionX)
+
+        # Create a QAction
+        self.spanActionY = QtWidgets.QAction("Select Range (Y-axis)", self)
+        # Add the QAction to the "Data" menu
+        self.spanData.addAction(self.spanActionY)
+        # Connect the QAction's triggered signal to a method
+        self.spanActionY.triggered.connect(self.handleSpanActionY)
+
+        # Create a QAction
+        self.graphType = QtWidgets.QAction("Select the graph type", self)
+        # Add the QAction to the "Data" menu
+        self.graphTypeAction.addAction(self.graphType)
+        # Connect the QAction's triggered signal to a method
+        self.graphType.triggered.connect(self.handleGraphType)
 
         self.backgroundColor = (0, 0, 0)
 
@@ -265,7 +280,7 @@ class Window(QMainWindow, Ui_MainWindow):
         # self.graphWidget.getViewBox().setBackgroundColor((255, 255, 255))
 
     def applySettings(self, settings):
-        color, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode = (
+        color, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode, invert_mode_y, invert_mode_x, antialiasing = (
             settings
         )
         self.backgroundColor = color
@@ -276,16 +291,41 @@ class Window(QMainWindow, Ui_MainWindow):
             self.graphWidget.getViewBox().setRange(xRange=x_range, yRange=y_range)
         if log_mode_y:
             self.graphWidget.setLogMode(x=False, y=True)
+            self.graphWidget.getViewBox().autoRange()
         else:
             self.graphWidget.setLogMode(x=False, y=False)
+            self.graphWidget.getViewBox().autoRange()
         if log_mode_x:
             self.graphWidget.setLogMode(x=True, y=False)
+            self.graphWidget.getViewBox().autoRange()
         else:
             self.graphWidget.setLogMode(x=False, y=False)
+            self.graphWidget.getViewBox().autoRange()
         if derivative_mode:
             self.graphWidget.setDerivativeMode(True)
+            self.graphWidget.getViewBox().autoRange()
         else:
             self.graphWidget.setDerivativeMode(False)
+            self.graphWidget.getViewBox().autoRange()
+        if invert_mode_y:
+            self.graphWidget.getViewBox().invertY()
+            self.graphWidget.getViewBox().autoRange()
+        else:
+            self.graphWidget.getViewBox().invertY(False)
+            self.graphWidget.getViewBox().autoRange()
+        if invert_mode_x:
+            self.graphWidget.getViewBox().invertX()
+            self.graphWidget.getViewBox().autoRange()
+        else:
+            self.graphWidget.getViewBox().invertX(False)
+            self.graphWidget.getViewBox().autoRange()
+        if antialiasing:
+            #self.graphWidget.setRenderHints(QtGui.QPainter.Antialiasing)
+            self.pg.setConfigOptions(antialias=True)
+            #self.graphWidget.getViewBox().autoRange()
+        else:
+            self.pg.setConfigOptions(antialias=False)
+            #self.graphWidget.getViewBox().autoRange()
         self.settingsWindow.close()
 
     def clearViewBox(self):
@@ -401,6 +441,113 @@ class Window(QMainWindow, Ui_MainWindow):
     def applyRange(self, start, finish):
         # Set the range of the x-axis of the graph
         self.graphWidget.setXRange(start, finish)
+
+    def handleSpanActionY(self):
+        print(f"Span action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Select Range (Y-axis)")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Select the wavelength range you want to observe on the graph: "
+        )
+        layout.addWidget(label)
+
+        # Create a QHBoxLayout for the start spin box and its label
+        startLayout = QtWidgets.QHBoxLayout()
+        startLabel = QtWidgets.QLabel("Start (dB):", dialog)
+        start = QtWidgets.QSpinBox(dialog)
+        start.setRange(-1, 10)
+        startLayout.addWidget(startLabel)
+        startLayout.addWidget(start)
+
+        # Add the start layout to the main layout
+        layout.addLayout(startLayout)
+
+        # Create a QHBoxLayout for the finish spin box and its label
+        finishLayout = QtWidgets.QHBoxLayout()
+        finishLabel = QtWidgets.QLabel("Finish (dB):", dialog)
+        finish = QtWidgets.QSpinBox(dialog)
+        finish.setRange(-1, 10)
+        finishLayout.addWidget(finishLabel)
+        finishLayout.addWidget(finish)
+
+        # Add the finish layout to the main layout
+        layout.addLayout(finishLayout)
+
+        # Create the "Apply" button
+        applyButton = QtWidgets.QPushButton("Apply", dialog)
+        applyButton.clicked.connect(
+            lambda: self.applyRangeY(start.value(), finish.value())
+        )
+        layout.addWidget(applyButton)
+    
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+
+    def applyRangeY(self, start, finish):
+        # Set the range of the x-axis of the graph
+        self.graphWidget.setYRange(start, finish)
+
+    def handleGraphType(self):
+        print(f"Span action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Select Graph Type")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Select the type of graph you want to use: "
+        )
+        layout.addWidget(label)
+
+        line = QtWidgets.QRadioButton("Line Graph (Default)", dialog)
+        line.setChecked(True)
+        layout.addWidget(line)
+        gaussian = QtWidgets.QRadioButton("Gaussian", dialog)
+        layout.addWidget(gaussian)
+        lorentzian = QtWidgets.QRadioButton("Lorentzian", dialog)
+        layout.addWidget(lorentzian)
+        first_order = QtWidgets.QRadioButton("First Order", dialog)
+        layout.addWidget(first_order)
+        second_order = QtWidgets.QRadioButton("Second Order", dialog)
+        layout.addWidget(second_order)
+        third_order = QtWidgets.QRadioButton("Third Order", dialog)
+        layout.addWidget(third_order)
+        fourth_order = QtWidgets.QRadioButton("Fourth Order", dialog)
+        layout.addWidget(fourth_order)
+
+        # Create the "Apply" button
+        applyButton = QtWidgets.QPushButton("Apply", dialog)
+        layout.addWidget(applyButton)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
 
 
 def init():

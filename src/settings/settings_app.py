@@ -55,6 +55,15 @@ class SettingsWindow(QMainWindow, Ui_MainWindow):
         self.derivativeModeCheckBox = QCheckBox("Derivative Mode", self)
         self.layout.addWidget(self.derivativeModeCheckBox)
 
+        self.invertGraphYCheckBox = QCheckBox("Invert Graph (y-axis)", self)
+        self.layout.addWidget(self.invertGraphYCheckBox)
+
+        self.invertGraphXCheckBox = QCheckBox("Invert Graph (x-axis)", self)
+        self.layout.addWidget(self.invertGraphXCheckBox)
+
+        self.antialiasingCheckBox = QCheckBox("Antialiasing", self)
+        self.layout.addWidget(self.antialiasingCheckBox)
+
         # Button to clear view box
         self.clearViewBoxButton = QPushButton("Clear View Box", self)
         self.clearViewBoxButton.clicked.connect(self.clearViewBoxRequested.emit)
@@ -74,4 +83,7 @@ class SettingsWindow(QMainWindow, Ui_MainWindow):
         log_mode_y = self.logModeCheckBox.isChecked()  # Check if log mode for y-axis is enabled
         log_mode_x = self.logModeXCheckBox.isChecked()  # Check if log mode for x-axis is enabled
         derivative_mode = self.derivativeModeCheckBox.isChecked()  # Check if derivative mode is enabled
-        self.saveSettingsRequested.emit((self.backgroundColor, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode))
+        invert_mode_y = self.invertGraphYCheckBox.isChecked()
+        invert_mode_x = self.invertGraphXCheckBox.isChecked()
+        antialiasing = self.antialiasingCheckBox.isChecked()
+        self.saveSettingsRequested.emit((self.backgroundColor, auto_range, x_range, y_range, log_mode_y, log_mode_x, derivative_mode, invert_mode_y, invert_mode_x, antialiasing))

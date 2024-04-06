@@ -297,6 +297,8 @@ class Ui_MainWindow(object):
         self.menuData.setObjectName("menuData")
         self.spanData = QtWidgets.QMenu(self.menubar)
         self.spanData.setObjectName("spanData")
+        self.graphTypeAction = QtWidgets.QMenu(self.menubar)
+        self.graphTypeAction.setObjectName("graphTypeAction")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -304,6 +306,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuMain.menuAction())
         self.menubar.addAction(self.menuData.menuAction())
         self.menubar.addAction(self.spanData.menuAction())
+        self.menubar.addAction(self.graphTypeAction.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -336,3 +339,4 @@ class Ui_MainWindow(object):
         self.menuMain.setTitle(_translate("MainWindow", "Main Window"))
         self.menuData.setTitle(_translate("MainWindow", "Measured Data"))
         self.spanData.setTitle(_translate("MainWindow", "Span Data"))
+        self.graphTypeAction.setTitle(_translate("MainWindow", "Graph Type"))
