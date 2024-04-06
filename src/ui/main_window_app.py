@@ -63,6 +63,48 @@ class Window(QMainWindow, Ui_MainWindow):
         # Connect the QAction's triggered signal to a method
         self.graphType.triggered.connect(self.handleGraphType)
 
+        # Create a QAction
+        self.keyParameters = QtWidgets.QAction("Key Parameters", self)
+        # Add the QAction to the "Data" menu
+        self.parameters.addAction(self.keyParameters)
+        # Connect the QAction's triggered signal to a method
+        self.keyParameters.triggered.connect(self.handleKeyParameters)
+
+        # Create a QAction
+        self.radiometricParameters = QtWidgets.QAction("Radiometric Parameters", self)
+        # Add the QAction to the "Data" menu
+        self.parameters.addAction(self.radiometricParameters)
+        # Connect the QAction's triggered signal to a method
+        self.radiometricParameters.triggered.connect(self.handleRadiometricParameters)
+
+        # Create a QAction
+        self.electricalParameters = QtWidgets.QAction("Electrical Parameters", self)
+        # Add the QAction to the "Data" menu
+        self.parameters.addAction(self.electricalParameters)
+        # Connect the QAction's triggered signal to a method
+        self.electricalParameters.triggered.connect(self.handleElectricalParameters)
+
+        # Create a QAction
+        self.statisticalParameters = QtWidgets.QAction("Statistical Parameters", self)
+        # Add the QAction to the "Data" menu
+        self.parameters.addAction(self.statisticalParameters)
+        # Connect the QAction's triggered signal to a method
+        self.statisticalParameters.triggered.connect(self.handleStatisticalParameters)
+
+        # Create a QAction
+        self.colorimetricParameters = QtWidgets.QAction("Colorimetric Parameters", self)
+        # Add the QAction to the "Data" menu
+        self.parameters.addAction(self.colorimetricParameters)
+        # Connect the QAction's triggered signal to a method
+        self.colorimetricParameters.triggered.connect(self.handleColorimetricParameters)
+
+        # Create a QAction
+        self.aboutAction = QtWidgets.QAction("General Info", self)
+        # Add the QAction to the "Data" menu
+        self.about.addAction(self.aboutAction)
+        # Connect the QAction's triggered signal to a method
+        self.aboutAction.triggered.connect(self.handleAboutAction)
+
         self.backgroundColor = (0, 0, 0)
 
         self.btn_continuous = False
@@ -556,6 +598,168 @@ class Window(QMainWindow, Ui_MainWindow):
         # Show the dialog
         dialog.exec_()
 
+    def handleKeyParameters(self):
+        print(f"Key Parameters action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Key Parameters")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Key Parameters: "
+        )
+        layout.addWidget(label)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+    
+    def handleRadiometricParameters(self):
+        print(f"Radiometric Parameters action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Radiometric Parameters")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Radiometric Parameters: "
+        )
+        layout.addWidget(label)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+    
+    def handleElectricalParameters(self):
+        print(f"Electrical Parameters action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Electrical Parameters")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Electrical Parameters: "
+        )
+        layout.addWidget(label)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+    
+    def handleStatisticalParameters(self):
+        print(f"Statistical Parameters action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Statistical Parameters")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Statistical Parameters: "
+        )
+        layout.addWidget(label)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+    
+    def handleColorimetricParameters(self):
+        print(f"Colorimetric Parameters action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Colorimetric Parameters")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Colorimetric Parameters: "
+        )
+        layout.addWidget(label)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+
+    def handleAboutAction(self):
+        print(f"About action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("About")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "About: "
+        )
+        layout.addWidget(label)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+    
 
 def init():
     qdarktheme.enable_hi_dpi()
