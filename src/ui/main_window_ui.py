@@ -15,6 +15,9 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QGraphicsPixmapItem
 from PyQt5.QtWidgets import QGraphicsScene
 
+class CustomAxis(pg.AxisItem):
+    def tickStrings(self, values, scale, spacing):
+        return [f"{int(v)} nm" for v in values]
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -122,7 +125,7 @@ class Ui_MainWindow(object):
         self.horaLabel.setFont(font)
         self.horaLabel.setObjectName("horaLabel")
         self.gridLayout_3.addWidget(self.horaLabel, 0, 1, 1, 1)
-        self.graphWidget = pg.PlotWidget(self.centralwidget)
+        self.graphWidget = pg.PlotWidget(self.centralwidget, axisItems={'bottom': CustomAxis(orientation='bottom')})
         self.graphWidget.setXRange(350, 750, padding=0) 
         self.graphWidget.setAutoFillBackground(True)
         self.graphWidget.setBackgroundBrush(QtCore.Qt.white)

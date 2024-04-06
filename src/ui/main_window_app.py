@@ -22,6 +22,8 @@ from PyQt5.QtCore import QTimer
 from pyqtgraph.exporters import CSVExporter
 import PyQt5.QtGui as QtGui
 
+
+
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None, app=None):
         super().__init__(parent)
@@ -92,6 +94,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.btnSaveData.setDisabled(True)
         self.btnSettings.setDisabled(True)
         self.btnWavelength.setDisabled(True)
+        self.graphWidget.getAxis('left').setLabel('Intensity')
         # Simulate a button press after 3 seconds
         QTimer.singleShot(1000, self.calibrate)  # 3000 milliseconds = 3 seconds
 
@@ -125,6 +128,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         self.messageBox.setText("Calibrating...")
+        self.graphWidget.setLabel("left", "Intensity")
         time.sleep(1)  # Esperar a que el arduino se inicialice
 
         self.timer.timeout.connect(self.baseline.process)
@@ -161,6 +165,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         self.messageBox.setText("Measuring Baseline...")
+        self.graphWidget.setLabel("left", "Absorbance")
         time.sleep(1)  # Esperar a que el arduino se inicialice
 
         self.timer.timeout.connect(self.baseline.process)
@@ -208,6 +213,7 @@ class Window(QMainWindow, Ui_MainWindow):
             self.specificLabel,
         )
         self.progressBar.setProperty("value", 0)
+        self.graphWidget.setLabel("left", "Absorbance")
 
         self.single_process.send_data("2")
         self.messageBox.setText("Measuring Sample in single mode...")
@@ -225,6 +231,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def btnContinuous_click(self):
         print("Continuous Clicked")
+        self.graphWidget.setLabel("left", "Absorbance")
 
         if not self.btn_continuous:
             self.btn_continuous = not self.btn_continuous

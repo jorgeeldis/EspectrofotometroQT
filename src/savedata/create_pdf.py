@@ -7,6 +7,7 @@ from reportlab.platypus.tables import TableStyle
 import random
 import datetime
 from libs.wavelengths import wavelength
+import math
 
 class PDFReport:
 
@@ -70,6 +71,17 @@ class PDFReport:
                     # print(minDBvalue)
                     minNMvalue = i
             minNMvalue = int(self.wavelengthFunction[minNMvalue - 1])
+
+            mean = sum([float(line.strip()) for line in lines]) / len(lines)
+            variance = sum([(float(line.strip()) - mean) ** 2 for line in lines]) / len(lines)
+            standard_deviation = math.sqrt(variance)
+            RMS = math.sqrt(sum([float(line.strip()) ** 2 for line in lines]) / len(lines))
+
+            with open("./data/wavelength_muestra.txt", "r") as f:
+                wavelengths = [line.strip() for line in f]
+            with open("./data/single_muestra.txt", "r") as f:
+                absorbances = [line.strip() for line in f]
+            weighted_average = sum([float(wavelength) * float(absorbance) for wavelength, absorbance in zip(wavelengths, absorbances)]) / sum([float(absorbance) for absorbance in absorbances])
 
 
         # Create a new PDF with Reportlab
@@ -146,13 +158,13 @@ class PDFReport:
         c.drawString(30, height - 280, "Red's (660nm) dB: " + str(db660))
 
         c.setFont("Helvetica-Bold", 14)
-        c.drawString(30, height - 320, 'Photometric Parameters:')
+        c.drawString(30, height - 320, 'Radiometric Parameters:')
         c.setFont("Helvetica", 12)
-        c.drawString(30, height - 340, 'Luminous Flux: 1000 lm')
-        c.drawString(30, height - 360, 'Luminous Density: 518 lm/mm2')
+        c.drawString(30, height - 340, 'Radiant Flux: 1000 rad')
+        c.drawString(30, height - 360, 'Radiant Density: 518 rad/mm2')
         c.drawString(30, height - 380, 'Color Rendering: 70')
         c.drawString(30, height - 400, 'Thermal resistance: 1.6 C°/W')
-        c.drawString(30, height - 420, 'Luminous Efficacy: 206 lm/W')
+        c.drawString(30, height - 420, 'Radiant Efficacy: 206 rad/W')
 
         c.setFont("Helvetica-Bold", 14)
         c.drawString(30, height - 460, 'Electrical Parameters:')
@@ -162,6 +174,18 @@ class PDFReport:
         c.drawString(30, height - 520, 'Power: 36 W')
         c.drawString(30, height - 540, 'Power Factor: 1.0')
         c.drawString(30, height - 560, 'Frequency: 60 Hz')
+
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(30, height - 600, 'Statistical Parameters:')
+        c.setFont("Helvetica", 12)
+        c.drawString(30, height - 620, 'Mean: ' + str(mean))
+        c.drawString(30, height - 640, 'Standard Deviation: ' + str(standard_deviation))
+        c.drawString(30, height - 660, 'Variance: ' + str(variance))
+        c.drawString(30, height - 680, 'RMS: ' + str(RMS))
+        c.drawString(30, height - 700, 'Weighted Average (nm): ' + str(weighted_average))
+        c.drawString(30, height - 720, 'Minimum Value: ' + str(minDBvalue))
+        c.drawString(30, height - 740, 'Maximum Value: ' + str(maxDBvalue))
+        c.drawString(30, height - 760, 'Number of Values: 198')
 
         c.setFont("Helvetica-Bold", 14)
         c.drawString(300, height - 80, 'Colorimetric Parameters:')
