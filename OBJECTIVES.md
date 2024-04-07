@@ -44,7 +44,7 @@
 12. Agregar datos estadísticos en el PDF (DONE)
 13. Cambiar los parámetros fotometricos y agregar los radiometricos (DONE)
 14. Ajuste del espectro a una línea recta ()
-15. Agregar un tabs (parameters, about, etc) para ver los datos como en el PDF ()
+15. Agregar un tabs (parameters, about, etc) para ver los datos como en el PDF (DONE)
 16. Detectar picos y valles en la gráfica ()
 17. Invertir la curva (DONE)
 18. Suavizar la curva (DONE)
