@@ -1,3 +1,5 @@
+import datetime
+import math
 import sys
 import time
 import qdarktheme
@@ -21,7 +23,8 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
 from pyqtgraph.exporters import CSVExporter
 import PyQt5.QtGui as QtGui
-
+from libs.wavelengths import wavelength
+import os
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -31,6 +34,8 @@ class Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.connectSignalsSlots()
         self.init()
+        self.wavelengthFunction = wavelength()
+        self.horaLabel.setText(datetime.datetime.now().strftime("%d-%m-%Y %H:%M"))
 
         # Connect the menu signals to methods
         self.menuMain.aboutToShow.connect(self.handleMainAction)
@@ -600,17 +605,82 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def handleKeyParameters(self):
         print(f"Key Parameters action selected")
+
+        db428 = 47  # replace with the line number you want to read
+        db474 = 66
+        db535 = 91
+        db587 = 114
+        db609 = 124
+        db660 = 148
+
+        n428 = 47  # replace with the line number you want to read
+        n474 = 66
+        n535 = 91
+        n587 = 114
+        n609 = 124
+        n660 = 148
+        # 50 for 474, 56 for 428, 76 for 535, 97 for 587, 106 for 609, 120 for 600, 143 for 660
+        with open("./data/single_muestra.txt", "r") as file:
+            lines = file.readlines()
+            if n428 <= len(lines):
+                db428 = lines[n428 - 1].strip()
+            if n474 <= len(lines):
+                db474 = lines[n474 - 1].strip()
+            if n535 <= len(lines):
+                db535 = lines[n535 - 1].strip()
+            if n587 <= len(lines):
+                db587 = lines[n587 - 1].strip()
+            if n609 <= len(lines):
+                db609 = lines[n609 - 1].strip()
+            if n660 <= len(lines):
+                db660 = lines[n660 - 1].strip()
+            else:
+                print(f"The file has fewer than {n428} lines.")
+
+            maxDBvalue = float("-inf")
+            maxnvalue = 0
+            for i, line in enumerate(
+                lines, start=1
+            ):  # use lines instead of file
+                value = float(line.strip())
+                if value > maxDBvalue:
+                    maxDBvalue = float(value)
+                    # print(maxDBvalue)
+                    maxnvalue = i
+            maxNMvalue = int(
+                self.wavelengthFunction[maxnvalue - 1]
+            )  # get the corresponding nm value
+
+            minDBvalue = float("inf")
+            minNMvalue = 0
+            for i, line in enumerate(lines, start=1):
+                value = float(line.strip())
+                if value < minDBvalue:
+                    minDBvalue = float(value)
+                    # print(minDBvalue)
+                    minNMvalue = i
+            minNMvalue = int(self.wavelengthFunction[minNMvalue - 1])
+
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(100, 100)
+        dialog.resize(300, 300)  # Increase the size to fit the information
         dialog.setWindowTitle("Key Parameters")
 
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
+        #
 
-        # Create a QLabel
         label = QtWidgets.QLabel(
-            "Key Parameters: "
+            "<b>Max dB: </b>" + str(maxDBvalue) + "<br><br>"
+            "<b>Max nm: </b>" + str(maxNMvalue) + "<br><br>"
+            "<b>Min dB: </b>" + str(minDBvalue) + "<br><br>"
+            "<b>Min nm: </b>" + str(minNMvalue) + "<br><br>"
+            "<b>Violet's (428nm): </b>" + str(db428) + "<br><br>"
+            "<b>Blue's (474nm): </b>" + str(db474) + "<br><br>"
+            "<b>Green's (535nm): </b>" + str(db535) + "<br><br>"
+            "<b>Yellow's (587nm): </b>" + str(db587) + "<br><br>"
+            "<b>Orange's (609nm): </b>" + str(db609) + "<br><br>"
+            "<b>Red's (660nm): </b>" + str(db660) + "<br>"
         )
         layout.addWidget(label)
 
@@ -629,15 +699,19 @@ class Window(QMainWindow, Ui_MainWindow):
         print(f"Radiometric Parameters action selected")
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(100, 100)
+        dialog.resize(300, 300)  # Increase the size to fit the information
         dialog.setWindowTitle("Radiometric Parameters")
 
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
+        #
 
-        # Create a QLabel
         label = QtWidgets.QLabel(
-            "Radiometric Parameters: "
+            "<b>Radiant Flux:</b> 1000 rad<br><br>"
+            "<b>Radiant Density:</b> 518 rad/mm2<br><br>"
+            "<b>Color Rendering:</b> 70<br><br>"
+            "<b>Thermal Resistance:</b> 1.6C°/W<br><br>"
+            "<b>Radiant Efficacy:</b> 206 rad/W<br>"
         )
         layout.addWidget(label)
 
@@ -655,16 +729,21 @@ class Window(QMainWindow, Ui_MainWindow):
     def handleElectricalParameters(self):
         print(f"Electrical Parameters action selected")
         # Create a QDialog
+        # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(100, 100)
+        dialog.resize(300, 300)  # Increase the size to fit the information
         dialog.setWindowTitle("Electrical Parameters")
 
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
+        #
 
-        # Create a QLabel
         label = QtWidgets.QLabel(
-            "Electrical Parameters: "
+            "<b>Voltage:</b> 12V<br><br>"
+            "<b>Current:</b> 3A<br><br>"
+            "<b>Power:</b> 36W<br><br>"
+            "<b>Power Factor:</b> 1.0<br><br>"
+            "<b>Frequency:</b> 60Hz<br>"
         )
         layout.addWidget(label)
 
@@ -681,17 +760,61 @@ class Window(QMainWindow, Ui_MainWindow):
     
     def handleStatisticalParameters(self):
         print(f"Statistical Parameters action selected")
+        with open("./data/single_muestra.txt", "r") as file:
+            lines = file.readlines()
+            mean = sum([float(line.strip()) for line in lines]) / len(lines)
+            variance = sum([(float(line.strip()) - mean) ** 2 for line in lines]) / len(lines)
+            standard_deviation = math.sqrt(variance)
+            RMS = math.sqrt(sum([float(line.strip()) ** 2 for line in lines]) / len(lines))
+
+            with open("./data/wavelength_muestra.txt", "r") as f:
+                wavelengths = [line.strip() for line in f]
+            with open("./data/single_muestra.txt", "r") as f:
+                absorbances = [line.strip() for line in f]
+            weighted_average = sum([float(wavelength) * float(absorbance) for wavelength, absorbance in zip(wavelengths, absorbances)]) / sum([float(absorbance) for absorbance in absorbances])
+
+            maxDBvalue = float("-inf")
+            maxnvalue = 0
+            for i, line in enumerate(
+                lines, start=1
+            ):  # use lines instead of file
+                value = float(line.strip())
+                if value > maxDBvalue:
+                    maxDBvalue = float(value)
+                    # print(maxDBvalue)
+                    maxnvalue = i
+            maxNMvalue = int(
+                self.wavelengthFunction[maxnvalue - 1]
+            )  # get the corresponding nm value
+
+            minDBvalue = float("inf")
+            minNMvalue = 0
+            for i, line in enumerate(lines, start=1):
+                value = float(line.strip())
+                if value < minDBvalue:
+                    minDBvalue = float(value)
+                    # print(minDBvalue)
+                    minNMvalue = i
+            minNMvalue = int(self.wavelengthFunction[minNMvalue - 1])
+
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(100, 100)
+        dialog.resize(300, 300)  # Increase the size to fit the information
         dialog.setWindowTitle("Statistical Parameters")
 
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
+        #
 
-        # Create a QLabel
         label = QtWidgets.QLabel(
-            "Statistical Parameters: "
+            "<b>Mean: </b>" + str(mean) + "<br><br>"
+            "<b>Variance: </b>" + str(variance) + "<br><br>"
+            "<b>Standard Deviation: </b>" + str(standard_deviation) + "<br><br>"
+            "<b>RMS: </b>" + str(RMS) + "<br><br>"
+            "<b>Weighted Average: </b>" + str(weighted_average) + "<br><br>"
+            "<b>Max Value: </b>" + str(maxDBvalue) + "<br><br>"
+            "<b>Min Value: </b>" + str(minDBvalue) + "<br><br>"
+            "<b>Munmber of values: 198<br>"
         )
         layout.addWidget(label)
 
@@ -710,22 +833,56 @@ class Window(QMainWindow, Ui_MainWindow):
         print(f"Colorimetric Parameters action selected")
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(100, 100)
+        dialog.resize(400, 400)  # Increase the size to fit the text
         dialog.setWindowTitle("Colorimetric Parameters")
 
-        # Create a QVBoxLayout
-        layout = QtWidgets.QVBoxLayout()
+        # Create a QGridLayout
+        layout = QtWidgets.QGridLayout()
 
-        # Create a QLabel
-        label = QtWidgets.QLabel(
-            "Colorimetric Parameters: "
+        # Create two QLabels
+        label1 = QtWidgets.QLabel(
+            "<b>Chromaticity Coordinate (X-axis):</b> 0.30053<br><br>"
+            "<b>Chromaticity Coordinate (Y-axis):</b> 0.34098<br><br>"
+            "<b>Correlated Color Temperature:</b> 6500K<br><br>"
+            "<b>PRCP WL (-Ld):</b> 430nm<br><br>"
+            "<b>Purity:</b> 10.5%<br><br>"
+            "<b>PEAK WL (-Lp):</b> 734nm<br><br>"
+            "<b>FWHM:</b> 12nm<br><br>"
+            "<b>Ratio (Red):</b> 80%<br><br>"
+            "<b>Ratio (Green):</b> 10%<br><br>"
+            "<b>Ratio (Blue):</b> 10%<br>"
+            "<b>Color Rendering Index:</b> 80<br><br>"
+            "<b>EEI:</b> 90<br>"
         )
-        layout.addWidget(label)
+        label2 = QtWidgets.QLabel(
+            "<b>R1:</b> 0.30053<br><br>"
+            "<b>R2:</b> 0.34098<br><br>"
+            "<b>R3:</b> 0.6500<br><br>"
+            "<b>R4:</b> 0.430<br><br>"
+            "<b>R5:</b> 10.5<br><br>"
+            "<b>R6:</b> 734<br><br>"
+            "<b>R7:</b> 12<br><br>"
+            "<b>R8:</b> 80<br><br>"
+            "<b>R9:</b> 10<br><br>"
+            "<b>R10:</b> 10<br><br>"
+            "<b>R11:</b> 80<br>"
+        )
+        label3 = QtWidgets.QLabel(
+            "<b>R12:</b> 90<br><br>"
+            "<b>R13:</b> 0.30053<br><br>"
+            "<b>R14:</b> 0.34098<br><br>"
+            "<b>R15:</b> 0.6500<br>"
+        )
+
+        # Add the QLabels to the layout
+        layout.addWidget(label1, 0, 0)  # Add label1 to the first column
+        layout.addWidget(label2, 0, 1)  # Add label2 to the second column
+        layout.addWidget(label3, 0, 2)  # Add label3 to the third column
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
         exitButton.clicked.connect(dialog.close)
-        layout.addWidget(exitButton)
+        layout.addWidget(exitButton, 1, 0, 1, 2)  # Span the button across both columns
 
         # Set the layout of the dialog
         dialog.setLayout(layout)
@@ -737,15 +894,24 @@ class Window(QMainWindow, Ui_MainWindow):
         print(f"About action selected")
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(100, 100)
-        dialog.setWindowTitle("About")
+        dialog.resize(300, 300)  # Increase the size to fit the information
+        dialog.setWindowTitle("General Info")
 
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
+        #
 
-        # Create a QLabel
         label = QtWidgets.QLabel(
-            "About: "
+            "<b>Manufacturer:</b> UTP<br><br>"
+            "<b>Laboratory:</b> Indicasat AIP<br><br>"
+            "<b>Model:</b> UTP-CG-001<br><br>"
+            "<b>Location:</b> Panama City, Panama<br><br>"
+            "<b>Serial Number:</b> UTP30032024A<br><br>"
+            "<b>Light Source:</b> High Power LED<br><br>"
+            "<b>Wavelength Range:</b> 340 - 850 nm<br><br>"
+            "<b>Detector:</b> CMOS<br><br>"
+            "<b>Baseline Correction:</b> Yes<br><br>"
+            "<b>Date:</b> " + datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S") + "<br>"
         )
         layout.addWidget(label)
 
