@@ -273,6 +273,7 @@ class Window(QMainWindow, Ui_MainWindow):
         print("Single Clicked")
         self.btn_status(False)
         self.single()
+        self.btn_status(True)
         
 
 
