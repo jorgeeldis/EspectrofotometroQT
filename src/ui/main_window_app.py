@@ -418,7 +418,7 @@ class Window(QMainWindow, Ui_MainWindow):
         layout = QtWidgets.QVBoxLayout()
 
         # Create a QTableWidget
-        table = QtWidgets.QTableWidget(len(wavelengths), 2, dialog)
+        table = QtWidgets.QTableWidget(445, 2, dialog)
         table.setHorizontalHeaderLabels(["Wavelength", "Absorbance"])
 
         table.setColumnWidth(1, 200)  # Set the width of the "Absorbance" column to 200
@@ -428,10 +428,10 @@ class Window(QMainWindow, Ui_MainWindow):
         absorbances = np.array(absorbances)
 
         # Create an array of new x values (i.e., 305, 306, 307, ...)
-        new_wavelengths = np.arange(wavelengths[0], wavelengths[-1] + 1)
+        new_wavelengths = np.arange(int(wavelengths[0]), int(wavelengths[-1]) + 1)
 
         # Interpolate the y values
-        new_absorbances = np.interp(new_wavelengths, wavelengths, absorbances)
+        new_absorbances = np.interp((new_wavelengths.astype(float)), (wavelengths.astype(float)), (absorbances.astype(float)))
 
         # Now, new_wavelengths and new_absorbances are arrays that include the interpolated values.
         # You can use them to set the items in the table.
