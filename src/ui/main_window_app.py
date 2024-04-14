@@ -24,6 +24,7 @@ from PyQt5.QtCore import QTimer
 from pyqtgraph.exporters import CSVExporter
 import PyQt5.QtGui as QtGui
 from libs.wavelengths import wavelength
+import numpy as np
 import os
 
 
@@ -422,10 +423,22 @@ class Window(QMainWindow, Ui_MainWindow):
 
         table.setColumnWidth(1, 200)  # Set the width of the "Absorbance" column to 200
 
-        # Add the data to the table
-        for i in range(len(wavelengths)):
-            table.setItem(i, 0, QtWidgets.QTableWidgetItem(wavelengths[i]))
-            table.setItem(i, 1, QtWidgets.QTableWidgetItem(absorbances[i]))
+        # Assuming wavelengths and absorbances are lists
+        wavelengths = np.array(wavelengths)
+        absorbances = np.array(absorbances)
+
+        # Create an array of new x values (i.e., 305, 306, 307, ...)
+        new_wavelengths = np.arange(wavelengths[0], wavelengths[-1] + 1)
+
+        # Interpolate the y values
+        new_absorbances = np.interp(new_wavelengths, wavelengths, absorbances)
+
+        # Now, new_wavelengths and new_absorbances are arrays that include the interpolated values.
+        # You can use them to set the items in the table.
+
+        for i in range(len(new_wavelengths)):
+            table.setItem(i, 0, QtWidgets.QTableWidgetItem(str(new_wavelengths[i])))
+            table.setItem(i, 1, QtWidgets.QTableWidgetItem(str(new_absorbances[i])))
 
         # Add the table to the layout
         layout.addWidget(table)
