@@ -268,14 +268,13 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self.timer.timeout.connect(self.single_process.process)
         self.timer.start(5)  # Actualiza cada 100 ms
+        self.btn_status(True)
 
     def btnSingle_click(self):
         print("Single Clicked")
         self.btn_status(False)
         self.single()
-        self.btn_status(True)
         
-
 
     def btnContinuous_click(self):
         print("Continuous Clicked")
