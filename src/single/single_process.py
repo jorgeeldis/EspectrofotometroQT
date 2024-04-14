@@ -242,6 +242,13 @@ class SingleProcessor:
                 )
                 self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
 
+                self.btnBaseline.setDisabled(False)
+                self.btnSingle.setDisabled(False)
+                self.btnContinuous.setDisabled(False)
+                self.btnSaveData.setDisabled(False)
+                self.btnSettings.setDisabled(False)
+                self.btnWavelength.setDisabled(False)
+
             self.app.processEvents()
 
     def send_data(self, data):

@@ -25,7 +25,6 @@ void setup() {
 
   digitalWrite(SPEC_CLK, HIGH);  // Set SPEC_CLK High
   digitalWrite(SPEC_ST, LOW);    // Set SPEC_ST Low
-
   Serial.begin(9600);  // Baud Rate set to 115200
 }
 
@@ -100,7 +99,6 @@ void readSpectrometer() {
   delayMicroseconds(delayTime);
 
   for (int i = 0; i < SPEC_CHANNELS; i++) {
-
     Serial.print(wavelength[i]);
     Serial.print(",");
     Serial.println(data[i]);
