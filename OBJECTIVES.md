@@ -13,20 +13,20 @@
 - Agregar mensajes de (Baseline listo, absorbancia calculada, calculando absorbancia continua) (DONE)
 - Poner los datos de la medicion en pantalla en otro tab (DONE)
 - Si se comienza a medir mal, no medir en lo absoluto (hacer 5 sweeps iniciales, el 1 siempre sale mal) (DONE)
-- Web Server, send PDF to portal ()
 - Una vez realizada la calibración y apuntar ajustes, hacer la intrapolación para tener medidas en cada longitud de onda, no cada 2 o 3 nm. (DONE, REALIZADO EN SHOW DATA)
 - Hacer interpolación en Select Wavelength y datos PDF ()
 
 # Web Server Tasks
 - Crear la página web (DONE)
-- Crear los módulos dentro de la página web ()
-- Implementar módulo de búsqueda ()
-- Implementar módulo de últimas mediciones ()
+- Crear los módulos dentro de la página web [Gráficas, Datos, Archivos, Logs, Configuración] ()
+- Implementar módulo de búsqueda y filtrado en archivos, gráficas y datos ()
+- Implementar módulo de últimas mediciones (archivos y gráficas) en dashboard ()
+- Implementar módulo de datos ()
 - Añadirle un módulo de acceso al portal ()
 - Integrar el POST/REQUEST para que se comunique con el equipo ()
 - Enviar los datos al portal desde el equipo (CSV, PNG, SVG, PDF) ()
 - Implementar un sistema de logs para registrar las actividades ()
-- Implementar un sistema de notificación para alertar actividades ()
+- Implementar pestaña de ajustes ()
 - Subir página web al internet con su dominio y hosting único (DONE)
 
 # Tasks requeridos por el asesor
