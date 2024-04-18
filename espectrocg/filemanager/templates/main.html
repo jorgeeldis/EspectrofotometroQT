@@ -8,30 +8,39 @@
   <div class="container-lg px-4">
     <div class="row mb-4">
 
+
       <!-- /.col-->
+      <div class="col-md-12">
       <div class="card mb-2">
+        <div class="card-header">Archivos</div>
         <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between">
+          <!-- <div class="d-flex align-items-center justify-content-between">
             <div>
               <h4 class="card-title mb-0">Recent Files</h4>
             </div>
           </div>
-          <hr>
+          <hr> -->
 
+          {% for file in files %}
           <div class="d-flex align-items-center justify-content-between mb-2">
-            <div class="d-flex align-items-center"> <!-- Added this div -->
-              <h5 class="card-subtitle mb-0 mr-2">Muestra1_16042024.pdf</h5> <!-- Added mr-2 here -->
-              <span class="text-muted">&nbsp;- 2024-04-16 10:08</span> <!-- This is the date text -->
+            <div class="d-flex align-items-center">
+              <h6 class="card-subtitle mb-0 mr-2">{{ file.name }}</h6>
+              <span class="text-muted">&nbsp;- {{file.date}}</span>
             </div>
             <div class="btn-toolbar d-none d-md-block mr-3" role="toolbar" aria-label="Toolbar with buttons">
-              <button class="btn btn-primary" type="button">
-                <svg class="icon">                 
+
+
+              <button class="btn btn-primary" onclick="window.open('media/pdf/{{file.name}}','_blank')"> <svg class="icon">
                   <use xlink:href="{% static 'icons/svg/free.svg' %}#cil-cloud-download"></use>
                 </svg>
               </button>
+
             </div>
           </div>
+          {% endfor %}
+
         </div>
+      </div>
       </div>
     </div>
     <!-- /.row-->
