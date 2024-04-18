@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="body flex-grow-1">
+
+  <div class="container-lg px-4">
+
+    <div class="row mb-4">
+
+      <div class="card mb-2">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <h4 class="card-title mb-0">Subir Archivos</h4>
+            </div>
+          </div>
+          <hr>
+
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center">
+              <h2>{{ titulo }}</h2>
+              <p>{{ descripcion }}</p>
+              <!-- Otro contenido específico de la página -->
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {{ form.errors }}
+                <button class="btn btn-primary px-4" type="submit">Subir documento</button>
+
+              </form>
+  
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+  
+
+
+{% endblock %}
+

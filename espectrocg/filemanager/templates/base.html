@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Sitio Web{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/examples.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="{% static 'js/config.js' %}"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper d-flex flex-column min-vh-100">
+
+
+        {% include 'header.html' %}
+      
+        <div class="contenido">
+            <!-- Contenido específico de cada página -->
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        {% include 'footer.html' %}
+
+    </div>
+
+
+    <script>
+        const header = document.querySelector('header.header');
+
+        document.addEventListener('scroll', () => {
+            if (header) {
+                header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+            }
+        });
+    </script>
+    <script src="{% static 'js/chart.umd.js' %}"></script>
+    <script src="{% static 'js/coreui-chartjs.js' %}"></script>
+    <script src="{% static 'js/utils.js' %}"></script>
+
+</body>
+
+</html>
