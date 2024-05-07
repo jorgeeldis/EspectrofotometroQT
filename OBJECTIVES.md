@@ -14,7 +14,7 @@
 - Poner los datos de la medicion en pantalla en otro tab (DONE)
 - Si se comienza a medir mal, no medir en lo absoluto (hacer 5 sweeps iniciales, el 1 siempre sale mal) (DONE)
 - Una vez realizada la calibración y apuntar ajustes, hacer la intrapolación para tener medidas en cada longitud de onda, no cada 2 o 3 nm. (DONE, REALIZADO EN SHOW DATA)
-- Hacer interpolación en Select Wavelength y datos PDF ()
+- Hacer interpolación en Select Wavelength y datos de save data ()
 
 # Web Server Tasks
 - Crear la página web (DONE)
