@@ -264,8 +264,11 @@ class PDFReport:
         # Iterate over the first 35 values of wavelengths, absorbances, and baselines
         for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[:35], new_absorbances[:35], new_baselines[:35]):
             # Calculate transmittance from new_baselines and absorbance
-            single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
-            transmittance = round(single / float(new_baselines), 5)
+            try:
+                single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(new_baselines)
             table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
@@ -294,8 +297,11 @@ class PDFReport:
         # Iterate over the first 35 values of new_wavelengths, absorbances, and new_baselines
         for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[35:70], new_absorbances[35:70], new_baselines[35:70]):
             # Calculate transmittance from new_baselines and new_absorbances
-            single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
-            transmittance = round(single / float(new_baselines), 5)
+            try:
+                single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(new_baselines)
             table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
@@ -323,8 +329,11 @@ class PDFReport:
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
         for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[70:105], new_absorbances[70:105], new_baselines[70:105]):
             # Calculate transmittance from new_baselines and new_absorbances
-            single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
-            transmittance = round(single / float(new_baselines), 5)
+            try:
+                single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(new_baselines)
             table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
@@ -360,8 +369,11 @@ class PDFReport:
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
         for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[105:140], new_absorbances[105:140], new_baselines[105:140]):
             # Calculate transmittance from new_baselines and new_absorbances
-            single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
-            transmittance = round(single / float(new_baselines), 5)
+            try:
+                single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(new_baselines)
             table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
@@ -389,8 +401,11 @@ class PDFReport:
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
         for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[140:175], new_absorbances[140:175], new_baselines[140:175]):
             # Calculate transmittance from new_baselines and new_absorbances
-            single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
-            transmittance = round(single / float(new_baselines), 5)
+            try:
+                single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(new_baselines)
             table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
@@ -418,8 +433,11 @@ class PDFReport:
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
         for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[175:198], new_absorbances[175:198], new_baselines[175:198]):
             # Calculate transmittance from new_baselines and new_absorbances
-            single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
-            transmittance = round(single / float(new_baselines), 5)
+            try:
+                single = round(float(new_baselines) / (10 ** float(new_absorbances)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(new_baselines)
             table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
