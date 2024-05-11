@@ -565,6 +565,137 @@ class PDFReport:
         # New page
         c.showPage()
 
+        table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
+        for wl10, abs10, base10 in zip(new_wavelengths[315:350], new_absorbances[315:350], new_baselines[315:350]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            try:
+                single = round(float(base10) / (10 ** float(abs10)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(base10)
+            table_data.append([str(wl10), format(float(abs10), '.5f'), format(transmittance, '.5f')])
+
+        # Define column widths
+        col_widths = [55, 55, 55]
+
+        # Create the table with adjusted column widths
+        table = Table(table_data, colWidths=col_widths)
+
+        # Add style to the table
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), 'lightgrey'),
+            ('TEXTCOLOR', (0, 0), (-1, 0), 'black'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), 'white'),
+            ('GRID', (0, 0), (-1, -1), 1, 'black')
+        ]))
+
+        # Draw the table on the canvas
+        table.wrapOn(c, width, height)
+        table.drawOn(c, 10, height - 750)
+
+        table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
+        for wl11, abs11, base11 in zip(new_wavelengths[350:385], new_absorbances[350:385], new_baselines[350:385]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            try:
+                single = round(float(base11) / (10 ** float(abs11)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(base11)
+            table_data.append([str(wl11), format(float(abs11), '.5f'), format(transmittance, '.5f')])
+
+        # Define column widths
+        col_widths = [55, 55, 55]
+
+        # Create the table with adjusted column widths
+        table = Table(table_data, colWidths=col_widths)
+
+        # Add style to the table
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), 'lightgrey'),
+            ('TEXTCOLOR', (0, 0), (-1, 0), 'black'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), 'white'),
+            ('GRID', (0, 0), (-1, -1), 1, 'black')
+        ]))
+
+        # Draw the table on the canvas
+        table.wrapOn(c, width, height)
+        table.drawOn(c, 220, height - 750)
+
+        table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
+        for wl12, abs12, base12 in zip(new_wavelengths[385:420], new_absorbances[385:420], new_baselines[385:420]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            try:
+                single = round(float(base12) / (10 ** float(abs12)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(base12)
+            table_data.append([str(wl12), format(float(abs12), '.5f'), format(transmittance, '.5f')])
+
+        # Define column widths
+        col_widths = [55, 55, 55]
+
+        # Create the table with adjusted column widths
+        table = Table(table_data, colWidths=col_widths)
+
+        # Add style to the table
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), 'lightgrey'),
+            ('TEXTCOLOR', (0, 0), (-1, 0), 'black'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), 'white'),
+            ('GRID', (0, 0), (-1, -1), 1, 'black')
+        ]))
+
+        # Draw the table on the canvas
+        table.wrapOn(c, width, height)
+        table.drawOn(c, 410, height - 750)
+
+        # New page
+        c.showPage()
+
+        table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
+        for wl13, abs13, base13 in zip(new_wavelengths[420:445], new_absorbances[420:445], new_baselines[420:445]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            try:
+                single = round(float(base13) / (10 ** float(abs13)), 5)
+            except OverflowError:
+                single = float('inf')  # or some other value that makes sense in your context
+            transmittance = single / float(base13)
+            table_data.append([str(wl13), format(float(abs13), '.5f'), format(transmittance, '.5f')])
+
+        # Define column widths
+        col_widths = [55, 55, 55]
+
+        # Create the table with adjusted column widths
+        table = Table(table_data, colWidths=col_widths)
+
+        # Add style to the table
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), 'lightgrey'),
+            ('TEXTCOLOR', (0, 0), (-1, 0), 'black'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), 'white'),
+            ('GRID', (0, 0), (-1, -1), 1, 'black')
+        ]))
+
+        # Draw the table on the canvas
+        table.wrapOn(c, width, height)
+        table.drawOn(c, 10, height - 750)
+
         c.save()
 
     #create_pdf("spectrophotometer_report.pdf")
