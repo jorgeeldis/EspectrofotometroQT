@@ -244,11 +244,11 @@ class PDFReport:
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
 
         # Iterate over the first 35 values of wavelengths, absorbances, and baselines
-        for interpolate_wavelength, absorbance, baseline in zip(interpolate_wavelength[:35], absorbances[:35], baselines[:35]):
+        for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[:35], interpolate_absorbance[:35], baselines[:35]):
             # Calculate transmittance from baseline and absorbance
-            single = float(baseline)/ (10 ** float(absorbance))
+            single = float(baseline)/ (10 ** float(interpolate_absorbance))
             transmittance = single / float(baseline)
-            table_data.append([str(interpolate_wavelength), format(float(absorbance), '.5f'), format(transmittance, '.5f')])
+            table_data.append([str(interpolate_wavelength), format(float(interpolate_absorbance), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
         col_widths = [55, 55, 55]
