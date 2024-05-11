@@ -29,7 +29,7 @@ wavelength_path = os.path.join("data", WAVELENGTH_FILE)
 interpolate_path = os.path.join("data", INTERPOLATE_FILE)
 
 def get_line_value(nm):
-    with open('interpolate_path', 'r') as file:
+    with open(interpolate_path, 'r') as file:
         lines = [line.strip().split(',') for line in file.readlines()]
         # Convert strings to float
         lines = [(float(wavelength), float(absorbance)) for wavelength, absorbance in lines]
