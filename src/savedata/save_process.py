@@ -6,6 +6,7 @@ from pyqtgraph.exporters import SVGExporter
 from pyqtgraph.exporters import ImageExporter
 from PyQt5.QtCore import pyqtSignal
 from .create_pdf import PDFReport
+from .upload_file import upload
 
 class SaveWindow(QMainWindow, Ui_MainWindow):
     saveSettingsRequested = pyqtSignal(tuple)
@@ -73,6 +74,7 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
         pdf_obj.create_pdf(filename, title, user)
         print("Report saved.")
         self.message.setText("Report saved.")
+        upload(filename)
 
     def save_as_csv(self):
         # Add code here to save as CSV...
@@ -82,6 +84,7 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
         exporter.export(filename)
         print("Data saved as CSV.")
         self.message.setText("Data saved as CSV.")
+        upload(filename)
 
     def save_as_svg(self):
         # Add code here to save as SVG...
@@ -92,6 +95,7 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
         exporter.export(filename)
         print("Data saved as SVG.")
         self.message.setText("Graph saved as SVG.")
+        upload(filename)
 
     def save_as_png(self):
         # Add code here to save as PNG...
@@ -102,3 +106,4 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
         exporter.export(filename)
         print("Data saved as PNG.")
         self.message.setText("Graph saved as PNG.")
+        upload(filename)
