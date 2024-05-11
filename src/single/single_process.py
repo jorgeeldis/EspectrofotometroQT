@@ -139,7 +139,7 @@ class SingleProcessor:
             # Se aplica la interpolación
             new_absorbances, new_wavelengths = interpolate(self.ydata, self.xdata)
 
-            data_to_save_interpolated = new_wavelengths + "," + new_absorbances
+            data_to_save_interpolated = str(new_wavelengths) + "," + str(new_absorbances)
             write_data(interpolate_path, data_to_save_interpolated + "\n")
 
             data_to_save = {
