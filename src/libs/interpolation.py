@@ -24,8 +24,9 @@ def interpolate():
     )
 
     for i in range(len(new_wavelengths)):
+        
+        data = str(new_wavelengths[i]) + "" + str(new_absorbances[i])
         write_data(
             "./data/interpolate_muestra.txt",
-            str(new_wavelengths[i]),
-            str(new_absorbances[i]),
+            data,
         )
