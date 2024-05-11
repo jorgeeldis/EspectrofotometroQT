@@ -393,12 +393,15 @@ class Window(QMainWindow, Ui_MainWindow):
             self, "Get dB", "Wavelength (nm):", 300, 300, 750, 1
         )
         if okPressed:
-            line_value, message = get_line_value(nm)
             absorbance = get_absorbance(nm)
-            print(line_value, message)
-            QMessageBox.information(
-                self, "Absorbance", f"{message}\nAbsorbance: {absorbance}"
-            )
+            if absorbance is not None:
+                QMessageBox.information(
+                    self, "Absorbance", f"Wavelength: {nm}\nAbsorbance: {absorbance}"
+                )
+            else:
+                QMessageBox.information(
+                    self, "Absorbance", f"No absorbance found for wavelength: {nm}"
+                )
 
     def handleMainAction(self):
         print(f"Main action selected")

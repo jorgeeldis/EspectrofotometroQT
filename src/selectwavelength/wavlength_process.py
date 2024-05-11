@@ -29,19 +29,18 @@ wavelength_path = os.path.join("data", WAVELENGTH_FILE)
 interpolate_path = os.path.join("data", INTERPOLATE_FILE)
 
 def get_line_value(nm):
-    with open(interpolate_path, 'r') as file:
+    with open('interpolate_path', 'r') as file:
         lines = [line.strip().split(',') for line in file.readlines()]
         # Convert strings to float
         lines = [(float(wavelength), float(absorbance)) for wavelength, absorbance in lines]
-        # Find the line with the value closest to nm
-        closest_line_wavelength = min(range(len(lines)), key=lambda index: abs(lines[index][0]-nm))
-        closest_value_wavelength, closest_absorbance = lines[closest_line_wavelength]
-        message = f"Line {closest_line_wavelength + 1} has the closest value: {closest_value_wavelength}"
-        return closest_value_wavelength, message
+        # Find the line with the value equal to nm
+        for wavelength, absorbance in lines:
+            if wavelength == nm:
+                return absorbance
+        return None
 
 def get_absorbance(nm):
-    _, absorbance, _ = get_line_value(nm)
-    return absorbance
+    return get_line_value(nm)
         
 
 class SelectWavelength(QWidget):
