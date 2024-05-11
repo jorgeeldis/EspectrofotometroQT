@@ -1,7 +1,14 @@
 import numpy as np
 
+from libs.fileutil import write_data
 
-def interpolate(wavelengths, absorbances):
+
+def interpolate():
+
+    with open("./data/wavelength_muestra.txt", "r") as f:
+        wavelengths = [line.strip() for line in f]
+    with open("./data/single_muestra.txt", "r") as f:
+        absorbances = [line.strip() for line in f]
     # Assuming wavelengths and absorbances are lists
     wavelengths = np.array(wavelengths)
     absorbances = np.array(absorbances)
@@ -16,4 +23,9 @@ def interpolate(wavelengths, absorbances):
         (absorbances.astype(float)),
     )
 
-    return new_absorbances, new_wavelengths
+    for i in range(len(new_wavelengths)):
+        write_data(
+            "./data/interpolate_muestra.txt",
+            str(new_wavelengths[i]),
+            str(new_absorbances[i]),
+        )

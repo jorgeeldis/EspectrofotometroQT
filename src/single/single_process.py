@@ -136,12 +136,6 @@ class SingleProcessor:
             self.xdata.append(wavelength_data)
             self.ydata.append(absorbance)
 
-            # Se aplica la interpolación
-            new_absorbances, new_wavelengths = interpolate(self.ydata, self.xdata)
-
-            data_to_save_interpolated = str(new_wavelengths) + "," + str(new_absorbances)
-            write_data(interpolate_path, data_to_save_interpolated + "\n")
-
             data_to_save = {
                 "wavelength": wavelength_data,
                 "absorbance": absorbance,
@@ -222,6 +216,9 @@ class SingleProcessor:
                             # print(minDBvalue)
                             minNMvalue = i
                     minNMvalue = int(self.wavelength[minNMvalue - 1])
+
+                # Garda archivo de interpolación
+                interpolate()
 
                 self.specificLabel.setText("Key Values (dB):")
                 self.db450Label.setText(
