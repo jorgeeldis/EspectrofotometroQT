@@ -595,7 +595,7 @@ class PDFReport:
 
         # Draw the table on the canvas
         table.wrapOn(c, width, height)
-        table.drawOn(c, 10, height - 750)
+        table.drawOn(c, 30, height - 750)
 
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
         for wl11, abs11, base11 in zip(new_wavelengths[350:385], new_absorbances[350:385], new_baselines[350:385]):
@@ -694,7 +694,7 @@ class PDFReport:
 
         # Draw the table on the canvas
         table.wrapOn(c, width, height)
-        table.drawOn(c, 10, height - 750)
+        table.drawOn(c, 30, height - 750)
 
         c.save()
 
