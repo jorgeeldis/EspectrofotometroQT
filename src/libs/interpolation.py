@@ -1,14 +1,27 @@
+import os
 import numpy as np
 
 from libs.fileutil import write_data
 
+SINGLE_FILE = os.getenv("SINGLE_FILE")
+WAVELENGTH_FILE = os.getenv("WAVELENGTH_FILE")
+INTERPOLATE_FILE = os.getenv("INTERPOLATE_FILE")
+
+single_path = os.path.join("data", SINGLE_FILE)
+wavelength_path = os.path.join("data", WAVELENGTH_FILE)
+interpolate_path = os.path.join("data", INTERPOLATE_FILE)
+
 
 def interpolate():
 
-    with open("./data/wavelength_muestra.txt", "r") as f:
+    if os.path.exists(interpolate_path):
+        os.remove(interpolate_path)
+
+    with open(wavelength_path, "r") as f:
         wavelengths = [line.strip() for line in f]
-    with open("./data/single_muestra.txt", "r") as f:
+    with open(single_path, "r") as f:
         absorbances = [line.strip() for line in f]
+
     # Assuming wavelengths and absorbances are lists
     wavelengths = np.array(wavelengths)
     absorbances = np.array(absorbances)
@@ -24,9 +37,9 @@ def interpolate():
     )
 
     for i in range(len(new_wavelengths)):
-        
+
         data = str(new_wavelengths[i]) + "," + str(new_absorbances[i]) + "\n"
         write_data(
-            "./data/interpolate_muestra.txt",
+            interpolate_path,
             data,
         )

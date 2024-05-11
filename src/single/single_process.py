@@ -61,9 +61,6 @@ class SingleProcessor:
         if os.path.exists(wavelength_path):
             os.remove(wavelength_path)
 
-        if os.path.exists(interpolate_path):
-            os.remove(interpolate_path)
-
         self.single = 0
         self.file_name = "single_muestra_{}_{}.txt".format(
             self.single, time.strftime("%Y%m%d-%H%M%S")
