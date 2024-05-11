@@ -275,7 +275,7 @@ class PDFReport:
         # Draw the table on the canvas
         table.wrapOn(c, width, height)
         table.drawOn(c, 30, height - 750)
-
+        print (interpolate_wavelength[35:70], interpolate_absorbance[35:70], baselines[35:70])
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
         # Iterate over the first 35 values of interpolate_wavelength, absorbances, and baselines
         for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[35:70], interpolate_absorbance[35:70], baselines[35:70]):
