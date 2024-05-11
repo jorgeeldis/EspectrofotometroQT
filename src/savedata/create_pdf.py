@@ -235,6 +235,10 @@ class PDFReport:
             absorbances = [line.strip() for line in f]
         with open("./data/baseline_muestra.txt", "r") as f:
             baselines = [line.strip() for line in f]
+        with open("./data/interpolate_muestra.txt", "r") as f:
+                lines = [line.strip().split(',') for line in f.readlines()]
+                interpolate_wavelength, interpolate_absorbance = zip(*[(float(wavelength), float(absorbance)) for wavelength, absorbance in lines])
+                print(interpolate_wavelength, interpolate_absorbance)
 
         # Add a title
         c.setFont("Helvetica-Bold", 20)
