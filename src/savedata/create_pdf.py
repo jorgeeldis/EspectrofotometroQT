@@ -250,6 +250,10 @@ class PDFReport:
 
         new_baselines = np.interp((new_wavelengths.astype(float)), (wavelengths.astype(float)), (baselines.astype(float)))
 
+        new_wavelengths = [str(i) for i in new_wavelengths]
+        new_absorbances = [str(i) for i in new_wavelengths]
+        new_baselines = [str(i) for i in new_wavelengths]
+
         # Add a title
         c.setFont("Helvetica-Bold", 20)
         c.drawString(30, height - 50, 'Measured Data: ')
