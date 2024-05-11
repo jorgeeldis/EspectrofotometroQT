@@ -1,4 +1,5 @@
 import textwrap
+import numpy as np
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
@@ -83,7 +84,7 @@ class PDFReport:
                 absorbances = [line.strip() for line in f]
             with open("./data/interpolate_muestra.txt", "r") as f:
                 lines = [line.strip().split(',') for line in f.readlines()]
-                interpolate_wavelength, interpolate_absorbance = zip(*[(float(wavelength), float(absorbance)) for wavelength, absorbance in lines])
+                interpolate_wavelength, new_absorbances = zip(*[(float(wavelength), float(absorbance)) for wavelength, absorbance in lines])
             weighted_average = sum([float(wavelength) * float(absorbance) for wavelength, absorbance in zip(wavelengths, absorbances)]) / sum([float(absorbance) for absorbance in absorbances])
 
 
@@ -235,10 +236,19 @@ class PDFReport:
             absorbances = [line.strip() for line in f]
         with open("./data/baseline_muestra.txt", "r") as f:
             baselines = [line.strip() for line in f]
-        with open("./data/interpolate_muestra.txt", "r") as f:
-                lines = [line.strip().split(',') for line in f.readlines()]
-                interpolate_wavelength, interpolate_absorbance = zip(*[(float(wavelength), float(absorbance)) for wavelength, absorbance in lines])
-                print(interpolate_wavelength, interpolate_absorbance)
+
+        # Assuming wavelengths and absorbances are lists
+        wavelengths = np.array(wavelengths)
+        absorbances = np.array(absorbances)
+        baselines = np.array(baselines)
+
+        # Create an array of new x values (i.e., 305, 306, 307, ...)
+        new_wavelengths = np.arange(int(wavelengths[0]), int(wavelengths[-1]) + 1)
+
+        # Interpolate the y values
+        new_absorbances = np.interp((new_wavelengths.astype(float)), (wavelengths.astype(float)), (absorbances.astype(float)))
+
+        new_baselines = np.interp((new_wavelengths.astype(float)), (wavelengths.astype(float)), (baselines.astype(float)))
 
         # Add a title
         c.setFont("Helvetica-Bold", 20)
@@ -248,11 +258,11 @@ class PDFReport:
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
 
         # Iterate over the first 35 values of wavelengths, absorbances, and baselines
-        for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[:35], interpolate_absorbance[:35], baselines[:35]):
-            # Calculate transmittance from baseline and absorbance
-            single = float(baseline)/ (10 ** float(interpolate_absorbance))
-            transmittance = single / float(baseline)
-            table_data.append([str(interpolate_wavelength), format(float(interpolate_absorbance), '.5f'), format(transmittance, '.5f')])
+        for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[:35], new_absorbances[:35], new_baselines[:35]):
+            # Calculate transmittance from new_baselines and absorbance
+            single = float(new_baselines)/ (10 ** float(new_absorbances))
+            transmittance = single / float(new_baselines)
+            table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
         col_widths = [55, 55, 55]
@@ -275,14 +285,14 @@ class PDFReport:
         # Draw the table on the canvas
         table.wrapOn(c, width, height)
         table.drawOn(c, 30, height - 750)
-        print (interpolate_wavelength[35:70], interpolate_absorbance[35:70], baselines[35:70])
+        print (new_wavelengths[35:70], new_absorbances[35:70], new_baselines[35:70])
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
-        # Iterate over the first 35 values of interpolate_wavelength, absorbances, and baselines
-        for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[35:70], interpolate_absorbance[35:70], baselines[35:70]):
-            # Calculate transmittance from baseline and interpolate_absorbance
-            single = float(baseline)/ (10 ** float(interpolate_absorbance))
-            transmittance = single / float(baseline)
-            table_data.append([str(interpolate_wavelength), format(float(interpolate_absorbance), '.5f'), format(transmittance, '.5f')])
+        # Iterate over the first 35 values of new_wavelengths, absorbances, and new_baselines
+        for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[35:70], new_absorbances[35:70], new_baselines[35:70]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            single = float(new_baselines)/ (10 ** float(new_absorbances))
+            transmittance = single / float(new_baselines)
+            table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
         col_widths = [55, 55, 55]
@@ -307,11 +317,11 @@ class PDFReport:
         table.drawOn(c, 220, height - 750)
 
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
-        for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[70:105], interpolate_absorbance[70:105], baselines[70:105]):
-            # Calculate transmittance from baseline and interpolate_absorbance
-            single = float(baseline)/ (10 ** float(interpolate_absorbance))
-            transmittance = single / float(baseline)
-            table_data.append([str(interpolate_wavelength), format(float(interpolate_absorbance), '.5f'), format(transmittance, '.5f')])
+        for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[70:105], new_absorbances[70:105], new_baselines[70:105]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            single = float(new_baselines)/ (10 ** float(new_absorbances))
+            transmittance = single / float(new_baselines)
+            table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
         col_widths = [55, 55, 55]
@@ -344,11 +354,11 @@ class PDFReport:
         # Create a table
         # Create random data for the table
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
-        for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[105:140], interpolate_absorbance[105:140], baselines[105:140]):
-            # Calculate transmittance from baseline and interpolate_absorbance
-            single = float(baseline)/ (10 ** float(interpolate_absorbance))
-            transmittance = single / float(baseline)
-            table_data.append([str(interpolate_wavelength), format(float(interpolate_absorbance), '.5f'), format(transmittance, '.5f')])
+        for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[105:140], new_absorbances[105:140], new_baselines[105:140]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            single = float(new_baselines)/ (10 ** float(new_absorbances))
+            transmittance = single / float(new_baselines)
+            table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
         col_widths = [55, 55, 55]
@@ -373,11 +383,11 @@ class PDFReport:
         table.drawOn(c, 30, height - 750)
 
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
-        for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[140:175], interpolate_absorbance[140:175], baselines[140:175]):
-            # Calculate transmittance from baseline and interpolate_absorbance
-            single = float(baseline)/ (10 ** float(interpolate_absorbance))
-            transmittance = single / float(baseline)
-            table_data.append([str(interpolate_wavelength), format(float(interpolate_absorbance), '.5f'), format(transmittance, '.5f')])
+        for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[140:175], new_absorbances[140:175], new_baselines[140:175]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            single = float(new_baselines)/ (10 ** float(new_absorbances))
+            transmittance = single / float(new_baselines)
+            table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
         col_widths = [55, 55, 55]
@@ -402,11 +412,11 @@ class PDFReport:
         table.drawOn(c, 220, height - 750)
 
         table_data = [['WL (nm)', 'Abs (dB)', 'T (I/Io)']]
-        for interpolate_wavelength, interpolate_absorbance, baseline in zip(interpolate_wavelength[175:198], interpolate_absorbance[175:198], baselines[175:198]):
-            # Calculate transmittance from baseline and interpolate_absorbance
-            single = float(baseline)/ (10 ** float(interpolate_absorbance))
-            transmittance = single / float(baseline)
-            table_data.append([str(interpolate_wavelength), format(float(interpolate_absorbance), '.5f'), format(transmittance, '.5f')])
+        for new_wavelengths, new_absorbances, new_baselines in zip(new_wavelengths[175:198], new_absorbances[175:198], new_baselines[175:198]):
+            # Calculate transmittance from new_baselines and new_absorbances
+            single = float(new_baselines)/ (10 ** float(new_absorbances))
+            transmittance = single / float(new_baselines)
+            table_data.append([str(new_wavelengths), format(float(new_absorbances), '.5f'), format(transmittance, '.5f')])
 
         # Define column widths
         col_widths = [55, 55, 55]
