@@ -37,7 +37,7 @@ def get_line_value(nm):
         closest_line_wavelength = min(range(len(lines)), key=lambda index: abs(lines[index][0]-nm))
         closest_value_wavelength, closest_absorbance = lines[closest_line_wavelength]
         message = f"Line {closest_line_wavelength + 1} has the closest value: {closest_value_wavelength}"
-        return closest_value_wavelength, closest_absorbance, message
+        return closest_value_wavelength, message
 
 def get_absorbance(nm):
     _, absorbance, _ = get_line_value(nm)
