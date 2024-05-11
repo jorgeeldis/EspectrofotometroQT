@@ -4,6 +4,7 @@ import time
 from dotenv import load_dotenv
 from libs.absorption_calc import absorption
 from libs.fileutil import read_data, write_data
+from libs.interpolation import interpolate
 from libs.serial_comunication import Serial
 from libs.wavelengths import wavelength
 from libs.log_util import config_logger
@@ -23,12 +24,14 @@ DATA_SIZE = 7
 BASELINE_FILE = os.getenv("BASELINE_FILE")
 SINGLE_FILE = os.getenv("SINGLE_FILE")
 WAVELENGTH_FILE = os.getenv("WAVELENGTH_FILE")
+INTERPOLATE_FILE = os.getenv("INTERPOLATE_FILE")
+
 PORT = os.getenv("PORT")
 BAUDRATE = os.getenv("BAUDRATE")
 baseline_path = os.path.join("data", BASELINE_FILE)
 single_path = os.path.join("data", SINGLE_FILE)
 wavelength_path = os.path.join("data", WAVELENGTH_FILE)
-
+interpolate_path = os.path.join("data", INTERPOLATE_FILE)
 
 class SingleProcessor:
     def __init__(
@@ -57,6 +60,9 @@ class SingleProcessor:
 
         if os.path.exists(wavelength_path):
             os.remove(wavelength_path)
+
+        if os.path.exists(interpolate_path):
+            os.remove(interpolate_path)
 
         self.single = 0
         self.file_name = "single_muestra_{}_{}.txt".format(
@@ -129,6 +135,12 @@ class SingleProcessor:
 
             self.xdata.append(wavelength_data)
             self.ydata.append(absorbance)
+
+            # Se aplica la interpolación
+            new_absorbances, new_wavelengths = interpolate(self.ydata, self.xdata)
+
+            data_to_save_interpolated = new_wavelengths + "," + new_absorbances
+            write_data(interpolate_path, data_to_save_interpolated + "\n")
 
             data_to_save = {
                 "wavelength": wavelength_data,
