@@ -436,7 +436,7 @@ class Window(QMainWindow, Ui_MainWindow):
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         # Set the font for each button
         for button in buttons.buttons():
-            button.setFont(font)
+            button.setStyleSheet("font-size: 14px;")
         buttons.accepted.connect(dialog.accept)
         buttons.rejected.connect(dialog.reject)
         layout.addWidget(buttons)
@@ -505,9 +505,18 @@ class Window(QMainWindow, Ui_MainWindow):
         # You can use them to set the items in the table.
 
         for i in range(len(new_wavelengths)):
+            table.setStyleSheet("""
+                QScrollBar:vertical {
+                    width: 20px;
+                }
+                QScrollBar:horizontal {
+                    height: 20px;
+                }
+            """)
             table.setItem(i, 0, QtWidgets.QTableWidgetItem(str(new_wavelengths[i])))
             table.setItem(i, 1, QtWidgets.QTableWidgetItem(str(new_absorbances[i])))
 
+        
         # Add the table to the layout
         layout.addWidget(table)
 
