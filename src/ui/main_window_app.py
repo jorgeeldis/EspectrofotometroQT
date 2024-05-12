@@ -434,7 +434,9 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Add OK and Cancel buttons
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        buttons.setFont(font)  # Set the font for the buttons
+        # Set the font for each button
+        for button in buttons.buttons():
+            button.setFont(font)
         buttons.accepted.connect(dialog.accept)
         buttons.rejected.connect(dialog.reject)
         layout.addWidget(buttons)
