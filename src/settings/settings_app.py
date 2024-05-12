@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QLabel, QLineEdit, QPushBu
 from PyQt5.QtWidgets import QComboBox, QSpinBox, QGraphicsView, QCheckBox
 from ui.main_window_ui import Ui_MainWindow
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QGridLayout
+from PyQt5 import QtGui
 
 
 class SettingsWindow(QMainWindow, Ui_MainWindow):
@@ -20,58 +22,75 @@ class SettingsWindow(QMainWindow, Ui_MainWindow):
         self.setCentralWidget(self.centralWidget)
 
         # Create a layout
-        self.layout = QVBoxLayout(self.centralWidget)
+        self.layout = QGridLayout(self.centralWidget)
+
+        # Create a font
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 24 points
 
         self.backgroundColorLabel = QLabel("Background color:")
-        self.layout.addWidget(self.backgroundColorLabel)
+        self.backgroundColorLabel.setFont(font)
+        self.layout.addWidget(self.backgroundColorLabel, 0, 0)
         self.backgroundColorLineEdit = QLineEdit(self)
+        self.backgroundColorLineEdit.setFont(font)
         self.backgroundColorLineEdit.setText(", ".join(map(str, backgroundColor)))
-        self.layout.addWidget(self.backgroundColorLineEdit)
+        self.layout.addWidget(self.backgroundColorLineEdit, 1, 0)
 
         # QLineEdit widgets for custom ranges
         # Placeholder text for custom ranges
         self.xRangeLineEdit = QLineEdit(self)
+        self.xRangeLineEdit.setFont(font)
         self.xRangeLineEdit.setText("300, 750")  # Placeholder text for x range
         self.yRangeLineEdit = QLineEdit(self)
+        self.yRangeLineEdit.setFont(font)
         self.yRangeLineEdit.setText("0, 1")      # Placeholder text for y range
-        self.layout.addWidget(QLabel("Custom Range:"))
-        self.layout.addWidget(QLabel("X Range (x1, x2):"))
-        self.layout.addWidget(self.xRangeLineEdit)
-        self.layout.addWidget(QLabel("Y Range (y1, y2):"))
-        self.layout.addWidget(self.yRangeLineEdit)
+        self.layout.addWidget(QLabel("Custom Range:"), 2, 0)
+        self.layout.addWidget(QLabel("X Range (x1, x2):"), 3, 0)
+        self.layout.addWidget(self.xRangeLineEdit, 4, 0)
+        self.layout.addWidget(QLabel("Y Range (y1, y2):"), 5, 0)
+        self.layout.addWidget(self.yRangeLineEdit, 6, 0)
 
         # Checkbox for auto-ranging
         self.autoRangeCheckBox = QCheckBox("Auto Range", self)
-        self.layout.addWidget(self.autoRangeCheckBox)
+        self.autoRangeCheckBox.setFont(font)
+        self.layout.addWidget(self.autoRangeCheckBox, 0, 1)
 
         # Checkbox for log mode
         self.logModeCheckBox = QCheckBox("Log Mode (Y-axis)", self)
-        self.layout.addWidget(self.logModeCheckBox)
+        self.logModeCheckBox.setFont(font)
+        self.layout.addWidget(self.logModeCheckBox, 1, 1)
 
         # Checkbox for log mode for x-axis
         self.logModeXCheckBox = QCheckBox("Log Mode (x-axis)", self)
-        self.layout.addWidget(self.logModeXCheckBox)
+        self.logModeXCheckBox.setFont(font)
+        self.layout.addWidget(self.logModeXCheckBox, 2, 1)
 
         self.derivativeModeCheckBox = QCheckBox("Derivative Mode", self)
-        self.layout.addWidget(self.derivativeModeCheckBox)
+        self.derivativeModeCheckBox.setFont(font)
+        self.layout.addWidget(self.derivativeModeCheckBox, 3, 1)
 
         self.invertGraphYCheckBox = QCheckBox("Invert Graph (y-axis)", self)
-        self.layout.addWidget(self.invertGraphYCheckBox)
+        self.invertGraphYCheckBox.setFont(font)
+        self.layout.addWidget(self.invertGraphYCheckBox, 4, 1)
 
         self.invertGraphXCheckBox = QCheckBox("Invert Graph (x-axis)", self)
-        self.layout.addWidget(self.invertGraphXCheckBox)
+        self.invertGraphXCheckBox.setFont(font)
+        self.layout.addWidget(self.invertGraphXCheckBox, 5, 1)
 
         self.antialiasingCheckBox = QCheckBox("Antialiasing", self)
-        self.layout.addWidget(self.antialiasingCheckBox)
+        self.antialiasingCheckBox.setFont(font)
+        self.layout.addWidget(self.antialiasingCheckBox, 6, 1)
 
         # Button to clear view box
         self.clearViewBoxButton = QPushButton("Clear View Box", self)
         self.clearViewBoxButton.clicked.connect(self.clearViewBoxRequested.emit)
+        self.clearViewBoxButton.setFont(font)
         self.layout.addWidget(self.clearViewBoxButton)
 
         # Create a save button
         self.saveButton = QPushButton("Save", self)
         self.saveButton.clicked.connect(self.saveSettings)
+        self.saveButton.setFont(font)  # Set the font for the button
         self.layout.addWidget(self.saveButton)
 
     def saveSettings(self):

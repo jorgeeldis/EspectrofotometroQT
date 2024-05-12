@@ -27,7 +27,7 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
 
         # Create a font
         font = QtGui.QFont()
-        font.setPointSize(15)  # Set the font size to 24 points
+        font.setPointSize(14)  # Set the font size to 24 points
 
         self.sample = QLabel("Sample: ")
         self.sample.setFont(font)
