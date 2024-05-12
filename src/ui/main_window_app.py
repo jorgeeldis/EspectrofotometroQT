@@ -607,16 +607,23 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
 
+        # Create a font
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
+
         # Create a QLabel
         label = QtWidgets.QLabel(
             "Select the wavelength range you want to observe on the graph: "
         )
+        label.setFont(font)  # Set the font for the label
         layout.addWidget(label)
 
         # Create a QHBoxLayout for the start spin box and its label
         startLayout = QtWidgets.QHBoxLayout()
         startLabel = QtWidgets.QLabel("Start (dB):", dialog)
+        startLabel.setFont(font)  # Set the font for the start label
         start = QtWidgets.QSpinBox(dialog)
+        start.setFont(font)  # Set the font for the start spin box
         start.setRange(-1, 10)
         startLayout.addWidget(startLabel)
         startLayout.addWidget(start)
@@ -627,7 +634,9 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QHBoxLayout for the finish spin box and its label
         finishLayout = QtWidgets.QHBoxLayout()
         finishLabel = QtWidgets.QLabel("Finish (dB):", dialog)
+        finishLabel.setFont(font)  # Set the font for the finish label
         finish = QtWidgets.QSpinBox(dialog)
+        finish.setFont(font)  # Set the font for the finish spin box
         finish.setRange(-1, 10)
         finishLayout.addWidget(finishLabel)
         finishLayout.addWidget(finish)
@@ -637,13 +646,15 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create the "Apply" button
         applyButton = QtWidgets.QPushButton("Apply", dialog)
+        applyButton.setFont(font)  # Set the font for the apply button
         applyButton.clicked.connect(
             lambda: self.applyRangeY(start.value(), finish.value())
         )
         layout.addWidget(applyButton)
-    
+
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)  # Set the font for the exit button
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
@@ -667,34 +678,54 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
 
+        # Create a font
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
+
         # Create a QLabel
         label = QtWidgets.QLabel(
             "Select the type of graph you want to use: "
         )
+        label.setFont(font)  # Set the font for the label
         layout.addWidget(label)
 
         line = QtWidgets.QRadioButton("Line Graph (Default)", dialog)
+        line.setFont(font)  # Set the font for the radio button
         line.setChecked(True)
         layout.addWidget(line)
+
         gaussian = QtWidgets.QRadioButton("Gaussian", dialog)
+        gaussian.setFont(font)  # Set the font for the radio button
         layout.addWidget(gaussian)
+
         lorentzian = QtWidgets.QRadioButton("Lorentzian", dialog)
+        lorentzian.setFont(font)  # Set the font for the radio button
         layout.addWidget(lorentzian)
+
         first_order = QtWidgets.QRadioButton("First Order", dialog)
+        first_order.setFont(font)  # Set the font for the radio button
         layout.addWidget(first_order)
+
         second_order = QtWidgets.QRadioButton("Second Order", dialog)
+        second_order.setFont(font)  # Set the font for the radio button
         layout.addWidget(second_order)
+
         third_order = QtWidgets.QRadioButton("Third Order", dialog)
+        third_order.setFont(font)  # Set the font for the radio button
         layout.addWidget(third_order)
+
         fourth_order = QtWidgets.QRadioButton("Fourth Order", dialog)
+        fourth_order.setFont(font)  # Set the font for the radio button
         layout.addWidget(fourth_order)
 
         # Create the "Apply" button
         applyButton = QtWidgets.QPushButton("Apply", dialog)
+        applyButton.setFont(font)  # Set the font for the apply button
         layout.addWidget(applyButton)
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)  # Set the font for the exit button
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
