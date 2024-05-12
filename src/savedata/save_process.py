@@ -78,10 +78,7 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
 
     def save_as_csv(self):
         # Add code here to save as CSV...
-        plot_item = self.graphWidget.getPlotItem()
-        exporter = CSVExporter(plot_item)
-        filename = f"{self.sampleLineEdit.text()}.csv"  # Combine the sample name and the extension into a single string
-        exporter.export(filename)
+        filename = "./data/interpolate_muestra.txt"
         print("Data saved as CSV.")
         self.message.setText("Data saved as CSV.")
         upload(filename)
