@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QLabel, QLineEdit, QPushButton, QWidget
 from PyQt5.QtWidgets import QComboBox, QSpinBox, QGraphicsView, QMessageBox
 from ui.main_window_ui import Ui_MainWindow
@@ -78,10 +79,12 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
 
     def save_as_csv(self):
         # Add code here to save as CSV...
-        filename = "./data/interpolate_muestra.txt"
+        old_filename = "./data/interpolate_muestra.txt"
+        new_filename = f"./data/{self.sampleLineEdit.text()}.csv"  # New filename
+        os.rename(old_filename, new_filename)  # Rename the file
         print("Data saved as CSV.")
         self.message.setText("Data saved as CSV.")
-        upload(filename)
+        upload(new_filename)  # Upload the renamed file
 
     def save_as_svg(self):
         # Add code here to save as SVG...
