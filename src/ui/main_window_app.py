@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import (
     QGraphicsScene,
     QMainWindow,
     QMessageBox,
+    QDesktopWidget,
 )
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
@@ -323,6 +324,13 @@ class Window(QMainWindow, Ui_MainWindow):
         self.settingsWindow = SettingsWindow(self, self.backgroundColor)
         self.settingsWindow.saveSettingsRequested.connect(self.applySettings)
         self.settingsWindow.clearViewBoxRequested.connect(self.clearViewBox)
+
+        # Center the window on the screen
+        qtRectangle = self.settingsWindow.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.settingsWindow.move(qtRectangle.topLeft())
+
         self.settingsWindow.show()
 
         # Show the context menu of the ViewBox of the graph
