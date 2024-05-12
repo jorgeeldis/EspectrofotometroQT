@@ -325,11 +325,14 @@ class Window(QMainWindow, Ui_MainWindow):
         self.settingsWindow.saveSettingsRequested.connect(self.applySettings)
         self.settingsWindow.clearViewBoxRequested.connect(self.clearViewBox)
 
-        # Center the window on the screen
+        # Set the window size
+        self.settingsWindow.resize(800, 600)  # Replace with the desired size
+
         qtRectangle = self.settingsWindow.frameGeometry()
         centerPoint = QDesktopWidget().availableGeometry().center()
         qtRectangle.moveCenter(centerPoint)
-        self.settingsWindow.move(qtRectangle.center())
+        self.settingsWindow.move(qtRectangle.topLeft())
+
 
         self.settingsWindow.show()
 
