@@ -329,7 +329,7 @@ class Window(QMainWindow, Ui_MainWindow):
         qtRectangle = self.settingsWindow.frameGeometry()
         centerPoint = QDesktopWidget().availableGeometry().center()
         qtRectangle.moveCenter(centerPoint)
-        self.settingsWindow.move(qtRectangle.topLeft())
+        self.settingsWindow.move(qtRectangle.center())
 
         self.settingsWindow.show()
 
