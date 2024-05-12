@@ -44,10 +44,16 @@ class SettingsWindow(QMainWindow, Ui_MainWindow):
         self.yRangeLineEdit = QLineEdit(self)
         self.yRangeLineEdit.setFont(font)
         self.yRangeLineEdit.setText("0, 1")      # Placeholder text for y range
-        self.layout.addWidget(QLabel("Custom Range:"), 2, 0)
-        self.layout.addWidget(QLabel("X Range (x1, x2):"), 3, 0)
+        customRangeLabel = QLabel("Custom Range:")
+        customRangeLabel.setFont(font)
+        self.layout.addWidget(customRangeLabel, 2, 0)
+        xRangeLabel = QLabel("X Range (x1, x2):")
+        xRangeLabel.setFont(font)
+        self.layout.addWidget(xRangeLabel, 3, 0)
         self.layout.addWidget(self.xRangeLineEdit, 4, 0)
-        self.layout.addWidget(QLabel("Y Range (y1, y2):"), 5, 0)
+        yRangeLabel = QLabel("Y Range (y1, y2):")
+        yRangeLabel.setFont(font)
+        self.layout.addWidget(yRangeLabel, 5, 0)
         self.layout.addWidget(self.yRangeLineEdit, 6, 0)
 
         # Checkbox for auto-ranging
