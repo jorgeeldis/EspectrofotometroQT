@@ -8,6 +8,7 @@ from pyqtgraph.exporters import ImageExporter
 from PyQt5.QtCore import pyqtSignal
 from .create_pdf import PDFReport
 from .upload_file import upload
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class SaveWindow(QMainWindow, Ui_MainWindow):
     saveSettingsRequested = pyqtSignal(tuple)
@@ -24,28 +25,40 @@ class SaveWindow(QMainWindow, Ui_MainWindow):
         # Create a layout
         self.layout = QVBoxLayout(self.centralWidget)
 
+        # Create a font
+        font = QtGui.QFont()
+        font.setPointSize(15)  # Set the font size to 24 points
+
         self.sample = QLabel("Sample: ")
+        self.sample.setFont(font)
         self.layout.addWidget(self.sample)
         self.sampleLineEdit = QLineEdit(self)
+        self.sampleLineEdit.setFont(font)
         self.layout.addWidget(self.sampleLineEdit)
 
         self.user = QLabel("User: ")
+        self.user.setFont(font)
         self.layout.addWidget(self.user)
         self.userLineEdit = QLineEdit(self)
+        self.userLineEdit.setFont(font)
         self.layout.addWidget(self.userLineEdit)
 
         self.saveDataType = QLabel("Export as:")
+        self.saveDataType.setFont(font)
         self.layout.addWidget(self.saveDataType)
         self.saveDataTypeComboBox = QComboBox(self)
+        self.saveDataTypeComboBox.setFont(font)
         self.saveDataTypeComboBox.addItems(["PDF", "CSV", "SVG", "PNG"])
         self.layout.addWidget(self.saveDataTypeComboBox)
 
         # Create a save button
         self.saveButton = QPushButton("Save", self)
+        self.saveButton.setFont(font)  # Set the font for the button
         self.saveButton.clicked.connect(self.saveSettings)
         self.layout.addWidget(self.saveButton)
 
         self.message = QLabel("No saved data.")
+        self.message.setFont(font)
         self.layout.addWidget(self.message)
 
 
