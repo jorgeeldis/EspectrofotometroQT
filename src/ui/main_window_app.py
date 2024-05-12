@@ -316,6 +316,15 @@ class Window(QMainWindow, Ui_MainWindow):
         print("Save Data Clicked")
         self.messageBox.setText("Saving data...")
         self.saveDataWindow = SaveWindow(self, graphWidget=self.graphWidget)
+
+        # Set the window size
+        self.saveDataWindow.resize(200, 300)  # Replace with the desired size
+
+        qtRectangle = self.saveDataWindow.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.saveDataWindow.move(qtRectangle.topLeft())
+
         self.saveDataWindow.show()
 
     def btnSettings_click(self):
@@ -400,19 +409,21 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def btnWavelength_click(self):
         self.messageBox.setText("Selecting Wavelength...")
+
         nm, okPressed = QInputDialog.getInt(
             self, "Get dB", "Wavelength (nm):", 300, 300, 750, 1
         )
         if okPressed:
             absorbance = get_absorbance(nm)
+            msgBox = QMessageBox(self)
+            msgBox.setStyleSheet("QLabel{min-width: 400px; font-size: 14px;}")
             if absorbance is not None:
-                QMessageBox.information(
-                    self, "Absorbance", f"Wavelength: {nm}\nAbsorbance: {absorbance}"
-                )
+                msgBox.setWindowTitle("Absorbance")
+                msgBox.setText(f"Wavelength: {nm}\nAbsorbance: {absorbance}")
             else:
-                QMessageBox.information(
-                    self, "Absorbance", f"No absorbance found for wavelength: {nm}"
-                )
+                msgBox.setWindowTitle("Absorbance")
+                msgBox.setText(f"No absorbance found for wavelength: {nm}")
+            msgBox.exec_()
 
     def handleMainAction(self):
         print(f"Main action selected")
