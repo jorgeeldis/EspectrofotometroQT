@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
     QMainWindow,
     QMessageBox,
     QDesktopWidget,
-    QDialog, QVBoxLayout, QLabel, QDialogButtonBox,
+    QDialog, QVBoxLayout, QLabel, QDialogButtonBox, QSpinBox
 )
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
@@ -411,18 +411,42 @@ class Window(QMainWindow, Ui_MainWindow):
     def btnWavelength_click(self):
         self.messageBox.setText("Selecting Wavelength...")
 
-        nm, okPressed = QInputDialog.getInt(
-            self, "Get dB", "Wavelength (nm):", 300, 300, 750, 1
-        )
-        if okPressed:
+        # Create a custom dialog
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Get dB")
+        layout = QVBoxLayout(dialog)
+
+        # Create a font
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
+
+        # Create the label and set its font
+        text = QLabel("Wavelength (nm):")
+        text.setFont(font)
+        layout.addWidget(text)
+
+        # Create the spin box and set its font
+        nm_input = QSpinBox()
+        nm_input.setRange(300, 750)
+        nm_input.setValue(300)
+        nm_input.setFont(font)
+        layout.addWidget(nm_input)
+
+        # Add OK and Cancel buttons
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+
+        # Show the dialog and get the result
+        okPressed = dialog.exec_()
+        nm = nm_input.value() if okPressed else None
+
+        if nm is not None:
             absorbance = get_absorbance(nm)
             dialog = QDialog(self)
             dialog.setWindowTitle("Absorbance")
             layout = QVBoxLayout(dialog)
-
-            # Create a font
-            font = QtGui.QFont()
-            font.setPointSize(14)  # Set the font size to 14 points
 
             # Create the label and set its font
             if absorbance is not None:
