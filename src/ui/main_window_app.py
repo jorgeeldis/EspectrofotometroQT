@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (
     QMainWindow,
     QMessageBox,
     QDesktopWidget,
+    QDialog, QVBoxLayout, QLabel, QDialogButtonBox,
 )
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap
@@ -408,24 +409,35 @@ class Window(QMainWindow, Ui_MainWindow):
         self.graphWidget.getViewBox().clear()
 
     def btnWavelength_click(self):
-        font = QtGui.QFont()
-        font.setPointSize(14)  # Set the font size to 24 points
         self.messageBox.setText("Selecting Wavelength...")
-        self.messageBox.setFont(font)
 
         nm, okPressed = QInputDialog.getInt(
             self, "Get dB", "Wavelength (nm):", 300, 300, 750, 1
         )
         if okPressed:
             absorbance = get_absorbance(nm)
+            dialog = QDialog(self)
+            dialog.setWindowTitle("Absorbance")
+            layout = QVBoxLayout(dialog)
+
+            # Create a font
+            font = QtGui.QFont()
+            font.setPointSize(14)  # Set the font size to 14 points
+
+            # Create the label and set its font
             if absorbance is not None:
-                QMessageBox.information(
-                    self, "Absorbance", f"Wavelength: {nm}\nAbsorbance: {absorbance}"
-                )
+                text = QLabel(f"Wavelength: {nm}\nAbsorbance: {absorbance}")
             else:
-                QMessageBox.information(
-                    self, "Absorbance", f"No absorbance found for wavelength: {nm}"
-                )
+                text = QLabel(f"No absorbance found for wavelength: {nm}")
+            text.setFont(font)
+            layout.addWidget(text)
+
+            # Add OK button
+            buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+            buttons.accepted.connect(dialog.accept)
+            layout.addWidget(buttons)
+
+            dialog.exec_()
 
     def handleMainAction(self):
         print(f"Main action selected")
