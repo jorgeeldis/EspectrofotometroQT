@@ -801,6 +801,9 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
         #
+        
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
 
         label = QtWidgets.QLabel(
             "<b>Max dB: </b>" + str(maxDBvalue) + "<br><br>"
@@ -814,10 +817,12 @@ class Window(QMainWindow, Ui_MainWindow):
             "<b>Orange's (609nm): </b>" + str(db609) + "<br><br>"
             "<b>Red's (660nm): </b>" + str(db660) + "<br>"
         )
+        label.setFont(font)
         layout.addWidget(label)
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)  # Set the font for the exit button
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
@@ -838,6 +843,9 @@ class Window(QMainWindow, Ui_MainWindow):
         layout = QtWidgets.QVBoxLayout()
         #
 
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
+
         label = QtWidgets.QLabel(
             "<b>Radiant Flux:</b> 1000 rad<br><br>"
             "<b>Radiant Density:</b> 518 rad/mm2<br><br>"
@@ -845,10 +853,12 @@ class Window(QMainWindow, Ui_MainWindow):
             "<b>Thermal Resistance:</b> 1.6C°/W<br><br>"
             "<b>Radiant Efficacy:</b> 206 rad/W<br>"
         )
+        label.setFont(font)
         layout.addWidget(label)
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)  # Set the font for the exit button
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
@@ -869,6 +879,8 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
         #
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
 
         label = QtWidgets.QLabel(
             "<b>Voltage:</b> 12V<br><br>"
@@ -877,10 +889,12 @@ class Window(QMainWindow, Ui_MainWindow):
             "<b>Power Factor:</b> 1.0<br><br>"
             "<b>Frequency:</b> 60Hz<br>"
         )
+        label.setFont(font)
         layout.addWidget(label)
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
@@ -937,6 +951,8 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
         #
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
 
         label = QtWidgets.QLabel(
             "<b>Mean: </b>" + str(mean) + "<br><br>"
@@ -948,10 +964,12 @@ class Window(QMainWindow, Ui_MainWindow):
             "<b>Min Value: </b>" + str(minDBvalue) + "<br><br>"
             "<b>Munmber of values: 198<br>"
         )
+        label.setFont(font)
         layout.addWidget(label)
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
@@ -970,6 +988,9 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create a QGridLayout
         layout = QtWidgets.QGridLayout()
+
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
 
         # Create two QLabels
         label1 = QtWidgets.QLabel(
@@ -1005,6 +1026,10 @@ class Window(QMainWindow, Ui_MainWindow):
             "<b>R14:</b> 0.34098<br><br>"
             "<b>R15:</b> 0.6500<br>"
         )
+        label1.setFont(font)
+        label2.setFont(font)
+        label3.setFont(font)
+
 
         # Add the QLabels to the layout
         layout.addWidget(label1, 0, 0)  # Add label1 to the first column
@@ -1013,6 +1038,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton, 1, 0, 1, 2)  # Span the button across both columns
 
@@ -1032,6 +1058,8 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
         #
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
 
         label = QtWidgets.QLabel(
             "<b>Manufacturer:</b> UTP<br><br>"
@@ -1045,10 +1073,12 @@ class Window(QMainWindow, Ui_MainWindow):
             "<b>Baseline Correction:</b> Yes<br><br>"
             "<b>Date:</b> " + datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S") + "<br>"
         )
+        label.setFont(font)
         layout.addWidget(label)
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
