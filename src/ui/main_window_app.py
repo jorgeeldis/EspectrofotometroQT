@@ -507,10 +507,10 @@ class Window(QMainWindow, Ui_MainWindow):
         for i in range(len(new_wavelengths)):
             table.setStyleSheet("""
                 QScrollBar:vertical {
-                    width: 20px;
+                    width: 30px;
                 }
                 QScrollBar:horizontal {
-                    height: 20px;
+                    height: 30px;
                 }
             """)
             table.setItem(i, 0, QtWidgets.QTableWidgetItem(str(new_wavelengths[i])))
@@ -536,16 +536,23 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
 
+        # Create a font
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
+
         # Create a QLabel
         label = QtWidgets.QLabel(
             "Select the wavelength range you want to observe on the graph: "
         )
+        label.setFont(font)  # Set the font for the label
         layout.addWidget(label)
 
         # Create a QHBoxLayout for the start spin box and its label
         startLayout = QtWidgets.QHBoxLayout()
         startLabel = QtWidgets.QLabel("Start (nm):", dialog)
+        startLabel.setFont(font)  # Set the font for the start label
         start = QtWidgets.QSpinBox(dialog)
+        start.setFont(font)  # Set the font for the start spin box
         start.setRange(300, 750)
         startLayout.addWidget(startLabel)
         startLayout.addWidget(start)
@@ -556,7 +563,9 @@ class Window(QMainWindow, Ui_MainWindow):
         # Create a QHBoxLayout for the finish spin box and its label
         finishLayout = QtWidgets.QHBoxLayout()
         finishLabel = QtWidgets.QLabel("Finish (nm):", dialog)
+        finishLabel.setFont(font)  # Set the font for the finish label
         finish = QtWidgets.QSpinBox(dialog)
+        finish.setFont(font)  # Set the font for the finish spin box
         finish.setRange(300, 750)
         finishLayout.addWidget(finishLabel)
         finishLayout.addWidget(finish)
@@ -566,6 +575,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create the "Apply" button
         applyButton = QtWidgets.QPushButton("Apply", dialog)
+        applyButton.setFont(font)  # Set the font for the apply button
         applyButton.clicked.connect(
             lambda: self.applyRange(start.value(), finish.value())
         )
@@ -573,6 +583,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)  # Set the font for the exit button
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
