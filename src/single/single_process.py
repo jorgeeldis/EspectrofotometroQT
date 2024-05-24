@@ -41,13 +41,13 @@ class SingleProcessor:
         app,
         timer,
         progressBar,
-        db450Label,
         db435Label,
-        db500Label,
-        db550Label,
-        db570Label,
+        db440Label,
+        db465Label,
+        db546Label,
+        db590Label,
         db600Label,
-        db650Label,
+        db635Label,
         maxDBLabel,
         maxNMLabel,
         minDBLabel,
@@ -72,13 +72,13 @@ class SingleProcessor:
         self.graphWidget = graphWidget
 
         self.progressBar = progressBar
-        self.db450Label = db450Label
         self.db435Label = db435Label
-        self.db500Label = db500Label 
-        self.db550Label = db550Label
-        self.db570Label = db570Label
+        self.db440Label = db440Label
+        self.db465Label = db465Label
+        self.db546Label = db546Label
+        self.db590Label = db590Label
         self.db600Label = db600Label
-        self.db650Label = db650Label
+        self.db635Label = db635Label
         self.maxDBLabel = maxDBLabel
         self.maxNMLabel = maxNMLabel
         self.minDBLabel = minDBLabel
@@ -163,32 +163,32 @@ class SingleProcessor:
                 self.progressBar.setValue(progresspercent)
 
             if self.progressBar.value() == 100:
-                n450 = 56  # replace with the line number you want to read
-                n435 = 50
-                n500 = 76
-                n550 = 97
-                n570 = 106
-                n600 = 120
-                n650 = 143
+                n435 = 131
+                n440 = 136
+                n465 = 157
+                n546 = 242
+                n590 = 286
+                n600 = 296
+                n635 = 331
                 # 50 for 435, 56 for 450, 76 for 500, 97 for 550, 106 for 570, 120 for 600, 143 for 650
-                with open("./data/single_muestra.txt", "r") as file:
+                with open("./data/interpolate_muestra.txt", "r") as file:
                     lines = file.readlines()
-                    if n450 <= len(lines):
-                        db450 = lines[n450 - 1].strip()
+                    if n440 <= len(lines):
+                        db440 = lines[n440 - 1].strip()
                     if n435 <= len(lines):
                         db435 = lines[n435 - 1].strip()
-                    if n500 <= len(lines):
-                        db500 = lines[n500 - 1].strip()
-                    if n550 <= len(lines):
-                        db550 = lines[n550 - 1].strip()
-                    if n570 <= len(lines):
-                        db570 = lines[n570 - 1].strip()
+                    if n465 <= len(lines):
+                        db465 = lines[n465 - 1].strip()
+                    if n546 <= len(lines):
+                        db546 = lines[n546 - 1].strip()
+                    if n590 <= len(lines):
+                        db590 = lines[n590 - 1].strip()
                     if n600 <= len(lines):
                         db600 = lines[n600 - 1].strip()
-                    if n650 <= len(lines):
-                        db650 = lines[n650 - 1].strip()
+                    if n635 <= len(lines):
+                        db635 = lines[n635 - 1].strip()
                     else:
-                        print(f"The file has fewer than {n450} lines.")
+                        print(f"The file has fewer than {n440} lines.")
 
                     maxDBvalue = float("-inf")
                     maxnvalue = 0
@@ -218,26 +218,26 @@ class SingleProcessor:
                 interpolate()
 
                 self.specificLabel.setText("Key Values (dB):")
-                self.db450Label.setText(
-                    "450nm: " + str("{:.2f}".format(float(db450))) + "dB"
+                self.db440Label.setText(
+                    "440nm: " + str("{:.2f}".format(float(db440))) + "dB"
                 )
                 self.db435Label.setText(
                     "435nm: " + str("{:.2f}".format(float(db435))) + "dB"
                 )
-                self.db500Label.setText(
-                    "500nm: " + str("{:.2f}".format(float(db500))) + "dB"
+                self.db465Label.setText(
+                    "465nm: " + str("{:.2f}".format(float(db465))) + "dB"
                 )
-                self.db550Label.setText(
-                    "550nm: " + str("{:.2f}".format(float(db550))) + "dB"
+                self.db546Label.setText(
+                    "546nm: " + str("{:.2f}".format(float(db546))) + "dB"
                 )
-                self.db570Label.setText(
-                    "570nm: " + str("{:.2f}".format(float(db570))) + "dB"
+                self.db590Label.setText(
+                    "590nm: " + str("{:.2f}".format(float(db590))) + "dB"
                 )
                 self.db600Label.setText(
                     "600nm: " + str("{:.2f}".format(float(db600))) + "dB"
                 )
-                self.db650Label.setText(
-                    "650nm: " + str("{:.2f}".format(float(db650))) + "dB"
+                self.db635Label.setText(
+                    "635nm: " + str("{:.2f}".format(float(db635))) + "dB"
                 )
                 self.maxDBLabel.setText(
                     "Max dB: " + str("{:.2f}".format(float(maxDBvalue))) + "dB"
