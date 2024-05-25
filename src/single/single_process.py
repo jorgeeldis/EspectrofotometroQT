@@ -186,7 +186,8 @@ class SingleProcessor:
                     maxDBvalue = float("-inf")
                     maxnvalue = 0
                     for i, line in enumerate(lines, start=1):
-                        value = float(line.strip())
+                        wavelength, value = line.strip().split(',')
+                        value = float(value)
                         if value > maxDBvalue:
                             maxDBvalue = value
                             maxnvalue = i
@@ -195,7 +196,8 @@ class SingleProcessor:
                     minDBvalue = float("inf")
                     minNMvalue = 0
                     for i, line in enumerate(lines, start=1):
-                        value = float(line.strip())
+                        wavelength, value = line.strip().split(',')
+                        value = float(value)
                         if value < minDBvalue:
                             minDBvalue = value
                             minNMvalue = i
