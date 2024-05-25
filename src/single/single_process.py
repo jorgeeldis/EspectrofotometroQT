@@ -204,7 +204,7 @@ class SingleProcessor:
                 # Garda archivo de interpolación
                 interpolate()
 
-                self.specificLabel.setText("Key Values (dB):")
+                self.specificLabel.setText("Key Values:")
                 self.db440Label.setText(
                     "440nm: " + str("{:.4f}".format(float(db440))) + "dB"
                 )
