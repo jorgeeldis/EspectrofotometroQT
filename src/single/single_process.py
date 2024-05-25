@@ -61,6 +61,9 @@ class SingleProcessor:
         if os.path.exists(wavelength_path):
             os.remove(wavelength_path)
 
+        if os.path.exists(interpolate_path):
+            os.remove(interpolate_path)
+
         self.single = 0
         self.file_name = "single_muestra_{}_{}.txt".format(
             self.single, time.strftime("%Y%m%d-%H%M%S")
@@ -163,6 +166,8 @@ class SingleProcessor:
                 self.progressBar.setValue(progresspercent)
 
             if self.progressBar.value() == 100:
+                # Garda archivo de interpolación
+                interpolate()
                 wavelengths = [435, 440, 465, 546, 590, 600, 635]
                 db_values = {wavelength: None for wavelength in wavelengths}
 
@@ -200,9 +205,6 @@ class SingleProcessor:
                         if value < minDBvalue:
                             minDBvalue = value
                             minNMvalue = int(wavelength)
-
-                # Garda archivo de interpolación
-                interpolate()
 
                 self.specificLabel.setText("Key Values:")
                 self.db440Label.setText(
