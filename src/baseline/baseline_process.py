@@ -153,7 +153,7 @@ class BaselineProcessor:
                             minNMvalue = i
                     minNMvalue = int(self.wavelength[minNMvalue - 1])
 
-                self.specificLabel.setText("Key Values (u.a.):")
+                self.specificLabel.setText("Key Values")
                 self.db440Label.setText(
                     "440nm: " + str(db440) + "dB"
                 )

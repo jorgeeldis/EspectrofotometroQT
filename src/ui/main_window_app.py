@@ -39,7 +39,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.init()
         self.wavelengthFunction = wavelength()
         self.horaLabel.setText(datetime.datetime.now().strftime("%d-%m-%Y %H:%M"))
-        self.showFullScreen()
+        self.showMaximized()
 
         # Connect the menu signals to methods
         self.menuMain.aboutToShow.connect(self.handleMainAction)
