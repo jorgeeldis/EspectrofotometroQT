@@ -227,11 +227,11 @@ class SingleProcessor:
                     "635nm: " + str("{:.4f}".format(float(db635))) + "dB"
                 )
                 self.maxDBLabel.setText(
-                    "Max dB: " + str("{:.2f}".format(float(maxDBvalue))) + "dB"
+                    "Max dB: " + str("{:.4f}".format(float(maxDBvalue))) + "dB"
                 )
                 self.maxNMLabel.setText("Max nm: " + str(maxNMvalue) + "nm")
                 self.minDBLabel.setText(
-                    "Min dB: " + str("{:.2f}".format(float(minDBvalue))) + "dB"
+                    "Min dB: " + str("{:.4f}".format(float(minDBvalue))) + "dB"
                 )
                 self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
 
