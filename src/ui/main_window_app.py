@@ -42,7 +42,7 @@ class Window(QMainWindow, Ui_MainWindow):
         screen = QDesktopWidget().screenGeometry()
         width = min(1044, screen.width())
         height = min(577, screen.height())
-        self.setGeometry(0, 23, width, height)
+        self.setGeometry(0, 0, width, height)
 
         # Connect the menu signals to methods
         self.menuMain.aboutToShow.connect(self.handleMainAction)
