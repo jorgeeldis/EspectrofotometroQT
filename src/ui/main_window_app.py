@@ -39,7 +39,10 @@ class Window(QMainWindow, Ui_MainWindow):
         self.init()
         self.wavelengthFunction = wavelength()
         self.horaLabel.setText(datetime.datetime.now().strftime("%d-%m-%Y %H:%M"))
-        self.showMaximized()
+        screen = QDesktopWidget().screenGeometry()
+        width = min(1044, screen.width())
+        height = min(577, screen.height())
+        self.setGeometry(0, 23, width, height)
 
         # Connect the menu signals to methods
         self.menuMain.aboutToShow.connect(self.handleMainAction)
