@@ -148,6 +148,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.graphWidget.getAxis('left').setLabel('Intensity')
         # Simulate a button press after 3 seconds
         QTimer.singleShot(1000, self.calibrate)  # 3000 milliseconds = 3 seconds
+        self.showMaximized()
 
     def calibrate(self):
         self.graphWidget.clear()
@@ -184,6 +185,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self.timer.timeout.connect(self.baseline.process)
         self.timer.start(5)  # Actualiza cada 100 ms
+        self.showMaximized()
 
     def btnBaseline_click(self):
         print("Baseline Clicked")
@@ -221,6 +223,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self.timer.timeout.connect(self.baseline.process)
         self.timer.start(5)  # Actualiza cada 100 ms
+        self.showMaximized()
 
     def btn_status(self, status: bool):
 
@@ -273,6 +276,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.timer.timeout.connect(self.single_process.process)
         self.timer.start(5)  # Actualiza cada 100 ms
         self.btn_status(True)
+        self.showMaximized()
 
     def btnSingle_click(self):
         print("Single Clicked")
@@ -292,9 +296,11 @@ class Window(QMainWindow, Ui_MainWindow):
             self.btnContinuous.setEnabled(True)
 
             self.single()
+            self.showMaximized()
 
             if not self.timer_continue.isActive():
                 self.timer_continue.start(5)
+                self.showMaximized()
 
         else:
 
@@ -302,6 +308,7 @@ class Window(QMainWindow, Ui_MainWindow):
             self.btnContinuous.setText("Continuous")
             self.timer_continue.stop()
             self.btn_status(True)
+            self.showMaximized()
 
     def timer_timeout(self):
 
