@@ -8,7 +8,6 @@ from libs.interpolation import interpolate
 from libs.serial_comunication import Serial
 from libs.wavelengths import wavelength
 from libs.log_util import config_logger
-from PyQt5 import QtWidgets
 
 logger = config_logger()
 
@@ -235,8 +234,6 @@ class SingleProcessor:
                     "Min dB: " + str("{:.4f}".format(float(minDBvalue))) + "dB"
                 )
                 self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
-
-                self.showMaximized()
 
             self.app.processEvents()
 
