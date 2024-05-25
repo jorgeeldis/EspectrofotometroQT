@@ -163,54 +163,41 @@ class SingleProcessor:
                 self.progressBar.setValue(progresspercent)
 
             if self.progressBar.value() == 100:
-                n435 = 131
-                n440 = 136
-                n465 = 157
-                n546 = 242
-                n590 = 286
-                n600 = 296
-                n635 = 331
-                # 50 for 435, 56 for 450, 76 for 500, 97 for 550, 106 for 570, 120 for 600, 143 for 650
+                wavelengths = [435, 440, 465, 546, 590, 600, 635]
+                db_values = {wavelength: None for wavelength in wavelengths}
+
                 with open("./data/interpolate_muestra.txt", "r") as file:
                     lines = file.readlines()
-                    if n440 <= len(lines):
-                        db440 = lines[n440 - 1].strip()
-                    if n435 <= len(lines):
-                        db435 = lines[n435 - 1].strip()
-                    if n465 <= len(lines):
-                        db465 = lines[n465 - 1].strip()
-                    if n546 <= len(lines):
-                        db546 = lines[n546 - 1].strip()
-                    if n590 <= len(lines):
-                        db590 = lines[n590 - 1].strip()
-                    if n600 <= len(lines):
-                        db600 = lines[n600 - 1].strip()
-                    if n635 <= len(lines):
-                        db635 = lines[n635 - 1].strip()
-                    else:
-                        print(f"The file has fewer than {n440} lines.")
+                    for line in lines:
+                        wavelength, db = line.strip().split(',')
+                        wavelength = int(wavelength)
+                        db = float(db)
+                        if wavelength in db_values:
+                            db_values[wavelength] = db
+
+                    db435 = db_values[435]
+                    db440 = db_values[440]
+                    db465 = db_values[465]
+                    db546 = db_values[546]
+                    db590 = db_values[590]
+                    db600 = db_values[600]
+                    db635 = db_values[635]
 
                     maxDBvalue = float("-inf")
                     maxnvalue = 0
-                    for i, line in enumerate(
-                        lines, start=1
-                    ):  # use lines instead of file
+                    for i, line in enumerate(lines, start=1):
                         value = float(line.strip())
                         if value > maxDBvalue:
-                            maxDBvalue = float(value)
-                            # print(maxDBvalue)
+                            maxDBvalue = value
                             maxnvalue = i
-                    maxNMvalue = int(
-                        self.wavelength[maxnvalue - 1]
-                    )  # get the corresponding nm value
+                    maxNMvalue = int(self.wavelength[maxnvalue - 1])
 
                     minDBvalue = float("inf")
                     minNMvalue = 0
                     for i, line in enumerate(lines, start=1):
                         value = float(line.strip())
                         if value < minDBvalue:
-                            minDBvalue = float(value)
-                            # print(minDBvalue)
+                            minDBvalue = value
                             minNMvalue = i
                     minNMvalue = int(self.wavelength[minNMvalue - 1])
 
