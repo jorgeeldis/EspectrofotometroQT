@@ -208,25 +208,25 @@ class SingleProcessor:
 
                 self.specificLabel.setText("Key Values (dB):")
                 self.db440Label.setText(
-                    "440nm: " + str("{:.2f}".format(float(db440))) + "dB"
+                    "440nm: " + str("{:.4f}".format(float(db440))) + "dB"
                 )
                 self.db435Label.setText(
-                    "435nm: " + str("{:.2f}".format(float(db435))) + "dB"
+                    "435nm: " + str("{:.4f}".format(float(db435))) + "dB"
                 )
                 self.db465Label.setText(
-                    "465nm: " + str("{:.2f}".format(float(db465))) + "dB"
+                    "465nm: " + str("{:.4f}".format(float(db465))) + "dB"
                 )
                 self.db546Label.setText(
-                    "546nm: " + str("{:.2f}".format(float(db546))) + "dB"
+                    "546nm: " + str("{:.4f}".format(float(db546))) + "dB"
                 )
                 self.db590Label.setText(
-                    "590nm: " + str("{:.2f}".format(float(db590))) + "dB"
+                    "590nm: " + str("{:.4f}".format(float(db590))) + "dB"
                 )
                 self.db600Label.setText(
-                    "600nm: " + str("{:.2f}".format(float(db600))) + "dB"
+                    "600nm: " + str("{:.4f}".format(float(db600))) + "dB"
                 )
                 self.db635Label.setText(
-                    "635nm: " + str("{:.2f}".format(float(db635))) + "dB"
+                    "635nm: " + str("{:.4f}".format(float(db635))) + "dB"
                 )
                 self.maxDBLabel.setText(
                     "Max dB: " + str("{:.2f}".format(float(maxDBvalue))) + "dB"
