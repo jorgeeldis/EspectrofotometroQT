@@ -184,24 +184,22 @@ class SingleProcessor:
                     db635 = db_values[635]
 
                     maxDBvalue = float("-inf")
-                    maxnvalue = 0
+                    maxNMvalue = None
                     for i, line in enumerate(lines, start=1):
                         wavelength, value = line.strip().split(',')
                         value = float(value)
                         if value > maxDBvalue:
                             maxDBvalue = value
-                            maxnvalue = i
-                    maxNMvalue = int(self.wavelength[maxnvalue - 1])
+                            maxNMvalue = int(wavelength)
 
                     minDBvalue = float("inf")
-                    minNMvalue = 0
+                    minNMvalue = None
                     for i, line in enumerate(lines, start=1):
                         wavelength, value = line.strip().split(',')
                         value = float(value)
                         if value < minDBvalue:
                             minDBvalue = value
-                            minNMvalue = i
-                    minNMvalue = int(self.wavelength[minNMvalue - 1])
+                            minNMvalue = int(wavelength)
 
                 # Garda archivo de interpolación
                 interpolate()
