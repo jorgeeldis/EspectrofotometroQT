@@ -153,7 +153,7 @@ class BaselineProcessor:
                             minNMvalue = i
                     minNMvalue = int(self.wavelength[minNMvalue - 1])
 
-                self.specificLabel.setText("Key Values")
+                self.specificLabel.setText("Key Values:")
                 self.db440Label.setText(
                     "440nm: " + str(db440) + "dB"
                 )
@@ -175,9 +175,9 @@ class BaselineProcessor:
                 self.db635Label.setText(
                     "635nm: " + str(db635) + "dB"
                 )
-                self.maxDBLabel.setText("Max u.a.: " + str(maxDBvalue) + "u.a.")
+                self.maxDBLabel.setText("Max u.a: " + str(maxDBvalue) + "u.a")
                 self.maxNMLabel.setText("Max nm: " + str(maxNMvalue) + "nm")
-                self.minDBLabel.setText("Min u.a.: " + str(minDBvalue) + "u.a.")
+                self.minDBLabel.setText("Min u.a: " + str(minDBvalue) + "u.a")
                 self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
                 # Enable buttons
                 self.btnBaseline.setDisabled(False)
