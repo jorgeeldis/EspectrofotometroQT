@@ -137,6 +137,7 @@ class Ui_MainWindow(object):
         self.graphWidget.setForegroundBrush(brush)
         self.graphWidget.setGeometry(QtCore.QRect(200, 110, 641, 291))
         self.graphWidget.setObjectName("graphWidget")
+        self.graphWidget.setSizePolicy(sizePolicy.Expanding, sizePolicy.Expanding)
         self.graphWidget.setBackground("k" if "dark" == "dark" else "w")
         self.gridLayout_3.addWidget(self.graphWidget, 2, 0, 1, 1)
         self.messageBox = QtWidgets.QLabel(self.centralwidget)
