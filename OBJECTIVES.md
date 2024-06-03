@@ -1,5 +1,5 @@
 # Tasks 
-- Reuniones, Avanzar en trabajo teorico ()
+- Reuniones, Avanzar en trabajo teorico, o en cálculos ()
 - Implementar programa en linux y armar el workshop (DONE)
 - Añadir imagenes de cada institución (DONE)
 - Hacer que los datos seriales comiencen cuando presiones el botón baseline, no cuando abra la app (DONE)
