@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import time
 from dotenv import load_dotenv
-from libs.absorption_calc import absorption
+from libs.absorption_calc import absorption, absorption440, absorption465, absorption546, absorption590, absorption635
 from libs.fileutil import read_data, write_data
 from libs.interpolation import interpolate
 from libs.serial_comunication import Serial
@@ -123,7 +123,18 @@ class SingleProcessor:
             intensity = int(data.split(",")[1])
 
             # Calcular la absorbancia
-            absorbance = absorption(int(baseline), int(intensity))
+            if int(wavelength_data) <= 453:
+                absorbance = absorption440(int(baseline), int(intensity))
+            elif int(wavelength_data) > 453 and int(wavelength_data) <= 506:
+                absorbance = absorption465(int(baseline), int(intensity))
+            elif int(wavelength_data) > 506 and int(wavelength_data) <= 568:
+                absorbance = absorption546(int(baseline), int(intensity))
+            elif int(wavelength_data) > 568 and int(wavelength_data) <= 613:
+                absorbance = absorption590(int(baseline), int(intensity))
+            elif int(wavelength_data) < 613:
+                absorbance = absorption635(int(baseline), int(intensity))
+            else:
+                absorbance = absorption(int(baseline), int(intensity))
 
             # TODO: Guardar los datos de la absorbancia
             write_data(single_path, str(absorbance) + "\n")
