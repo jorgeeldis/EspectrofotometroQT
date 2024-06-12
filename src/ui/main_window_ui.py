@@ -344,7 +344,7 @@ class Ui_MainWindow(object):
         self.minNMLabel.setText(_translate("MainWindow", "Min nm: 0.00nm")) 
         self.horaLabel.setText(_translate("MainWindow", "2023-11-06 14:52"))
         self.messageBox.setText(_translate("MainWindow", "Please calibrate the spectrophotometer before taking a measurement."))
-        self.titleLabel.setText(_translate("MainWindow", "Universidad Técnológica de Panamá - Espectofotómetro - Muestras Covid-19 "))
+        self.titleLabel.setText(_translate("MainWindow", "Universidad Técnológica de Panamá - Espectofotómetro - MTV"))
         self.btnWavelength.setText(_translate("MainWindow", "Wavelength"))
         self.btnSettings.setText(_translate("MainWindow", "Settings"))
         self.btnContinuous.setText(_translate("MainWindow", "Continuous"))
