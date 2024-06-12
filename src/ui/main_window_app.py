@@ -41,8 +41,12 @@ class Window(QMainWindow, Ui_MainWindow):
         self.horaLabel.setText(datetime.datetime.now().strftime("%d-%m-%Y %H:%M"))
         self.showMaximized()
 
-        # Connect the menu signals to methods
-        self.menuMain.aboutToShow.connect(self.handleMainAction)
+        # Create a QAction
+        self.analysisAction = QtWidgets.QAction("Sample Integrity", self)
+        # Add the QAction to the "Data" menu
+        self.dataAnalysis.addAction(self.analysisAction)
+        # Connect the QAction's triggered signal to a method
+        self.analysisAction.triggered.connect(self.handleAnalysisAction)
 
         # Create a QAction
         self.dataAction = QtWidgets.QAction("Show Data", self)
@@ -519,6 +523,44 @@ class Window(QMainWindow, Ui_MainWindow):
         
         # Add the table to the layout
         layout.addWidget(table)
+
+        # Set the layout of the dialog
+        dialog.setLayout(layout)
+
+        # Show the dialog
+        dialog.exec_()
+    
+    def handleAnalysisAction(self):
+        print(f"Span action selected")
+        # Create a QDialog
+        dialog = QtWidgets.QDialog(self)
+        dialog.resize(100, 100)
+        dialog.setWindowTitle("Select Graph Type")
+
+        # Create a QVBoxLayout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a font
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Set the font size to 14 points
+
+        # Create a QLabel
+        label = QtWidgets.QLabel(
+            "Select the type of graph you want to use: "
+        )
+        label.setFont(font)  # Set the font for the label
+        layout.addWidget(label)
+
+        # Create the "Apply" button
+        applyButton = QtWidgets.QPushButton("Apply", dialog)
+        applyButton.setFont(font)  # Set the font for the apply button
+        layout.addWidget(applyButton)
+
+        # Create the "Exit" button
+        exitButton = QtWidgets.QPushButton("Exit", dialog)
+        exitButton.setFont(font)  # Set the font for the exit button
+        exitButton.clicked.connect(dialog.close)
+        layout.addWidget(exitButton)
 
         # Set the layout of the dialog
         dialog.setLayout(layout)
