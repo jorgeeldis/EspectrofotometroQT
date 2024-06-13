@@ -526,51 +526,40 @@ class Window(QMainWindow, Ui_MainWindow):
     def handleAnalysisAction(self):
         print(f"Analysis action selected")
 
-        db440 = 40  # replace with the line number you want to read
-        db450 = 66
-        db465 = 91
-        db480 = 114
-        db500 = 124
-        db525 = 148
-        db546 = 66
-        db565 = 91
-        db580 = 114
-        db590 = 124
-
-        n440 = 40  # replace with the line number you want to read
-        n450 = 66
-        n465 = 91
-        n480 = 114
-        n500 = 124
-        n525 = 148
-        n546 = 66
-        n565 = 91
-        n580 = 114
-        n590 = 124
+        n440 = 136  # replace with the line number you want to read
+        n450 = 146
+        n465 = 161
+        n480 = 176
+        n500 = 196
+        n525 = 221
+        n546 = 242
+        n565 = 261
+        n580 = 276
+        n590 = 286
 
         # 50 for 474, 56 for 428, 76 for 535, 97 for 587, 106 for 609, 120 for 600, 143 for 660
         with open("./data/single_muestra.txt", "r") as file:
             lines = file.readlines()
             if n440 <= len(lines):
-                db440 = lines[n440 - 1].strip()
+                db440 = get_absorbance(440)
             if n450 <= len(lines):
-                db450 = lines[n450 - 1].strip()
+                db450 = get_absorbance(450)
             if n465 <= len(lines):
-                db465 = lines[n465 - 1].strip()
+                db465 = get_absorbance(465)
             if n480 <= len(lines):
-                db480 = lines[n480 - 1].strip()
+                db480 = get_absorbance(480)
             if n500 <= len(lines):
-                db500 = lines[n500 - 1].strip()
+                db500 = get_absorbance(500)
             if n525 <= len(lines):
-                db525 = lines[n525 - 1].strip()
+                db525 = get_absorbance(525)
             if n546 <= len(lines):
-                db546 = lines[n546 - 1].strip()
+                db546 = get_absorbance(546)
             if n565 <= len(lines):
-                db565 = lines[n565 - 1].strip()
+                db565 = get_absorbance(565)
             if n580 <= len(lines):
-                db580 = lines[n580 - 1].strip()
+                db580 = get_absorbance(580)
             if n590 <= len(lines):
-                db590 = lines[n590 - 1].strip()
+                db590 = get_absorbance(590)
             else:
                 print(f"The file has fewer than {n440} lines.")
 
