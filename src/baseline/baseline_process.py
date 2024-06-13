@@ -91,7 +91,7 @@ class BaselineProcessor:
                 self.ydata.append(intensity)
 
                 # Los grafica en tiempo real
-                self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=2))
+                self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=1))
 
             if wavelength > 748:
                 self.ydata = []
@@ -101,7 +101,7 @@ class BaselineProcessor:
                 self.serial.close()
 
             # Los grafica en tiempo real
-            self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=2))
+            self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=1))
             if self.progressBar.value() < 100:
                 self.x += 1
                 progresspercent = int(self.x / 196 * 100)
