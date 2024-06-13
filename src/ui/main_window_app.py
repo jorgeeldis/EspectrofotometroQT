@@ -524,11 +524,60 @@ class Window(QMainWindow, Ui_MainWindow):
         dialog.exec_()
     
     def handleAnalysisAction(self):
-        print(f"Span action selected")
+        print(f"Analysis action selected")
+
+        db440 = 40  # replace with the line number you want to read
+        db450 = 66
+        db465 = 91
+        db480 = 114
+        db500 = 124
+        db525 = 148
+        db546 = 66
+        db565 = 91
+        db580 = 114
+        db590 = 124
+
+        n440 = 40  # replace with the line number you want to read
+        n450 = 66
+        n465 = 91
+        n480 = 114
+        n500 = 124
+        n525 = 148
+        n546 = 66
+        n565 = 91
+        n580 = 114
+        n590 = 124
+
+        # 50 for 474, 56 for 428, 76 for 535, 97 for 587, 106 for 609, 120 for 600, 143 for 660
+        with open("./data/single_muestra.txt", "r") as file:
+            lines = file.readlines()
+            if n440 <= len(lines):
+                db440 = lines[n440 - 1].strip()
+            if n450 <= len(lines):
+                db450 = lines[n450 - 1].strip()
+            if n465 <= len(lines):
+                db465 = lines[n465 - 1].strip()
+            if n480 <= len(lines):
+                db480 = lines[n480 - 1].strip()
+            if n500 <= len(lines):
+                db500 = lines[n500 - 1].strip()
+            if n525 <= len(lines):
+                db525 = lines[n525 - 1].strip()
+            if n546 <= len(lines):
+                db546 = lines[n546 - 1].strip()
+            if n565 <= len(lines):
+                db565 = lines[n565 - 1].strip()
+            if n580 <= len(lines):
+                db580 = lines[n580 - 1].strip()
+            if n590 <= len(lines):
+                db590 = lines[n590 - 1].strip()
+            else:
+                print(f"The file has fewer than {n440} lines.")
+
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
-        dialog.resize(100, 100)
-        dialog.setWindowTitle("Select Graph Type")
+        dialog.resize(400, 450)
+        dialog.setWindowTitle("Sample Integrity")
 
         # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
@@ -537,17 +586,182 @@ class Window(QMainWindow, Ui_MainWindow):
         font = QtGui.QFont()
         font.setPointSize(14)  # Set the font size to 14 points
 
-        # Create a QLabel
-        label = QtWidgets.QLabel(
-            "Select the type of graph you want to use: "
-        )
-        label.setFont(font)  # Set the font for the label
-        layout.addWidget(label)
-
-        # Create the "Apply" button
-        applyButton = QtWidgets.QPushButton("Apply", dialog)
-        applyButton.setFont(font)  # Set the font for the apply button
-        layout.addWidget(applyButton)
+        if 0.4036 < float(db440) < 0.4796 and 0.0995 < float(db450) < 0.1755 and 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1343 < float(db546) < 0.2103 and 0.1870 < float(db565) < 0.2630 and 0.1512 < float(db580) < 0.2272 and 0.1047 < float(db590) < 0.1807:
+            # Create a QLabel
+            label = QtWidgets.QLabel(
+                "No contamination detected in the sample."
+            )
+            label.setFont(font)  # Set the font for the label
+            label.setStyleSheet("color: green")
+            layout.addWidget(label)
+            if 0.4036 < float(db440) < 0.4796:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.0995 < float(db450) < 0.1755:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.2937 < float(db465) < 0.3697:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.2536 < float(db480) < 0.3296:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1525 < float(db500) < 0.2285:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.01072 < float(db525) < 0.1832:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1343 < float(db546) < 0.2103:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1870 < float(db565) < 0.2630:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1512 < float(db580) < 0.2272:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1047 < float(db590) < 0.1807:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">590 nm: {float(db590):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">590 nm: {float(db590):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+        else:
+            # Create a QLabel
+            label = QtWidgets.QLabel(
+                "Contamination detected in the sample."
+            )
+            label.setFont(font)  # Set the font for the label
+            label.setStyleSheet("color: red")
+            layout.addWidget(label)
+            if 0.4036 < float(db440) < 0.4796:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.0995 < float(db450) < 0.1755:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.2937 < float(db465) < 0.3697:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.2536 < float(db480) < 0.3296:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1525 < float(db500) < 0.2285:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.01072 < float(db525) < 0.1832:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1343 < float(db546) < 0.2103:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1870 < float(db565) < 0.2630:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1512 < float(db580) < 0.2272:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            if 0.1047 < float(db590) < 0.1807:
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">590 nm: {float(db590):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
+            else:
+                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">590 nm: {float(db590):.4f}</font>')
+                label.setFont(font)
+                layout.addWidget(label)
 
         # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
@@ -1007,73 +1221,6 @@ class Window(QMainWindow, Ui_MainWindow):
         exitButton.setFont(font)
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
-
-        # Set the layout of the dialog
-        dialog.setLayout(layout)
-
-        # Show the dialog
-        dialog.exec_()
-        print(f"Colorimetric Parameters action selected")
-        # Create a QDialog
-        dialog = QtWidgets.QDialog(self)
-        dialog.resize(400, 400)  # Increase the size to fit the text
-        dialog.setWindowTitle("Colorimetric Parameters")
-
-        # Create a QGridLayout
-        layout = QtWidgets.QGridLayout()
-
-        font = QtGui.QFont()
-        font.setPointSize(14)  # Set the font size to 14 points
-
-        # Create two QLabels
-        label1 = QtWidgets.QLabel(
-            "<b>Chromaticity Coordinate (X-axis):</b> 0.30053<br><br>"
-            "<b>Chromaticity Coordinate (Y-axis):</b> 0.34098<br><br>"
-            "<b>Correlated Color Temperature:</b> 6500K<br><br>"
-            "<b>PRCP WL (-Ld):</b> 430nm<br><br>"
-            "<b>Purity:</b> 10.5%<br><br>"
-            "<b>PEAK WL (-Lp):</b> 734nm<br><br>"
-            "<b>FWHM:</b> 12nm<br><br>"
-            "<b>Ratio (Red):</b> 80%<br><br>"
-            "<b>Ratio (Green):</b> 10%<br><br>"
-            "<b>Ratio (Blue):</b> 10%<br>"
-            "<b>Color Rendering Index:</b> 80<br><br>"
-            "<b>EEI:</b> 90<br>"
-        )
-        label2 = QtWidgets.QLabel(
-            "<b>R1:</b> 0.30053<br><br>"
-            "<b>R2:</b> 0.34098<br><br>"
-            "<b>R3:</b> 0.6500<br><br>"
-            "<b>R4:</b> 0.430<br><br>"
-            "<b>R5:</b> 10.5<br><br>"
-            "<b>R6:</b> 734<br><br>"
-            "<b>R7:</b> 12<br><br>"
-            "<b>R8:</b> 80<br><br>"
-            "<b>R9:</b> 10<br><br>"
-            "<b>R10:</b> 10<br><br>"
-            "<b>R11:</b> 80<br>"
-        )
-        label3 = QtWidgets.QLabel(
-            "<b>R12:</b> 90<br><br>"
-            "<b>R13:</b> 0.30053<br><br>"
-            "<b>R14:</b> 0.34098<br><br>"
-            "<b>R15:</b> 0.6500<br>"
-        )
-        label1.setFont(font)
-        label2.setFont(font)
-        label3.setFont(font)
-
-
-        # Add the QLabels to the layout
-        layout.addWidget(label1, 0, 0)  # Add label1 to the first column
-        layout.addWidget(label2, 0, 1)  # Add label2 to the second column
-        layout.addWidget(label3, 0, 2)  # Add label3 to the third column
-
-        # Create the "Exit" button
-        exitButton = QtWidgets.QPushButton("Exit", dialog)
-        exitButton.setFont(font)
-        exitButton.clicked.connect(dialog.close)
-        layout.addWidget(exitButton, 1, 0, 1, 2)  # Span the button across both columns
 
         # Set the layout of the dialog
         dialog.setLayout(layout)
