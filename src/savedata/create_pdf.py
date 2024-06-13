@@ -180,49 +180,16 @@ class PDFReport:
         c.drawString(30, height - 560, 'Frequency: 60 Hz')
 
         c.setFont("Helvetica-Bold", 14)
-        c.drawString(30, height - 600, 'Statistical Parameters:')
+        c.drawString(300, height - 80, 'Statistical Parameters:')
         c.setFont("Helvetica", 12)
-        c.drawString(30, height - 620, 'Mean: ' + str(mean))
-        c.drawString(30, height - 640, 'Standard Deviation: ' + str(standard_deviation))
-        c.drawString(30, height - 660, 'Variance: ' + str(variance))
-        c.drawString(30, height - 680, 'RMS: ' + str(RMS))
-        c.drawString(30, height - 700, 'Weighted Average (nm): ' + str(weighted_average))
-        c.drawString(30, height - 720, 'Minimum Value: ' + str(minDBvalue))
-        c.drawString(30, height - 740, 'Maximum Value: ' + str(maxDBvalue))
-        c.drawString(30, height - 760, 'Number of Values: 198')
-
-        c.setFont("Helvetica-Bold", 14)
-        c.drawString(300, height - 80, 'Colorimetric Parameters:')
-        #Falta
-        c.setFont("Helvetica", 12)
-        c.drawString(300, height - 100, 'Chromaticity Coordinate (X-axis): 0.30053') #!
-        c.drawString(300, height - 120, 'Chromaticity Coordinate (Y-axis): 0.3205') #!
-        c.drawString(300, height - 140, 'CCT: 7015K') #!
-        c.drawString(300, height - 160, 'Prcp WL: - Ld: ' + str(minNMvalue) + 'nm')
-        c.drawString(300, height - 180, 'Purity: 10.5%') #!
-        c.drawString(300, height - 200, 'Peak WL: - Lp: ' + str(maxNMvalue) + 'nm')
-        c.drawString(300, height - 220, 'FWHM: 12.0nm') #!
-        c.drawString(300, height - 240, 'Ratio (Red): 13.9%') #!
-        c.drawString(300, height - 260, 'Ratio (Green): 86.1%') #!
-        c.drawString(300, height - 280, 'Ratio (Blue): 0.0%') #!
-        c.drawString(300, height - 300, 'Render Index (Ra): 0.0') #!
-        c.drawString(300, height - 320, 'EEI: 0.00015') #!
-        c.drawString(300, height - 340, 'R1: 88') #!
-        c.drawString(300, height - 360, 'R2: 0.0') #!
-        c.drawString(300, height - 380, 'R3: 0.0') #!
-        c.drawString(300, height - 400, 'R4: 0.0') #!
-        c.drawString(300, height - 420, 'R5: 0.0') #!
-        c.drawString(300, height - 440, 'R6: 0.0') #!
-        c.drawString(300, height - 460, 'R7: 0.0') #!
-        c.drawString(300, height - 480, 'R8: 0.0') #!
-        c.drawString(300, height - 500, 'R9: 0.0')#!
-        c.drawString(300, height - 520, 'R10: 0.0')#!
-        c.drawString(300, height - 540, 'R11: 0.0')#!
-        c.drawString(300, height - 560, 'R12: 0.0')#!
-        c.drawString(300, height - 580, 'R13: 0.0')#!
-        c.drawString(300, height - 600, 'R14: 0.0')#!
-        c.drawString(300, height - 620, 'R15: 0.0')#!
-
+        c.drawString(300, height - 120, 'Mean: ' + str(mean))
+        c.drawString(300, height - 140, 'Standard Deviation: ' + str(standard_deviation))
+        c.drawString(300, height - 160, 'Variance: ' + str(variance))
+        c.drawString(300, height - 180, 'RMS: ' + str(RMS))
+        c.drawString(300, height - 200, 'Weighted Average (nm): ' + str(weighted_average))
+        c.drawString(300, height - 220, 'Minimum Value: ' + str(minDBvalue))
+        c.drawString(300, height - 240, 'Maximum Value: ' + str(maxDBvalue))
+        c.drawString(300, height - 260, 'Number of Values: 198')
 
         #"colorimetric parameters"
         #"photometric parameters"
