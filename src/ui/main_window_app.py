@@ -538,7 +538,7 @@ class Window(QMainWindow, Ui_MainWindow):
         n590 = 286
 
         # 50 for 474, 56 for 428, 76 for 535, 97 for 587, 106 for 609, 120 for 600, 143 for 660
-        with open("./data/single_muestra.txt", "r") as file:
+        with open("./data/interpolate_muestra.txt", "r") as file:
             lines = file.readlines()
             if n440 <= len(lines):
                 db440 = get_absorbance(440)
