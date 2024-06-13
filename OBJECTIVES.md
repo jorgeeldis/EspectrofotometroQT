@@ -52,5 +52,5 @@
 18. Poner el logo del SNI ()
 19. Reducir tamaño ancho de la línea de la gráfica ()
 20. Ajustar a diferentes tipos de gráficas [Gausiana, Lorentziana, 1er-4to orden] ()
-21. Hacer el Tab para determinar si el MTV está contaminado ()
+21. Hacer el Tab para determinar si el MTV está contaminado (DONE)
 22. Repaso final de las funciones y ver que funciona y que no ()
