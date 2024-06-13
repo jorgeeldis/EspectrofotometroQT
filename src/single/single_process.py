@@ -121,6 +121,9 @@ class SingleProcessor:
 
             # intensidad
             intensity = int(data.split(",")[1])
+            
+            wavelength_data = int(self.wavelength[self.x])
+
 
             # Calcular la absorbancia
             if int(wavelength_data) <= 453:
