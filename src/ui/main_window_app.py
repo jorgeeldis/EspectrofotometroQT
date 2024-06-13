@@ -584,7 +584,7 @@ class Window(QMainWindow, Ui_MainWindow):
             label.setStyleSheet("color: green")
             layout.addWidget(label)
             if 0.4036 < float(db440) < 0.4796:
-                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
+                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
             else:
