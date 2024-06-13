@@ -105,13 +105,6 @@ class Window(QMainWindow, Ui_MainWindow):
         self.statisticalParameters.triggered.connect(self.handleStatisticalParameters)
 
         # Create a QAction
-        self.colorimetricParameters = QtWidgets.QAction("Colorimetric Parameters", self)
-        # Add the QAction to the "Data" menu
-        self.parameters.addAction(self.colorimetricParameters)
-        # Connect the QAction's triggered signal to a method
-        self.colorimetricParameters.triggered.connect(self.handleColorimetricParameters)
-
-        # Create a QAction
         self.aboutAction = QtWidgets.QAction("General Info", self)
         # Add the QAction to the "Data" menu
         self.about.addAction(self.aboutAction)
@@ -1020,8 +1013,6 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # Show the dialog
         dialog.exec_()
-    
-    def handleColorimetricParameters(self):
         print(f"Colorimetric Parameters action selected")
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
