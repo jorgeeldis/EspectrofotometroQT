@@ -51,7 +51,7 @@
 17. Hacer ecuaciones cúbicas para longitudes de onda espécificas (DONE)
 18. Poner el logo del SNI ()
 19. Poner en PDF en primera página si el liquido está contaminado ()
-20. Reducir tamaño ancho de la línea de la gráfica ()
+20. Reducir tamaño ancho de la línea de la gráfica (DONE)
 21. Ajustar a diferentes tipos de gráficas [Gausiana, Lorentziana, 1er-4to orden] ()
 22. Hacer el Tab para determinar si el MTV está contaminado (DONE)
 23. Repaso final de las funciones y ver que funciona y que no ()
