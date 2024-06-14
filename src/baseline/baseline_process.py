@@ -89,7 +89,6 @@ class BaselineProcessor:
             if 311 <= wavelength <= 748:
                 self.xdata.append(wavelength)
                 self.ydata.append(intensity)
-
                 # Los grafica en tiempo real
                 self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=1))
 

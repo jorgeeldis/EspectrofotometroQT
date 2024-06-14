@@ -8,6 +8,7 @@ from reportlab.platypus.tables import TableStyle
 import random
 import datetime
 from libs.wavelengths import wavelength
+from selectwavelength.wavlength_process import get_absorbance
 import math
 
 class PDFReport:
@@ -18,36 +19,45 @@ class PDFReport:
 
     def create_pdf(self, file_path, Title, User):
 
-        db428 = 47  # replace with the line number you want to read
-        db474 = 66
-        db535 = 91
-        db587 = 114
-        db609 = 124
-        db660 = 148
+        n440 = 136  # replace with the line number you want to read
+        n450 = 146
+        n465 = 161
+        n480 = 176
+        n500 = 196
+        n525 = 221
+        n546 = 242
+        n565 = 261
+        n580 = 276
+        n590 = 286
+        n660 = 346
 
-        n428 = 47  # replace with the line number you want to read
-        n474 = 66
-        n535 = 91
-        n587 = 114
-        n609 = 124
-        n660 = 148
         # 50 for 474, 56 for 428, 76 for 535, 97 for 587, 106 for 609, 120 for 600, 143 for 660
-        with open("./data/single_muestra.txt", "r") as file:
+        with open("./data/interpolate_muestra.txt", "r") as file:
             lines = file.readlines()
-            if n428 <= len(lines):
-                db428 = lines[n428 - 1].strip()
-            if n474 <= len(lines):
-                db474 = lines[n474 - 1].strip()
-            if n535 <= len(lines):
-                db535 = lines[n535 - 1].strip()
-            if n587 <= len(lines):
-                db587 = lines[n587 - 1].strip()
-            if n609 <= len(lines):
-                db609 = lines[n609 - 1].strip()
+            if n440 <= len(lines):
+                db440 = get_absorbance(440)
+            if n450 <= len(lines):
+                db450 = get_absorbance(450)
+            if n465 <= len(lines):
+                db465 = get_absorbance(465)
+            if n480 <= len(lines):
+                db480 = get_absorbance(480)
+            if n500 <= len(lines):
+                db500 = get_absorbance(500)
+            if n525 <= len(lines):
+                db525 = get_absorbance(525)
+            if n546 <= len(lines):
+                db546 = get_absorbance(546)
+            if n565 <= len(lines):
+                db565 = get_absorbance(565)
+            if n580 <= len(lines):
+                db580 = get_absorbance(580)
+            if n590 <= len(lines):
+                db590 = get_absorbance(590)
             if n660 <= len(lines):
-                db660 = lines[n660 - 1].strip()
+                db660 = get_absorbance(660)
             else:
-                print(f"The file has fewer than {n428} lines.")
+                print(f"The file has fewer than {n440} lines.")
 
             maxDBvalue = float("-inf")
             maxnvalue = 0
@@ -135,6 +145,47 @@ class PDFReport:
         c.drawString(30, height - 380, 'Scan Speed: 39.55 nm/sec')
         c.drawString(30, height - 400, 'Test mode: Single')
         c.drawString(30, height - 420, 'Scan Mode: Absorbance')
+
+        if 0.4036 < float(db440) < 0.4796 and 0.0995 < float(db450) < 0.1755 and 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1343 < float(db546) < 0.2103 and 0.1870 < float(db565) < 0.2630 and 0.1512 < float(db580) < 0.2272 and 0.1047 < float(db590) < 0.1807:
+            # Add a brief description
+            c.setFont("Helvetica-Bold", 14)
+            c.drawString(300, height - 300, 'Sample Analysis')
+            
+
+            c.setFont("Helvetica", 12)
+            c.setFillColorRGB(0, 100, 0)  # Set text color to blue
+            c.drawString(300, height - 310, 'No contamination detected')
+            c.setFillColorRGB(0, 0, 0)  # Reset text color to black
+            c.drawString(300, height - 340, '440nm: ' + str(db440))
+            c.drawString(300, height - 360, '450nm: ' + str(db450))
+            c.drawString(300, height - 380, '465nm: ' + str(db465))
+            c.drawString(300, height - 400, '480nm: ' + str(db480))
+            c.drawString(300, height - 420, '500nm: ' + str(db500))
+            c.drawString(400, height - 340, '525nm: ' + str(db525))
+            c.drawString(400, height - 360, '546nm: ' + str(db546))
+            c.drawString(400, height - 380, '565nm: ' + str(db565))
+            c.drawString(400, height - 400, '580nm: ' + str(db580))
+            c.drawString(400, height - 420, '590nm: ' + str(db590))
+        else:
+            # Add a brief description
+            c.setFont("Helvetica-Bold", 14)
+            c.drawString(300, height - 300, 'Sample Analysis')
+            
+
+            c.setFont("Helvetica", 12)
+            c.setFillColorRGB(100, 0, 0)  # Set text color to red
+            c.drawString(300, height - 310, 'Contamination detected')
+            c.setFillColorRGB(0, 0, 0)  # Reset text color to black
+            c.drawString(300, height - 340, '440nm: ' + str(db440))
+            c.drawString(300, height - 360, '450nm: ' + str(db450))
+            c.drawString(300, height - 380, '465nm: ' + str(db465))
+            c.drawString(300, height - 400, '480nm: ' + str(db480))
+            c.drawString(300, height - 420, '500nm: ' + str(db500))
+            c.drawString(400, height - 340, '525nm: ' + str(db525))
+            c.drawString(400, height - 360, '546nm: ' + str(db546))
+            c.drawString(400, height - 380, '565nm: ' + str(db565))
+            c.drawString(400, height - 400, '580nm: ' + str(db580))
+            c.drawString(400, height - 420, '590nm: ' + str(db590))
     
         # Add a graph
         c.setFont("Helvetica-Bold", 14)
@@ -154,11 +205,11 @@ class PDFReport:
         c.drawString(30, height - 120, 'Max nm: ' + str(maxNMvalue))
         c.drawString(30, height - 140, 'Min dB: ' + str(minDBvalue))
         c.drawString(30, height - 160, 'Min nm: ' + str(minNMvalue))
-        c.drawString(30, height - 180, "Violet's (428nm) dB: " + str(db428))
-        c.drawString(30, height - 200, "Blue's (474nm) dB: " + str(db474))
-        c.drawString(30, height - 220, "Green's (535nm) dB: " + str(db535))
-        c.drawString(30, height - 240, "Yellow's (587nm) dB: " + str(db587))
-        c.drawString(30, height - 260, "Orange's (609nm) dB: " + str(db609))
+        c.drawString(30, height - 180, "Violet's (440nm) dB: " + str(db440))
+        c.drawString(30, height - 200, "Blue's (465nm) dB: " + str(db465))
+        c.drawString(30, height - 220, "Green's (525nm) dB: " + str(db525))
+        c.drawString(30, height - 240, "Yellow's (580nm) dB: " + str(db580))
+        c.drawString(30, height - 260, "Orange's (690nm) dB: " + str(db590))
         c.drawString(30, height - 280, "Red's (660nm) dB: " + str(db660))
 
         c.setFont("Helvetica-Bold", 14)
