@@ -40,6 +40,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.wavelengthFunction = wavelength()
         self.horaLabel.setText(datetime.datetime.now().strftime("%d-%m-%Y %H:%M"))
         self.showMaximized()
+        self.data = self.load_data("./data/interpolate_muestra.txt")
 
         # Create a QAction
         self.analysisAction = QtWidgets.QAction("Sample Integrity", self)
@@ -906,72 +907,166 @@ class Window(QMainWindow, Ui_MainWindow):
         # Set the range of the x-axis of the graph
         self.graphWidget.setYRange(start, finish)
 
+    def load_data(self, filepath):
+        data = []
+        with open(filepath, "r") as file:
+            for line in file:
+                x, y = map(float, line.strip().split(","))
+                data.append((x, y))
+        return data
+
     def handleGraphType(self):
-        print(f"Span action selected")
-        # Create a QDialog
+        print(f"Select graph type action triggered")
         dialog = QtWidgets.QDialog(self)
         dialog.resize(100, 100)
         dialog.setWindowTitle("Select Graph Type")
 
-        # Create a QVBoxLayout
         layout = QtWidgets.QVBoxLayout()
 
-        # Create a font
         font = QtGui.QFont()
-        font.setPointSize(14)  # Set the font size to 14 points
+        font.setPointSize(14)
 
-        # Create a QLabel
-        label = QtWidgets.QLabel(
-            "Select the type of graph you want to use: "
-        )
-        label.setFont(font)  # Set the font for the label
+        label = QtWidgets.QLabel("Select the type of graph you want to use: ")
+        label.setFont(font)
         layout.addWidget(label)
 
-        line = QtWidgets.QRadioButton("Line Graph (Default)", dialog)
-        line.setFont(font)  # Set the font for the radio button
-        line.setChecked(True)
-        layout.addWidget(line)
+        self.line = QtWidgets.QRadioButton("Line Graph (Default)", dialog)
+        self.line.setFont(font)
+        self.line.setChecked(True)
+        layout.addWidget(self.line)
 
-        gaussian = QtWidgets.QRadioButton("Gaussian", dialog)
-        gaussian.setFont(font)  # Set the font for the radio button
-        layout.addWidget(gaussian)
+        self.gaussian = QtWidgets.QRadioButton("Gaussian", dialog)
+        self.gaussian.setFont(font)
+        layout.addWidget(self.gaussian)
 
-        lorentzian = QtWidgets.QRadioButton("Lorentzian", dialog)
-        lorentzian.setFont(font)  # Set the font for the radio button
-        layout.addWidget(lorentzian)
+        self.lorentzian = QtWidgets.QRadioButton("Lorentzian", dialog)
+        self.lorentzian.setFont(font)
+        layout.addWidget(self.lorentzian)
 
-        first_order = QtWidgets.QRadioButton("First Order", dialog)
-        first_order.setFont(font)  # Set the font for the radio button
-        layout.addWidget(first_order)
+        self.first_order = QtWidgets.QRadioButton("First Order", dialog)
+        self.first_order.setFont(font)
+        layout.addWidget(self.first_order)
 
-        second_order = QtWidgets.QRadioButton("Second Order", dialog)
-        second_order.setFont(font)  # Set the font for the radio button
-        layout.addWidget(second_order)
+        self.second_order = QtWidgets.QRadioButton("Second Order", dialog)
+        self.second_order.setFont(font)
+        layout.addWidget(self.second_order)
 
-        third_order = QtWidgets.QRadioButton("Third Order", dialog)
-        third_order.setFont(font)  # Set the font for the radio button
-        layout.addWidget(third_order)
+        self.third_order = QtWidgets.QRadioButton("Third Order", dialog)
+        self.third_order.setFont(font)
+        layout.addWidget(self.third_order)
 
-        fourth_order = QtWidgets.QRadioButton("Fourth Order", dialog)
-        fourth_order.setFont(font)  # Set the font for the radio button
-        layout.addWidget(fourth_order)
+        self.fourth_order = QtWidgets.QRadioButton("Fourth Order", dialog)
+        self.fourth_order.setFont(font)
+        layout.addWidget(self.fourth_order)
 
-        # Create the "Apply" button
         applyButton = QtWidgets.QPushButton("Apply", dialog)
-        applyButton.setFont(font)  # Set the font for the apply button
+        applyButton.setFont(font)
+        applyButton.clicked.connect(self.create_graph_tab)
         layout.addWidget(applyButton)
 
-        # Create the "Exit" button
         exitButton = QtWidgets.QPushButton("Exit", dialog)
-        exitButton.setFont(font)  # Set the font for the exit button
+        exitButton.setFont(font)
         exitButton.clicked.connect(dialog.close)
         layout.addWidget(exitButton)
 
-        # Set the layout of the dialog
         dialog.setLayout(layout)
-
-        # Show the dialog
         dialog.exec_()
+
+    def create_graph_tab(self):
+        # Determine which graph type is selected
+        if self.line.isChecked():
+            self.graph_data = self.set_line_graph()
+            self.graph_title = "Line Graph"
+        elif self.gaussian.isChecked():
+            self.graph_data = self.draw_gaussian_graph()
+            self.graph_title = "Gaussian"
+        elif self.lorentzian.isChecked():
+            self.graph_data = self.draw_lorentzian_graph()
+            self.graph_title = "Lorentzian"
+        elif self.first_order.isChecked():
+            self.graph_data = self.draw_first_order_graph()
+            self.graph_title = "First Order"
+        elif self.second_order.isChecked():
+            self.graph_data = self.draw_second_order_graph()
+            self.graph_title = "Second Order"
+        elif self.third_order.isChecked():
+            self.graph_data = self.draw_third_order_graph()
+            self.graph_title = "Third Order"
+        elif self.fourth_order.isChecked():
+            self.graph_data = self.draw_fourth_order_graph()
+            self.graph_title = "Fourth Order"
+
+        # Create a pop-up dialog for displaying the graph
+        popup_dialog = QtWidgets.QDialog(self)
+        popup_dialog.resize(500, 300)
+        if self.graph_title:
+            popup_dialog.setWindowTitle(self.graph_title)
+
+        layout = QtWidgets.QVBoxLayout()
+
+        # Create a plot widget for the selected graph type
+        plot_widget = pg.PlotWidget()
+        layout.addWidget(plot_widget)
+
+        # Plot the processed data on the plot widget
+        x_data, y_data = zip(*self.graph_data)
+        plot_widget.plot(x_data, y_data, pen=pg.mkPen('b', width=1))
+
+        popup_dialog.setLayout(layout)
+        popup_dialog.exec_()
+
+    def set_line_graph(self):
+        return self.data
+
+    def draw_gaussian_graph(self):
+        x, y = zip(*self.data)
+        y_transformed = self.gaussian_transform(y)
+        return list(zip(x, y_transformed))
+
+    def draw_lorentzian_graph(self):
+        x, y = zip(*self.data)
+        y_transformed = self.lorentzian_transform(y)
+        return list(zip(x, y_transformed))
+
+    def draw_first_order_graph(self):
+        x, y = zip(*self.data)
+        y_transformed = self.first_order_transform(y)
+        return list(zip(x, y_transformed))
+
+    def draw_second_order_graph(self):
+        x, y = zip(*self.data)
+        y_transformed = self.second_order_transform(y)
+        return list(zip(x, y_transformed))
+
+    def draw_third_order_graph(self):
+        x, y = zip(*self.data)
+        y_transformed = self.third_order_transform(y)
+        return list(zip(x, y_transformed))
+
+    def draw_fourth_order_graph(self):
+        x, y = zip(*self.data)
+        y_transformed = self.fourth_order_transform(y)
+        return list(zip(x, y_transformed))
+
+    def gaussian_transform(self, y):
+        return np.exp(-np.power(y - np.mean(y), 2.) / (2 * np.power(np.std(y), 2.)))
+
+    def lorentzian_transform(self, y):
+        gamma = 1
+        return 1 / (np.pi * gamma * (1 + np.power((y - np.mean(y)) / gamma, 2.)))
+
+    def first_order_transform(self, y):
+        return np.gradient(y)
+
+    def second_order_transform(self, y):
+        return np.gradient(np.gradient(y))
+
+    def third_order_transform(self, y):
+        return np.gradient(np.gradient(np.gradient(y)))
+
+    def fourth_order_transform(self, y):
+        return np.gradient(np.gradient(np.gradient(np.gradient(y))))
+
 
     def handleKeyParameters(self):
         print(f"Key Parameters action selected")
