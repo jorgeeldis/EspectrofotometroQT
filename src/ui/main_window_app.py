@@ -175,7 +175,7 @@ class Window(QMainWindow, Ui_MainWindow):
         )
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
-        self.messageBox.setText("Calibrating...")
+        self.messageBox.setText("Communication between internal devices...")
         self.graphWidget.setLabel("left", "Intensity")
         time.sleep(1)  # Esperar a que el arduino se inicialice
 
