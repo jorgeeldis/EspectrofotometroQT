@@ -182,6 +182,32 @@ class Ui_MainWindow(object):
             # Set the QGraphicsScene as the scene for the QGraphicsView
             self.pictureIndicasat.setScene(scene)
         self.verticalLayout_2.addWidget(self.pictureIndicasat)
+
+        self.pictureSNI = QtWidgets.QGraphicsView(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pictureSNI.sizePolicy().hasHeightForWidth())
+        self.pictureSNI.setSizePolicy(sizePolicy)
+        self.pictureSNI.setMaximumSize(QtCore.QSize(150, 16777215))
+        self.pictureSNI.setObjectName("pictureSNI")
+        script_dir = os.path.dirname(__file__)
+        indicasat_path = os.path.join(script_dir, 'img/sni.jpg')
+        pixmap = QPixmap(indicasat_path)
+        if pixmap.isNull():
+            print("Failed to load image")
+        else:
+            # Create a QGraphicsPixmapItem with the QPixmap
+            pixmap_item = QGraphicsPixmapItem(pixmap)
+
+            # Create a QGraphicsScene and add the QGraphicsPixmapItem to it
+            scene = QGraphicsScene()
+            scene.addItem(pixmap_item)
+
+            # Set the QGraphicsScene as the scene for the QGraphicsView
+            self.pictureSNI.setScene(scene)
+        self.verticalLayout_2.addWidget(self.pictureSNI)
+
         self.pictureFie = QtWidgets.QGraphicsView(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
