@@ -58,7 +58,9 @@ class PDFReport:
                 db660 = get_absorbance(660)
             else:
                 print(f"The file has fewer than {n440} lines.")
-
+                
+        with open("./data/single_muestra.txt", "r") as file:
+            lines = file.readlines()
             maxDBvalue = float("-inf")
             maxnvalue = 0
             for i, line in enumerate(
@@ -154,18 +156,18 @@ class PDFReport:
 
             c.setFont("Helvetica", 12)
             c.setFillColorRGB(0, 100, 0)  # Set text color to blue
-            c.drawString(300, height - 310, 'No contamination detected')
+            c.drawString(300, height - 315, 'No contamination detected')
             c.setFillColorRGB(0, 0, 0)  # Reset text color to black
-            c.drawString(300, height - 340, '440nm: ' + str(db440))
-            c.drawString(300, height - 360, '450nm: ' + str(db450))
-            c.drawString(300, height - 380, '465nm: ' + str(db465))
-            c.drawString(300, height - 400, '480nm: ' + str(db480))
-            c.drawString(300, height - 420, '500nm: ' + str(db500))
-            c.drawString(400, height - 340, '525nm: ' + str(db525))
-            c.drawString(400, height - 360, '546nm: ' + str(db546))
-            c.drawString(400, height - 380, '565nm: ' + str(db565))
-            c.drawString(400, height - 400, '580nm: ' + str(db580))
-            c.drawString(400, height - 420, '590nm: ' + str(db590))
+            c.drawString(300, height - 340, f'440nm: {db440:.4f}')
+            c.drawString(300, height - 360, f'450nm: {db450:.4f}')
+            c.drawString(300, height - 380, f'465nm: {db465:.4f}')
+            c.drawString(300, height - 400, f'480nm: {db480:.4f}')
+            c.drawString(300, height - 420, f'500nm: {db500:.4f}')
+            c.drawString(400, height - 340, f'525nm: {db525:.4f}')
+            c.drawString(400, height - 360, f'546nm: {db546:.4f}')
+            c.drawString(400, height - 380, f'565nm: {db565:.4f}')
+            c.drawString(400, height - 400, f'580nm: {db580:.4f}')
+            c.drawString(400, height - 420, f'590nm: {db590:.4f}')
         else:
             # Add a brief description
             c.setFont("Helvetica-Bold", 14)
@@ -174,18 +176,18 @@ class PDFReport:
 
             c.setFont("Helvetica", 12)
             c.setFillColorRGB(100, 0, 0)  # Set text color to red
-            c.drawString(300, height - 310, 'Contamination detected')
+            c.drawString(300, height - 315, 'Contamination detected')
             c.setFillColorRGB(0, 0, 0)  # Reset text color to black
-            c.drawString(300, height - 340, '440nm: ' + str(db440))
-            c.drawString(300, height - 360, '450nm: ' + str(db450))
-            c.drawString(300, height - 380, '465nm: ' + str(db465))
-            c.drawString(300, height - 400, '480nm: ' + str(db480))
-            c.drawString(300, height - 420, '500nm: ' + str(db500))
-            c.drawString(400, height - 340, '525nm: ' + str(db525))
-            c.drawString(400, height - 360, '546nm: ' + str(db546))
-            c.drawString(400, height - 380, '565nm: ' + str(db565))
-            c.drawString(400, height - 400, '580nm: ' + str(db580))
-            c.drawString(400, height - 420, '590nm: ' + str(db590))
+            c.drawString(300, height - 340, f'440nm: {db440:.4f}')
+            c.drawString(300, height - 360, f'450nm: {db450:.4f}')
+            c.drawString(300, height - 380, f'465nm: {db465:.4f}')
+            c.drawString(300, height - 400, f'480nm: {db480:.4f}')
+            c.drawString(300, height - 420, f'500nm: {db500:.4f}')
+            c.drawString(400, height - 340, f'525nm: {db525:.4f}')
+            c.drawString(400, height - 360, f'546nm: {db546:.4f}')
+            c.drawString(400, height - 380, f'565nm: {db565:.4f}')
+            c.drawString(400, height - 400, f'580nm: {db580:.4f}')
+            c.drawString(400, height - 420, f'590nm: {db590:.4f}')
     
         # Add a graph
         c.setFont("Helvetica-Bold", 14)
