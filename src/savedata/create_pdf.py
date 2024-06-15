@@ -155,7 +155,7 @@ class PDFReport:
             
 
             c.setFont("Helvetica", 12)
-            c.setFillColorRGB(0, 75, 0)  # Set text color to blue
+            c.setFillColorRGB(0, 50, 0)  # Set text color to blue
             c.drawString(300, height - 315, 'No contamination detected')
             c.setFillColorRGB(0, 0, 0)  # Reset text color to black
             if 0.4036 < float(db440) < 0.4796:
