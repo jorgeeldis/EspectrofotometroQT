@@ -214,7 +214,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.progressBar.setProperty("value", 0)
         self.baseline.send_data("1")
         self.messageBox.setText("Measuring Baseline...")
-        self.graphWidget.setLabel("left", "Absorbance")
+        self.graphWidget.setLabel("left", "ADC Count")
         time.sleep(1)  # Esperar a que el arduino se inicialice
 
         self.timer.timeout.connect(self.baseline.process)
