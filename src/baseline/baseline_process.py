@@ -154,29 +154,29 @@ class BaselineProcessor:
 
                 self.specificLabel.setText("Key Values:")
                 self.db440Label.setText(
-                    "440nm: " + str(db440) + "dB"
+                    "440nm: " + str(db440) + ""
                 )
                 self.db435Label.setText(
-                    "435nm: " + str(db435) + "dB"
+                    "435nm: " + str(db435) + ""
                 )
                 self.db465Label.setText(
-                    "465nm: " + str(db465) + "dB"
+                    "465nm: " + str(db465) + ""
                 )
                 self.db546Label.setText(
-                    "546nm: " + str(db546) + "dB"
+                    "546nm: " + str(db546) + ""
                 )
                 self.db590Label.setText(
-                    "590nm: " + str(db590) + "dB"
+                    "590nm: " + str(db590) + ""
                 )
                 self.db600Label.setText(
-                    "600nm: " + str(db600) + "dB"
+                    "600nm: " + str(db600) + ""
                 )
                 self.db635Label.setText(
-                    "635nm: " + str(db635) + "dB"
+                    "635nm: " + str(db635) + ""
                 )
-                self.maxDBLabel.setText("Max u.a: " + str(maxDBvalue) + "u.a")
+                self.maxDBLabel.setText("Max value: " + str(maxDBvalue) + "")
                 self.maxNMLabel.setText("Max nm: " + str(maxNMvalue) + "nm")
-                self.minDBLabel.setText("Min u.a: " + str(minDBvalue) + "u.a")
+                self.minDBLabel.setText("Min value: " + str(minDBvalue) + "")
                 self.minNMLabel.setText("Min nm: " + str(minNMvalue) + "nm")
                 # Enable buttons
                 self.btnBaseline.setDisabled(False)
