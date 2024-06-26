@@ -527,8 +527,6 @@ class Window(QMainWindow, Ui_MainWindow):
     def handleAnalysisAction(self):
         print(f"Analysis action selected")
 
-        n440 = 136  # replace with the line number you want to read
-        n450 = 146
         n465 = 161
         n480 = 176
         n500 = 196
@@ -541,10 +539,6 @@ class Window(QMainWindow, Ui_MainWindow):
         # 50 for 474, 56 for 428, 76 for 535, 97 for 587, 106 for 609, 120 for 600, 143 for 660
         with open("./data/interpolate_muestra.txt", "r") as file:
             lines = file.readlines()
-            if n440 <= len(lines):
-                db440 = get_absorbance(440)
-            if n450 <= len(lines):
-                db450 = get_absorbance(450)
             if n465 <= len(lines):
                 db465 = get_absorbance(465)
             if n480 <= len(lines):
@@ -562,7 +556,7 @@ class Window(QMainWindow, Ui_MainWindow):
             if n590 <= len(lines):
                 db590 = get_absorbance(590)
             else:
-                print(f"The file has fewer than {n440} lines.")
+                print(f"The file has fewer than {n465} lines.")
 
         # Create a QDialog
         dialog = QtWidgets.QDialog(self)
@@ -576,7 +570,7 @@ class Window(QMainWindow, Ui_MainWindow):
         font = QtGui.QFont()
         font.setPointSize(14)  # Set the font size to 14 points
 
-        if 0.4036 < float(db440) < 0.4796 and 0.0995 < float(db450) < 0.1755 and 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1343 < float(db546) < 0.2103 and 0.1870 < float(db565) < 0.2630 and 0.1512 < float(db580) < 0.2272 and 0.1047 < float(db590) < 0.1807:
+        if 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1343 < float(db546) < 0.2103 and 0.1870 < float(db565) < 0.2630 and 0.1512 < float(db580) < 0.2272 and 0.1047 < float(db590) < 0.1807:
             # Create a QLabel
             label = QtWidgets.QLabel(
                 "No contamination detected in the sample."
@@ -584,22 +578,6 @@ class Window(QMainWindow, Ui_MainWindow):
             label.setFont(font)  # Set the font for the label
             label.setStyleSheet("color: green")
             layout.addWidget(label)
-            if 0.4036 < float(db440) < 0.4796:
-                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
-            else:
-                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
-            if 0.0995 < float(db450) < 0.1755:
-                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
-            else:
-                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
             if 0.2937 < float(db465) < 0.3697:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
                 label.setFont(font)
@@ -672,22 +650,6 @@ class Window(QMainWindow, Ui_MainWindow):
             label.setFont(font)  # Set the font for the label
             label.setStyleSheet("color: red")
             layout.addWidget(label)
-            if 0.4036 < float(db440) < 0.4796:
-                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
-            else:
-                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">440 nm: {float(db440):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
-            if 0.0995 < float(db450) < 0.1755:
-                label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
-            else:
-                label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">450 nm: {float(db450):.4f}</font>')
-                label.setFont(font)
-                layout.addWidget(label)
             if 0.2937 < float(db465) < 0.3697:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
                 label.setFont(font)

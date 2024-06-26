@@ -19,8 +19,6 @@ class PDFReport:
 
     def create_pdf(self, file_path, Title, User):
 
-        n440 = 136  # replace with the line number you want to read
-        n450 = 146
         n465 = 161
         n480 = 176
         n500 = 196
@@ -34,10 +32,6 @@ class PDFReport:
         # 50 for 474, 56 for 428, 76 for 535, 97 for 587, 106 for 609, 120 for 600, 143 for 660
         with open("./data/interpolate_muestra.txt", "r") as file:
             lines = file.readlines()
-            if n440 <= len(lines):
-                db440 = get_absorbance(440)
-            if n450 <= len(lines):
-                db450 = get_absorbance(450)
             if n465 <= len(lines):
                 db465 = get_absorbance(465)
             if n480 <= len(lines):
@@ -57,7 +51,7 @@ class PDFReport:
             if n660 <= len(lines):
                 db660 = get_absorbance(660)
             else:
-                print(f"The file has fewer than {n440} lines.")
+                print(f"The file has fewer than {n465} lines.")
                 
         with open("./data/single_muestra.txt", "r") as file:
             lines = file.readlines()
@@ -148,7 +142,7 @@ class PDFReport:
         c.drawString(30, height - 400, 'Test mode: Single')
         c.drawString(30, height - 420, 'Scan Mode: Absorbance')
 
-        if 0.4036 < float(db440) < 0.4796 and 0.0995 < float(db450) < 0.1755 and 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1343 < float(db546) < 0.2103 and 0.1870 < float(db565) < 0.2630 and 0.1512 < float(db580) < 0.2272 and 0.1047 < float(db590) < 0.1807:
+        if 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1343 < float(db546) < 0.2103 and 0.1870 < float(db565) < 0.2630 and 0.1512 < float(db580) < 0.2272 and 0.1047 < float(db590) < 0.1807:
             # Add a brief description
             c.setFont("Helvetica-Bold", 14)
             c.drawString(300, height - 300, 'Sample Analysis')
@@ -158,18 +152,6 @@ class PDFReport:
             c.setFillColorRGB(0, 50, 0)  # Set text color to blue
             c.drawString(300, height - 315, 'No contamination detected')
             c.setFillColorRGB(0, 0, 0)  # Reset text color to black
-            if 0.4036 < float(db440) < 0.4796:
-                c.drawString(300, height - 340, f'440nm: {db440:.4f}')
-            else:
-                c.setFillColorRGB(100, 0, 0)
-                c.drawString(300, height - 340, f'440nm: {db440:.4f}')
-                c.setFillColorRGB(0, 0, 0)
-            if 0.0995 < float(db450) < 0.1755:
-                c.drawString(300, height - 360, f'450nm: {db450:.4f}')
-            else:
-                c.setFillColorRGB(100, 0, 0)
-                c.drawString(300, height - 360, f'450nm: {db450:.4f}')
-                c.setFillColorRGB(0, 0, 0)
             if 0.2937 < float(db465) < 0.3697:
                 c.drawString(300, height - 380, f'465nm: {db465:.4f}')
             else:
@@ -228,18 +210,6 @@ class PDFReport:
             c.setFillColorRGB(100, 0, 0)  # Set text color to red
             c.drawString(300, height - 315, 'Contamination detected')
             c.setFillColorRGB(0, 0, 0)  # Reset text color to black
-            if 0.4036 < float(db440) < 0.4796:
-                c.drawString(300, height - 340, f'440nm: {db440:.4f}')
-            else:
-                c.setFillColorRGB(100, 0, 0)
-                c.drawString(300, height - 340, f'440nm: {db440:.4f}')
-                c.setFillColorRGB(0, 0, 0)
-            if 0.0995 < float(db450) < 0.1755:
-                c.drawString(300, height - 360, f'450nm: {db450:.4f}')
-            else:
-                c.setFillColorRGB(100, 0, 0)
-                c.drawString(300, height - 360, f'450nm: {db450:.4f}')
-                c.setFillColorRGB(0, 0, 0)
             if 0.2937 < float(db465) < 0.3697:
                 c.drawString(300, height - 380, f'465nm: {db465:.4f}')
             else:
@@ -307,7 +277,6 @@ class PDFReport:
         c.drawString(30, height - 120, 'Max nm: ' + str(maxNMvalue))
         c.drawString(30, height - 140, 'Min dB: ' + str(minDBvalue))
         c.drawString(30, height - 160, 'Min nm: ' + str(minNMvalue))
-        c.drawString(30, height - 180, "Violet's (440nm) dB: " + str(db440))
         c.drawString(30, height - 200, "Blue's (465nm) dB: " + str(db465))
         c.drawString(30, height - 220, "Green's (525nm) dB: " + str(db525))
         c.drawString(30, height - 240, "Yellow's (580nm) dB: " + str(db580))
