@@ -169,7 +169,7 @@ class SingleProcessor:
 
             # Los grafica en tiempo real
             self.graphWidget.plot(
-                self.xdata, self.ydata, pen=self.pg.mkPen("w", width=1.5)
+                self.xdata, self.ydata, pen=self.pg.mkPen("w", width=2)
             )
             self.x += 1
             self.baseline_x += 1
