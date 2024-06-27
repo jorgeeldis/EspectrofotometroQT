@@ -100,7 +100,7 @@ class BaselineProcessor:
                 self.serial.close()
 
             # Los grafica en tiempo real
-            self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("b", width=1))
+            self.graphWidget.plot(self.xdata, self.ydata, pen=self.pg.mkPen("w", width=1))
             if self.progressBar.value() < 100:
                 self.x += 1
                 progresspercent = int(self.x / 196 * 100)
