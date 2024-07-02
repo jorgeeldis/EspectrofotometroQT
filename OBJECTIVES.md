@@ -54,5 +54,6 @@
 20. Reducir tamaño ancho de la línea de la gráfica (DONE)
 21. Ajustar a diferentes tipos de gráficas [Gausiana, Lorentziana, 1er-4to orden] (DONE)
 22. Hacer el Tab para determinar si el MTV está contaminado (DONE)
-23. Automáticamente ir haciendo sweeps de baseline hasta que comience la medición con 152 a 156 ()
+23. Automáticamente ir haciendo sweeps de baseline hasta que comience la medición con 152 a 156 [Inicios inconsistentes del equipo] ()
 24. Repaso final de las funciones y ver que funciona y que no ()
+25. Implementación de usar referencias para luego medir sustancias contaminadas de esa referencia ()
