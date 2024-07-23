@@ -28,6 +28,9 @@
 - Integrar el POST/REQUEST para que se comunique con el equipo (DONE)
 - Enviar los datos al portal desde el equipo (CSV, PNG, SVG, PDF) (DONE)
 - Implementar pestaña de usuario ()
+- Mejorar la vista del módulo de datos ()
+- Mejorar la vista del módulo de archivos ()
+- Mejorar la vista del módulo de gráficas ()
 - Subir página web al internet con su dominio y hosting único (DONE)
 
 # Tasks requeridos por el asesor
