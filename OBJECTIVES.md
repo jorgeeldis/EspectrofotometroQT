@@ -19,15 +19,14 @@
 
 # Web Server Tasks
 - Crear la página web (DONE)
-- Crear los módulos dentro de la página web [Gráficas, Datos, Archivos, Logs, User] ()
+- Crear los módulos dentro de la página web [Gráficas, Datos, Archivos, User] (DONE)
 - Implementar módulo de últimas mediciones (archivos y gráficas) en dashboard, con estadisticas (# mediciones, tipos de archivos) ()
-- Implementar módulo de datos ()
-- Implementar modulo de gráfica ()
-- Implementar modulo de archivos ()
+- Implementar módulo de datos (DONE)
+- Implementar modulo de gráfica (DONE)
+- Implementar modulo de archivos (DONE)
 - Añadirle un módulo de acceso al portal ()
 - Integrar el POST/REQUEST para que se comunique con el equipo (DONE)
 - Enviar los datos al portal desde el equipo (CSV, PNG, SVG, PDF) (DONE)
-- Implementar un sistema de logs para registrar las actividades ()
 - Implementar pestaña de usuario ()
 - Subir página web al internet con su dominio y hosting único (DONE)
 
