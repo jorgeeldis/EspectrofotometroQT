@@ -124,7 +124,6 @@ class SingleProcessor:
             
             wavelength_data = int(self.wavelength[self.x])
 
-
             # Calcular la absorbancia
             if int(wavelength_data) <= 453:
                 absorbance = absorption440(int(baseline), int(intensity))
@@ -138,6 +137,9 @@ class SingleProcessor:
                 absorbance = absorption635(int(baseline), int(intensity))
             else:
                 absorbance = absorption(int(baseline), int(intensity))
+
+            if absorbance < 0:
+                absorbance = 0
 
             # TODO: Guardar los datos de la absorbancia
             write_data(single_path, str(absorbance) + "\n")
