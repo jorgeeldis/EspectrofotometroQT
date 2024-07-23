@@ -309,7 +309,7 @@ class PDFReport:
         c.drawString(300, height - 200, 'Weighted Average (nm): ' + str(weighted_average))
         c.drawString(300, height - 220, 'Minimum Value: ' + str(minDBvalue))
         c.drawString(300, height - 240, 'Maximum Value: ' + str(maxDBvalue))
-        c.drawString(300, height - 260, 'Number of Values: 198')
+        c.drawString(300, height - 260, 'Number of Values: 445')
 
         #"colorimetric parameters"
         #"photometric parameters"
