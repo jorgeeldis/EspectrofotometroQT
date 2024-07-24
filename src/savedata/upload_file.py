@@ -33,6 +33,7 @@ def upload(file_path):
             data={"filename": file_name, "csrfmiddlewaretoken": token_csrf},
             files=datos_formulario,
             cookies={"csrftoken": token_csrf_cookie},
+            headers={"Referer": url},
         )
 
     # Verificar el estado de la respuesta
