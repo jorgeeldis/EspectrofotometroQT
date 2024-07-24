@@ -20,7 +20,7 @@
 # Web Server Tasks
 - Crear la página web (DONE)
 - Crear los módulos dentro de la página web [Gráficas, Datos, Archivos, User] (DONE)
-- Implementar módulo de últimas mediciones (archivos y gráficas) en dashboard, con estadisticas (# mediciones, tipos de archivos) ()
+- Implementar módulo de últimas mediciones (archivos y gráficas) en dashboard, con estadisticas (# mediciones, tipos de archivos) (DONE)
 - Implementar módulo de datos (DONE)
 - Implementar modulo de gráfica (DONE)
 - Implementar modulo de archivos (DONE)
