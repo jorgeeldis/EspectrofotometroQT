@@ -570,7 +570,7 @@ class Window(QMainWindow, Ui_MainWindow):
         font = QtGui.QFont()
         font.setPointSize(14)  # Set the font size to 14 points
 
-        if 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1800 < float(db546) < 0.256 and 0.2850 < float(db565) < 0.3610 and 0.2100 < float(db580) < 0.2860 and 0.1047 < float(db590) < 0.1807:
+        if 0.299 < float(db465) < 0.375 and 0.262 < float(db480) < 0.338 and 0.162 < float(db500) < 0.238 and 0.134 < float(db525) < 0.21 and 0.187 < float(db546) < 0.293 and 0.282 < float(db565) < 0.358 and 0.205 < float(db580) < 0.281 and 0.104 < float(db590) < 0.180:
             # Create a QLabel
             label = QtWidgets.QLabel(
                 "No contamination detected in the sample."
@@ -578,7 +578,7 @@ class Window(QMainWindow, Ui_MainWindow):
             label.setFont(font)  # Set the font for the label
             label.setStyleSheet("color: green")
             layout.addWidget(label)
-            if 0.2937 < float(db465) < 0.3697:
+            if 0.299 < float(db465) < 0.375:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -586,7 +586,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.2536 < float(db480) < 0.3296:
+            if 0.262 < float(db480) < 0.338:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -594,7 +594,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.1525 < float(db500) < 0.2285:
+            if 0.162 < float(db500) < 0.238:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -602,7 +602,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.01072 < float(db525) < 0.1832:
+            if 0.134 < float(db525) < 0.21:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -610,7 +610,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.1800 < float(db546) < 0.256:
+            if 0.187 < float(db546) < 0.293:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -618,7 +618,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.2850 < float(db565) < 0.3610:
+            if 0.282 < float(db565) < 0.358:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -626,7 +626,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.2100 < float(db580) < 0.2860:
+            if 0.205 < float(db580) < 0.281:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -634,7 +634,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.1047 < float(db590) < 0.1807:
+            if 0.104 < float(db590) < 0.180:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">590 nm: {float(db590):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -650,7 +650,7 @@ class Window(QMainWindow, Ui_MainWindow):
             label.setFont(font)  # Set the font for the label
             label.setStyleSheet("color: red")
             layout.addWidget(label)
-            if 0.2937 < float(db465) < 0.3697:
+            if 0.299 < float(db465) < 0.375:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -658,7 +658,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">465 nm: {float(db465):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.2536 < float(db480) < 0.3296:
+            if 0.262 < float(db480) < 0.338:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -666,7 +666,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">480 nm: {float(db480):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.1525 < float(db500) < 0.2285:
+            if 0.162 < float(db500) < 0.238:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -674,7 +674,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">500 nm: {float(db500):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.01072 < float(db525) < 0.1832:
+            if 0.134 < float(db525) < 0.21:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -682,7 +682,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">525 nm: {float(db525):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.1800 < float(db546) < 0.2560:
+            if 0.187 < float(db546) < 0.293:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -690,7 +690,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">546 nm: {float(db546):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.2850 < float(db565) < 0.3610:
+            if 0.282 < float(db565) < 0.358:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -698,7 +698,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">565 nm: {float(db565):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.2100 < float(db580) < 0.2860:
+            if 0.205 < float(db580) < 0.281:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
@@ -706,7 +706,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 label = QtWidgets.QLabel(f'<font color="red" size="5">■</font> <font color="white">580 nm: {float(db580):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)
-            if 0.1047 < float(db590) < 0.1807:
+            if 0.104 < float(db590) < 0.180:
                 label = QtWidgets.QLabel(f'<font color="green" size="5">■</font> <font color="white">590 nm: {float(db590):.4f}</font>')
                 label.setFont(font)
                 layout.addWidget(label)

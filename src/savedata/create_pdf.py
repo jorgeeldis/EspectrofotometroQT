@@ -142,7 +142,7 @@ class PDFReport:
         c.drawString(30, height - 400, 'Test mode: Single')
         c.drawString(30, height - 420, 'Scan Mode: Absorbance')
 
-        if 0.2937 < float(db465) < 0.3697 and 0.2536 < float(db480) < 0.3296 and 0.1525 < float(db500) < 0.2285 and 0.01072 < float(db525) < 0.1832 and 0.1800 < float(db546) < 0.256 and 0.2850 < float(db565) < 0.3610 and 0.2100 < float(db580) < 0.2860 and 0.1047 < float(db590) < 0.1807:
+        if 0.299 < float(db465) < 0.375 and 0.262 < float(db480) < 0.338 and 0.162 < float(db500) < 0.238 and 0.134 < float(db525) < 0.21 and 0.187 < float(db546) < 0.293 and 0.282 < float(db565) < 0.358 and 0.205 < float(db580) < 0.281 and 0.104 < float(db590) < 0.180:
             # Add a brief description
             c.setFont("Helvetica-Bold", 14)
             c.drawString(300, height - 300, 'Sample Analysis')
@@ -150,49 +150,49 @@ class PDFReport:
             c.setFillColorRGB(0, 50, 0)  # Set text color to blue
             c.drawString(300, height - 315, 'No contamination detected')
             c.setFillColorRGB(0, 0, 0)  # Reset text color to black
-            if 0.2937 < float(db465) < 0.3697:
+            if 0.299 < float(db465) < 0.375:
                 c.drawString(300, height - 380, f'465nm: {db465:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(300, height - 380, f'465nm: {db465:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.2536 < float(db480) < 0.3296:
+            if 0.262 < float(db480) < 0.338:
                 c.drawString(300, height - 400, f'480nm: {db480:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(300, height - 400, f'480nm: {db480:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.1525 < float(db500) < 0.2285:
+            if 0.162 < float(db500) < 0.238:
                 c.drawString(300, height - 420, f'500nm: {db500:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(300, height - 420, f'500nm: {db500:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.01072 < float(db525) < 0.1832:
+            if 0.134 < float(db525) < 0.21:
                 c.drawString(400, height - 340, f'525nm: {db525:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 340, f'525nm: {db525:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.1800 < float(db546) < 0.256:
+            if 0.187 < float(db546) < 0.293:
                 c.drawString(400, height - 360, f'546nm: {db546:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 360, f'546nm: {db546:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.2850 < float(db565) < 0.3610:
+            if 0.282 < float(db565) < 0.358:
                 c.drawString(400, height - 380, f'565nm: {db565:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 380, f'565nm: {db565:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.2100 < float(db580) < 0.2860:
+            if 0.205 < float(db580) < 0.281:
                 c.drawString(400, height - 400, f'580nm: {db580:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 400, f'580nm: {db580:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.1047 < float(db590) < 0.1807:
+            if 0.104 < float(db590) < 0.180:
                 c.drawString(400, height - 420, f'590nm: {db590:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
@@ -208,49 +208,49 @@ class PDFReport:
             c.setFillColorRGB(100, 0, 0)  # Set text color to red
             c.drawString(300, height - 315, 'Contamination detected')
             c.setFillColorRGB(0, 0, 0)  # Reset text color to black
-            if 0.2937 < float(db465) < 0.3697:
+            if 0.299 < float(db465) < 0.375:
                 c.drawString(300, height - 380, f'465nm: {db465:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(300, height - 380, f'465nm: {db465:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.2536 < float(db480) < 0.3296:
+            if 0.262 < float(db480) < 0.338:
                 c.drawString(300, height - 400, f'480nm: {db480:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(300, height - 400, f'480nm: {db480:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.1525 < float(db500) < 0.2285:
+            if 0.162 < float(db500) < 0.238:
                 c.drawString(300, height - 420, f'500nm: {db500:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(300, height - 420, f'500nm: {db500:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.01072 < float(db525) < 0.1832:
+            if 0.134 < float(db525) < 0.21:
                 c.drawString(400, height - 340, f'525nm: {db525:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 340, f'525nm: {db525:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.1800 < float(db546) < 0.256:
+            if 0.187 < float(db546) < 0.293:
                 c.drawString(400, height - 360, f'546nm: {db546:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 360, f'546nm: {db546:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.2850 < float(db565) < 0.3610:
+            if 0.282 < float(db565) < 0.358:
                 c.drawString(400, height - 380, f'565nm: {db565:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 380, f'565nm: {db565:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.2100 < float(db580) < 0.2860:
+            if 0.205 < float(db580) < 0.281:
                 c.drawString(400, height - 400, f'580nm: {db580:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
                 c.drawString(400, height - 400, f'580nm: {db580:.4f}')
                 c.setFillColorRGB(0, 0, 0)
-            if 0.1047 < float(db590) < 0.1807:
+            if 0.104 < float(db590) < 0.180:
                 c.drawString(400, height - 420, f'590nm: {db590:.4f}')
             else:
                 c.setFillColorRGB(100, 0, 0)
